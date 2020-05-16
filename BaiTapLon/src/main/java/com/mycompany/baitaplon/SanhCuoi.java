@@ -81,14 +81,14 @@ public class SanhCuoi {
     /**
      * @return the viTriSanh
      */
-    public String getViTriSanh() {
+    public int getViTriSanh() {
         return viTriSanh;
     }
 
     /**
      * @param viTriSanh the viTriSanh to set
      */
-    public void setViTriSanh(String viTriSanh) {
+    public void setViTriSanh(int viTriSanh) {
         this.viTriSanh = viTriSanh;
     }
 
