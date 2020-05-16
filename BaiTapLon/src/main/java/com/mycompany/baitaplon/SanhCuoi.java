@@ -23,6 +23,12 @@ public class SanhCuoi {
         this.viTriSanh = -1;
         this.sucChua = 0;
     }
+    /**
+     * Nhập vào tên, vị trí sảnh và sức chứa
+     * @param ten : tên
+     * @param vt : vị trí
+     * @param sc : sức chứa
+     */
     public SanhCuoi(String ten, int vt, int sc) {
         this.tenSanh = ten;
         this.viTriSanh = vt;
