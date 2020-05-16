@@ -17,6 +17,17 @@ public class SanhCuoi {
     private String tenSanh;
     private int viTriSanh;
     private int sucChua = 0;
+    
+    public SanhCuoi() {
+        this.tenSanh = "TenRong";
+        this.viTriSanh = -1;
+        this.sucChua = 0;
+    }
+    public SanhCuoi(String ten, int vt, int sc) {
+        this.tenSanh = ten;
+        this.viTriSanh = vt;
+        this.sucChua = sc;
+    }
 
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ten sanh: ");
@@ -33,8 +44,6 @@ public class SanhCuoi {
                 + "Suc chua: %d\n", "S"+ this.maSC,this.tenSanh,this.viTriSanh,
                 this.sucChua);
     }
-
-    
     
     /**
      * @return the maSC
