@@ -16,8 +16,8 @@ import java.sql.Statement;
  * @author Admin
  */
 public class ApiTool {
-    public void napDriver() throws ClassNotFoundException{
-     Class.forName("com.mysql.cj.jdbc.Driver");
+    public ApiTool() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
     }
     public void connectSql() throws SQLException{
         Connection conn= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/quanlytieccuoi", "root", "haungo230899");
