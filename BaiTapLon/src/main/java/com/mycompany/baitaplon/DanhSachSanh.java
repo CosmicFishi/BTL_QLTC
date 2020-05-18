@@ -29,7 +29,7 @@ public class DanhSachSanh {
         s.nhap(scanner);
     }
     public void xoa(SanhCuoi s) {
-        s = null;
+        this.dsSanh.remove(s);
     }
     
     public ArrayList<SanhCuoi> traCuu(String kw) {
