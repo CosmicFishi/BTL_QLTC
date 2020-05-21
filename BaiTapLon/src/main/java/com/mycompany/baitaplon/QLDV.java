@@ -26,6 +26,11 @@ public class QLDV {
     public void xoa(DichVu d) {
         this.ql.remove(d);
     }
+    /**
+     * 
+     * @param kw: Tên dịch vụ
+     * @return 
+     */
     public ArrayList<DichVu> traCuu(String kw) {
         kw = kw.toLowerCase();
         ArrayList<DichVu> kq = new ArrayList<>();
@@ -34,5 +39,8 @@ public class QLDV {
                 kq.add(d);
         }
         return kq;
+    }
+    public void xuat() {
+        this.ql.forEach((DichVu d) -> System.out.println(d));
     }
 }

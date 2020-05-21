@@ -13,12 +13,50 @@ import java.util.Scanner;
  */
 public class DvKaraoke extends DichVu {
     private String KhoangTG;
+    
+    public DvKaraoke() {
+        super();
+        this.KhoangTG = "0";
+    }
+    /**
+     * 
+     * @param maDV: Mã dịch vụ
+     * @param ten: Tên dịch vụ
+     * @param gia: Giá dịch vụ
+     * @param TG: Thời gian thuê
+     */
+    public DvKaraoke(String maDV, String ten, int gia, String TG ) {
+        super(maDV,ten,gia);
+        this.KhoangTG = TG;
+    }
 
     @Override
     public void nhap(Scanner scanner) {
         super.nhap(scanner); 
-        System.out.println("Nhap vao khoang thoi gian (hh:mm:ss)");
-        this.KhoangTG = scanner.nextLine();
+        scanner.nextLine();
+        System.out.println("Nhap vao khoang thoi gian: ");
+        this.setKhoangTG(scanner.nextLine());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\nKhoang thoi gian: %s\n ",
+                this.getMaDV(), this.getTenDV(), this.getGiaDV(), this.KhoangTG);
+    }
+
+    
+    /**
+     * @return the KhoangTG
+     */
+    public String getKhoangTG() {
+        return KhoangTG;
+    }
+
+    /**
+     * @param KhoangTG the KhoangTG to set
+     */
+    public void setKhoangTG(String KhoangTG) {
+        this.KhoangTG = KhoangTG;
     }
     
     

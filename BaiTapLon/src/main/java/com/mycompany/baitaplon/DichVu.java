@@ -39,7 +39,8 @@ public class DichVu {
 
     @Override
     public String toString() {
-        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\n", this.getMaDV(), this.getTenDV(), this.getGiaDV());
+        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\n", 
+                this.giaDV, this.tenDV, this.giaDV);
     }
 
     /**

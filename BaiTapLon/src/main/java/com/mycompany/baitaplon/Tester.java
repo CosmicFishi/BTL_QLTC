@@ -60,5 +60,19 @@ public class Tester {
 //       ds.them(g1);
 //       ds.them(g2);
 //       ds.xuat();
+//Thử dịch vụ
+//        DichVu d1 = new DvKaraoke("01","hat",100,"30 phut");
+//        DichVu d2 = new DvThueCS("02","Thue",200,"dung",5);
+//        System.out.println(d1);
+//        System.out.println(d2);
+//        System.out.println("===");
+//        QLDV ql = new QLDV();
+//        ql.them(d1);
+//        ql.them(d2);
+//        ql.xuat();
+//        System.out.println("=== tra cuu ===");
+//        ArrayList<DichVu> kq = ql.traCuu("hat");
+//        kq.forEach((DichVu d) -> System.out.println(d));
+
     }
 }
