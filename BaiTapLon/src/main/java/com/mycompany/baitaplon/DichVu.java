@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class DichVu {
+public abstract class DichVu {
     private String maDV;
     private String tenDV;
     private int giaDV;

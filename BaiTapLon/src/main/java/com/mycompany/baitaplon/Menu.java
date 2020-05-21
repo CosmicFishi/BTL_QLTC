@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class Menu {
+public abstract class Menu {
     protected String tenThucAn;
     protected int gia;
 
