@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,8 +14,16 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Scanner s = new Scanner(System.in);
+        try {
+            SanhCuoi a= new SanhCuoi("S011","Sảnh hoang vu", 2, 450, 45000000);
+            DanhSachSanh ds= new DanhSachSanh();
+            //ds.them(a);
+            ds.show();
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
+        }
         
 //Thử sảnh cưới
 //        SanhCuoi s1 = new SanhCuoi("abc", 1, 100);

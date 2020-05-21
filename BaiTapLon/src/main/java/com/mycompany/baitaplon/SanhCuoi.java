@@ -12,11 +12,11 @@ import java.util.Scanner;
  * @author Admin
  */
 public class SanhCuoi {
-    private int maSC = ++Dem ;
-    private static int Dem;
+    private String maSC;
     private String tenSanh;
     private int viTriSanh;
     private int sucChua = 0;
+    private int giaThue;
     
     public SanhCuoi() {
         this.tenSanh = "TenRong";
@@ -29,10 +29,12 @@ public class SanhCuoi {
      * @param vt : vị trí
      * @param sc : sức chứa
      */
-    public SanhCuoi(String ten, int vt, int sc) {
+    public SanhCuoi(String maSC, String ten, int vt, int sc, int giaThue) {
+        this.maSC=maSC;
         this.tenSanh = ten;
         this.viTriSanh = vt;
         this.sucChua = sc;
+        this.giaThue=giaThue;
     }
 
     public void nhap(Scanner scanner) {
@@ -42,13 +44,14 @@ public class SanhCuoi {
         this.viTriSanh = scanner.nextInt();
         System.out.println("Nhap vao suc chua: ");
         this.sucChua = scanner.nextInt();
+        System.out.println("Nhap gia thue: ");
+        this.giaThue=scanner.nextInt();
     }
     
     @Override
     public String toString() {
-        return String.format("Ma sanh: %s\nTen sanh: %s\nVi tri sanh: %d\n"
-                + "Suc chua: %d\n", "S"+ this.maSC,this.tenSanh,this.viTriSanh,
-                this.sucChua);
+        return String.format("\"%s\", \"%s\", %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
+                this.sucChua, this.giaThue);
     }
     
     /**

@@ -18,23 +18,31 @@ import java.sql.Types;
  *
  * @author Admin
  */
-public class Api {
-    private final Connection conn= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/quanlytieccuoi", "root", "haungo230899");
+public abstract class Api {
+    protected final Connection conn= DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/quanlytieccuoi", "root", "haungo230899");
+    private String tenBang;
     
     public Api() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");        
     }
-    public void them(String str) throws SQLException{
+    public void addBySql(String str) throws SQLException{
         Statement stm = conn.createStatement();
         stm.executeUpdate(str); 
         stm.close();
     }
-    public void xoaHoaDon(int dong) throws SQLException{
+    private void xoa(int dong) throws SQLException{
         CallableStatement stm = conn.prepareCall("{call xoaHoaDon(?)}");
         stm.setInt(1, dong);
         stm.execute();
     }
-    public void showHoaDon(String tenBang) throws SQLException{
+    
+    public ResultSet showBySql(String sql) throws SQLException{
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        stm.close();
+        return rs;
+    }
+    public void sua(String tenBang) throws SQLException{
         String sql="select * from ?;";
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, tenBang);
