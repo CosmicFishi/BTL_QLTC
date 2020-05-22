@@ -26,7 +26,7 @@ public class DanhSachSanh extends Api{
         addBySql(sql);
     }
     
-    public void show(){
+    public void show() throws SQLException{
         String sql="select * from sanh_cuoi;";
         try {
             ResultSet rs = showBySql(sql);
@@ -42,6 +42,7 @@ public class DanhSachSanh extends Api{
         } catch (SQLException ex) {
             Logger.getLogger(DanhSachSanh.class.getName()).log(Level.SEVERE, null, ex);
         }
+        closeConn();
     }
     
     public void xuat() {

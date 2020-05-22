@@ -60,9 +60,6 @@ public abstract class Api {
         
     }
     
-    
-    
-    
     public void closeConn() throws SQLException{
         conn.close();
     }
