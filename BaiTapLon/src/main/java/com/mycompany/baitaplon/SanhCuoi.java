@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @author Admin
  */
 public class SanhCuoi {
+    //Thiếu biến đếm ở đây (Sẽ thêm sau khi sửa xong sql)
     private String maSC;
     private String tenSanh;
     private int viTriSanh;
@@ -57,29 +58,15 @@ public class SanhCuoi {
     /**
      * @return the maSC
      */
-    public int getMaSC() {
+    public String getMaSC() {
         return maSC;
     }
 
     /**
      * @param maSC the maSC to set
      */
-    public void setMaSC(int maSC) {
+    public void setMaSC(String maSC) {
         this.maSC = maSC;
-    }
-
-    /**
-     * @return the Dem
-     */
-    public static int getDem() {
-        return Dem;
-    }
-
-    /**
-     * @param aDem the Dem to set
-     */
-    public static void setDem(int aDem) {
-        Dem = aDem;
     }
 
     /**
