@@ -51,7 +51,7 @@ public class SanhCuoi {
     
     @Override
     public String toString() {
-        return String.format("\"%s\", \"%s\", %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
+        return String.format("\'%s\', \'%s\', %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
                 this.sucChua, this.giaThue);
     }
     

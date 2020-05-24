@@ -5,6 +5,8 @@
  */
 package com.mycompany.baitaplon;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -14,8 +16,19 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
-    public static void main(String[] args) throws SQLException {
-        Scanner s = new Scanner(System.in);
+    
+    
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        
+        try {
+            Api api = new Api();
+            Api.connectSql();
+            Scanner s = new Scanner(System.in);
+        } catch (Exception e) {
+            System.err.println("error create Api.");
+        }
+        
+        
         try {
             SanhCuoi a= new SanhCuoi("S012","Sảnh hoang vu", 2, 450, 45000000);
             DanhSachSanh ds= new DanhSachSanh();

@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import com.mycompany.baitaplon.api.SCApi;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,38 +19,15 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class DanhSachSanh extends Api{
+public class DanhSachSanh extends SCApi{
     private List<SanhCuoi> dsSanh =  new ArrayList<>();
     
     public void them(SanhCuoi s) throws SQLException {
         String sql=s.toString();
-        addBySql(sql);
     }
     
-    public void show() throws SQLException{
-        String sql="select * from sanh_cuoi;";
-        try {
-            ResultSet rs = showBySql(sql);
-            System.out.format("  Ten sanh          | vi tri |suc chua | gia thue    \n");
-            System.out.format("+-------------------+--------+---------+-------------+%n");
-            while(rs.next()){
-                System.out.printf("%-20s|  %-6d| %-8d| %-12d|\n",
-                        rs.getString("TenSC"),
-                        rs.getInt("ViTriSC"),
-                        rs.getInt("SucChua"),
-                        rs.getInt("GiaThue"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DanhSachSanh.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        closeConn();
-    }
-    
-    public void xuat() {
-        this.dsSanh.forEach((SanhCuoi s) -> {
-            System.out.println(s);
-        });
-        
+    public void xuat() throws SQLException {
+        read();
     }
     public void capNhat(SanhCuoi s) {
         Scanner scanner = new Scanner(System.in);
