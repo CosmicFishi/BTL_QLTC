@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import com.mycompany.baitaplon.api.Api;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,28 +17,33 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
-    
-    
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        
         try {
             Api api = new Api();
             Api.connectSql();
-            Scanner s = new Scanner(System.in);
         } catch (Exception e) {
             System.err.println("error create Api.");
         }
-        
-        
+
         try {
-            SanhCuoi a= new SanhCuoi("S012","Sảnh hoang vu", 2, 450, 45000000);
-            DanhSachSanh ds= new DanhSachSanh();
-            ds.them(a);
-            //ds.show();
-        } catch (Exception e) {
+            //SanhCuoi a= new SanhCuoi("S011","Sảnh hoang vu", 4, 450, 45000000);
+            DanhSachSanh ds = new DanhSachSanh();
+//            ds.them(a);
+//            ds.xuat();
+//            System.out.println("==============================");
+            Scanner scanner = new Scanner(System.in);
+//            ds.xoa(scanner);
+//            ds.xuat();
+            System.out.println("==============================");
+            ds.capNhat(scanner);
+            ds.xuat();
+        } catch (SQLException e) {
             System.err.print(e.getMessage());
+        } finally {
+            Api.disconnectSql();
         }
-        
+
 //Thử sảnh cưới
 //        SanhCuoi s1 = new SanhCuoi("abc", 1, 100);
 //        System.out.print(s1);
@@ -54,7 +60,6 @@ public class Tester {
 //        System.out.println("=== tim kiem ===");
 //        ArrayList<SanhCuoi> DanhSachSanh = dsSanh.traCuu("def");
 //        DanhSachSanh.forEach((SanhCuoi sc) -> System.out.print(sc));
-
 //Thử menu
 //        Menu m1 = new ThucAn("abc", 500, true);
 //        Menu m2 = new ThucAn("def",600, false);
@@ -72,7 +77,6 @@ public class Tester {
 //        System.out.println("=== Tim Kiem ===");
 //        ArrayList kq = ql.traCuu("abc");
 //        kq.forEach(m -> System.out.println(m));
-
 //Thử giá thuê
 //       GiaThue g1 = new GiaThue(100, "Sang", "Bay, Chu Nhat", false);
 //       GiaThue g2 = new GiaThue();
@@ -95,6 +99,5 @@ public class Tester {
 //        System.out.println("=== tra cuu ===");
 //        ArrayList<DichVu> kq = ql.traCuu("hat");
 //        kq.forEach((DichVu d) -> System.out.println(d));
-
     }
 }

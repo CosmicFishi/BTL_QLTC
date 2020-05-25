@@ -52,7 +52,7 @@ public class SanhCuoi {
     @Override
     public String toString() {
         return String.format("\'%s\', \'%s\', %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
-                this.sucChua, this.giaThue);
+                this.sucChua, this.getGiaThue());
     }
     
     /**
@@ -109,6 +109,14 @@ public class SanhCuoi {
      */
     public void setSucChua(int sucChua) {
         this.sucChua = sucChua;
+    }
+
+    public int getGiaThue() {
+        return giaThue;
+    }
+
+    public void setGiaThue(int giaThue) {
+        this.giaThue = giaThue;
     }
     
 }
