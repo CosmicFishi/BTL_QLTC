@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class SCApi extends Api{
     
-    public void read() throws SQLException{
+    public void readShow() throws SQLException{
         String sql = "select * from sanh_cuoi;";
         ResultSet kq = super.read(sql);
         showSC(kq);

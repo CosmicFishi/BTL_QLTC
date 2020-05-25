@@ -5,7 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
-import com.mycompany.baitaplon.api.SCApi;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class DanhSachSanh extends SCApi{
+public class DanhSachSanh{
     private List<SanhCuoi> dsSanh =  new ArrayList<>();
     
     public void them(SanhCuoi s) throws SQLException {
@@ -27,7 +27,7 @@ public class DanhSachSanh extends SCApi{
     }
     
     public void xuat() throws SQLException {
-        read();
+       
     }
     public void capNhat(SanhCuoi s) {
         Scanner scanner = new Scanner(System.in);
