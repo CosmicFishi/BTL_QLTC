@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.baitaplon;
+package com.mycompany.baitaplon.api;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class Api {
+public abstract class Api {
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
@@ -45,7 +45,7 @@ public class Api {
             stm.close();
         }
     }
-    public int write(String sql) throws SQLException{
+    protected int writeOrDelete(String sql) throws SQLException{
         try {
             stm = conn.createStatement();
             int kq = stm.executeUpdate(sql);
@@ -53,14 +53,19 @@ public class Api {
         } catch (Exception e) {
             throw new Error("can't writeSC");
         } finally{
-            close();
+            stm.close();
         }
     }
-    private void delete(String dong) throws SQLException{
-        pStm = conn.prepareStatement("delete from sanh_cuoi where MaSC = '?'");
-        pStm.setString(1, dong);
-        pStm.executeUpdate();
-    }
+//    protected abstract void edit(String sql);
+//    private void delete(String dong) throws SQLException{
+//        try {
+//            pStm = conn.prepareStatement("delete from sanh_cuoi where MaSC = '?'");
+//            pStm.setString(1, dong);
+//            pStm.executeUpdate();
+//        } catch (Exception e) {
+//            pStm.close();
+//        }
+//    }
 //    public void showSC(ResultSet rs) throws SQLException{
 //        while(rs.next()){
 //            System.out.printf("%d\n%s\n%s\n%s\n%s\n%d\n_________________", 
@@ -73,7 +78,4 @@ public class Api {
 //                );
 //        }
 //    }
-    public void close() throws SQLException{
-        rs.close();
-    }
 }
