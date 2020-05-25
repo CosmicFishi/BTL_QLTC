@@ -32,7 +32,7 @@ public class SCApi extends Api {
 
     public void findSC(String tenHoacMa) throws SQLException {
         cStm = conn.prepareCall("{call findScByName(?)}");
-        cStm.setString(1, "%" + tenHoacMa + "%");
+        cStm.setString(1, "%" + tenHoacMa + "%"); //% là để sài cho hàm tìm kiếm từ khóa chứa ký tự 
         rs = cStm.executeQuery();
     }
 
