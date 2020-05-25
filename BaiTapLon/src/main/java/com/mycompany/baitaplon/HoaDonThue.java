@@ -38,10 +38,10 @@ public class HoaDonThue {
         this.giaDichVu = 0;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
+//    }
     
     
     
