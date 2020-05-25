@@ -12,16 +12,19 @@ import java.util.Scanner;
  * @author Admin
  */
 public abstract class Menu {
-    protected String tenThucAn;
-    protected int gia;
-
+    protected int[] dsThucUong;
+    protected int[] slThucUong;
+    private int[] dsThucAn;
+    private int[] slThucAn;
+    
     public Menu() {
-        this.tenThucAn = "thuc an";
-        this.gia = 0;
     }
-    public Menu(String ten, int gia) {
-        this.tenThucAn = ten;
-        this.gia = gia;
+    
+    public Menu(int[] dsAn,int[] slAn, int[] dsUong, int[] slUong) {
+        this.dsThucUong = dsUong;
+        this.slThucUong = slUong;
+        this.dsThucAn = dsAn;
+        this.slThucAn = slAn;
     }
     
     public void nhap(Scanner scanner) {
@@ -33,35 +36,8 @@ public abstract class Menu {
 
     @Override
     public String toString() {
-        return String.format("Ten: %s\nGia: %d\n",this.tenThucAn, this.gia);
+        return String.format("");
     }
     
     
-    /**
-     * @return the tenThucAn
-     */
-    public String getTenThucAn() {
-        return tenThucAn;
-    }
-
-    /**
-     * @param tenThucAn the tenThucAn to set
-     */
-    public void setTenThucAn(String tenThucAn) {
-        this.tenThucAn = tenThucAn;
-    }
-
-    /**
-     * @return the gia
-     */
-    public int getGia() {
-        return gia;
-    }
-
-    /**
-     * @param gia the gia to set
-     */
-    public void setGia(int gia) {
-        this.gia = gia;
-    }
 }

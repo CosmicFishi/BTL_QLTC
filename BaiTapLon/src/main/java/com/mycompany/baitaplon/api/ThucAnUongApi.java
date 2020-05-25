@@ -1,27 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.baitaplon.api;
 
+import com.mycompany.baitaplon.DoAnUong;
 import com.mycompany.baitaplon.SanhCuoi;
-import java.sql.Connection;
-import java.sql.ResultSet;
+import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
 
 /**
  *
  * @author Admin
  */
-public class SCApi extends Api {
-
+public class ThucAnUongApi extends Api{
     protected static String selected;
 
-    public void readShow() throws SQLException {
-        String sql = "select * from sanh_cuoi;";
+    public void readShow(String tenBang) throws SQLException {
+        String sql = "select * from "+tenBang+";";
         super.read(sql);
         showSC();
-    }
+    }//ok
 
-    public void addSC(SanhCuoi s) throws SQLException {
+    public void addSC(DoAnUong s, String tenBang) throws SQLException {
         String sql = s.toString();
-        sql = "insert into sanh_cuoi values (" + sql + ");";
+        sql = "insert into "+tenBang+" values (" + sql + ");";
         super.writeOrDelete(sql, "add");
     }
 

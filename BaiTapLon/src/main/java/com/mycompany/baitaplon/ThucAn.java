@@ -11,31 +11,33 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class ThucAn extends Menu {
-    private int maThucAn = ++dem;
-    private static int dem;
+public class ThucAn extends DoAnUong{
     private boolean isAnChay;
-
+    
     public ThucAn() {
-        super();
-        this.isAnChay = true;
     }
-    public ThucAn(String ten, int gia, boolean isAnChay) {
-        super(ten, gia);
+    
+    public ThucAn(String ten, int gia, boolean isAnChay, int ma) {
+        super(ma, ten, gia);
         this.isAnChay = isAnChay;
     }
-    @Override
     public void nhap(Scanner scanner) {
         super.nhap(scanner);
         System.out.println("Co an chay duoc: 1 hoac 0 ");
-        this.isAnChay = scanner.nextInt() == 1; //trả về true nếu là 1, false nếu là 0
+        this.setIsAnChay(scanner.nextInt() == 1); //trả về true nếu là 1, false nếu là 0
     }
 
     @Override
     public String toString() {
-        return String.format("Ten: %s\nGia: %d\nMa thuc an: %d\nAn chay duoc: %b\n",
-                this.tenThucAn, this.gia, this.maThucAn,this.isAnChay);
+        String kq = super.toString();
+        return String.format(kq+", %b", this.isIsAnChay());
     }
-    
-    
+
+    public boolean isIsAnChay() {
+        return isAnChay;
+    }
+
+    public void setIsAnChay(boolean isAnChay) {
+        this.isAnChay = isAnChay;
+    }
 }

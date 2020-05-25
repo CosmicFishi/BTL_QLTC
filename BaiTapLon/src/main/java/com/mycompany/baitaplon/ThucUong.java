@@ -11,23 +11,20 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class ThucUong extends Menu {
-    private int maThucUong = ++dem;
-    private static int dem;
+public class ThucUong extends DoAnUong {
     private String hangSX;
 
     public ThucUong() {
         super();
-        this.hangSX = "nha san xuat";
     }
-    public ThucUong(String ten, int gia, String nhaSX) {
-        super(ten,gia);
+    public ThucUong(int ma, String ten, int gia, String nhaSX) {
+        super(ma, ten, gia);
         this.hangSX = nhaSX;
     }
     
     @Override
     public void nhap(Scanner scanner) {
-        super.nhap(scanner); 
+        super.nhap(scanner);
         scanner.nextLine();
         System.out.println("Nhap vao hang san xuat: ");
         this.hangSX = scanner.nextLine();
@@ -35,7 +32,7 @@ public class ThucUong extends Menu {
 
     @Override
     public String toString() {
-        return String.format("Ten: %s\nGia: %d\nMa thuc uong: %d\nHang san xuat: %s\n",
-                this.tenThucAn, this.gia, this.maThucUong, this.hangSX);
+        String kq = super.toString();
+        return String.format(kq + ", %s", this.hangSX);
     }
 }
