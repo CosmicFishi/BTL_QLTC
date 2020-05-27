@@ -4,43 +4,71 @@
  * and open the template in the editor.
  */
 package com.mycompany.baitaplon;
-
+import com.mycompany.baitaplon.api.DVApi;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 import java.util.Scanner;
+
 
 /**
  *
  * @author Admin
  */
-public class QLDV {
-    private List<DichVu> ql = new ArrayList<DichVu>();
+public class QLDV extends DVApi{
+    //private List<DichVu> ql = new ArrayList<DichVu>();
     
-    public void them(DichVu d) {
-        this.ql.add(d);
+    public void them(DichVu d) throws SQLException {
+        addDV(d);
     }
-    public void capNhat(DichVu d) {
-        Scanner s = new Scanner(System.in);
-        d.nhap(s);
+    public void capNhat(Scanner scanner) throws SQLException {
+        DichVu d = new DichVu();
+        System.out.println("Nhap vao ma dich vu: ");
+        String maDichVu = scanner.nextLine();
+        //tim thay hay khong?
+        findDV(maDichVu);
+        if(isNullRS() == true) return; //khong tim thay thi return
+        super.showDV(1); // tim thay thi xuat ra 1 thang
+        System.out.println("Ban co muon cap nhat dich vu? (Y/N)");
+        if(scanner.nextLine().equals("y")) {
+            d.nhap(scanner);
+            super.edit(d); //nhet vao ham edit trong API de update mysql
+        }   else {
+            System.out.println("Da huy bo cap nhat");
+        }
+        
     }
-    public void xoa(DichVu d) {
-        this.ql.remove(d);
+    public void xoa(Scanner scanner) throws SQLException {
+        System.out.println("Nhap vao ma dich vu can xoa: ");
+        String dvXoa = scanner.nextLine();
+        findDV(dvXoa);
+        if(isNullRS() == true ) return; 
+        super.showDV(1);
+        System.out.println("ban co muon xoa sanh nay khong? (Y/N)");
+        if(scanner.nextLine().equals("y"))
+            super.deleteDV(); //xoa dich vu ben trong mysql
+        else
+            System.out.println("Da dung xoa dich vu");
     }
+    
+    //Can phai ghi lai mot ham tim kiem bang stored procudure
     /**
      * 
      * @param kw: Tên dịch vụ
      * @return 
      */
-    public ArrayList<DichVu> traCuu(String kw) {
-        kw = kw.toLowerCase();
-        ArrayList<DichVu> kq = new ArrayList<>();
-        for(DichVu d : this.ql) {
-            if(d.getTenDV().toLowerCase().contains(kw) == true) 
-                kq.add(d);
-        }
-        return kq;
-    }
-    public void xuat() {
-        this.ql.forEach((DichVu d) -> System.out.println(d));
+//    public ArrayList<DichVu> traCuu(String kw) {
+//        kw = kw.toLowerCase();
+//        ArrayList<DichVu> kq = new ArrayList<>();
+//        for(DichVu d : this.ql) {
+//            if(d.getTenDV().toLowerCase().contains(kw) == true) 
+//                kq.add(d);
+//        }
+//        return kq;
+//    }
+    
+    public void xuat() throws SQLException {
+        // this.ql.forEach((DichVu d) -> System.out.println(d));
+        super.readShow();
     }
 }

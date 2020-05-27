@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public abstract class DichVu {
+public class DichVu {
     private String maDV;
     private String tenDV;
     private int giaDV;
@@ -39,8 +39,7 @@ public abstract class DichVu {
 
     @Override
     public String toString() {
-        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\n", 
-                this.giaDV, this.tenDV, this.giaDV);
+        return String.format("\'%s\', \'%s\', %d", this.maDV, this.tenDV, this.giaDV);
     }
 
     /**

@@ -43,7 +43,8 @@ public class Tester {
         } finally {
             Api.disconnectSql();
         }
-
+//        DichVu d = new DichVu();
+//        System.out.println();
 //Thử sảnh cưới
 //        SanhCuoi s1 = new SanhCuoi("abc", 1, 100);
 //        System.out.print(s1);
