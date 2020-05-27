@@ -28,16 +28,24 @@ public class Tester {
 
         try {
             //SanhCuoi a= new SanhCuoi("S011","Sảnh hoang vu", 4, 450, 45000000);
-            DanhSachSanh ds = new DanhSachSanh();
+            //DanhSachSanh ds = new DanhSachSanh();
 //            ds.them(a);
 //            ds.xuat();
 //            System.out.println("==============================");
             Scanner scanner = new Scanner(System.in);
 //            ds.xoa(scanner);
 //            ds.xuat();
-            System.out.println("==============================");
-            ds.capNhat(scanner);
-            ds.xuat();
+            //System.out.println("==============================");
+            //ds.capNhat(scanner);
+            //ds.xuat();
+            ThucAn ta = new ThucAn(11, "bun man", 25000, true);
+            //ta.nhap(scanner);
+            DanhSachThucAn ds = new DanhSachThucAn();
+            //ds.xoa(scanner);
+            //ds.them(ta);
+            ds.updateThucAn(scanner);
+            
+            
         } catch (SQLException e) {
             System.err.print(e.getMessage());
         } finally {

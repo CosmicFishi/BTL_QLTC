@@ -15,9 +15,11 @@ public class ThucAn extends DoAnUong{
     private boolean isAnChay;
     
     public ThucAn() {
+        super();
+        this.isAnChay=false;
     }
     
-    public ThucAn(String ten, int gia, boolean isAnChay, int ma) {
+    public ThucAn( int ma, String ten, int gia, boolean isAnChay) {
         super(ma, ten, gia);
         this.isAnChay = isAnChay;
     }

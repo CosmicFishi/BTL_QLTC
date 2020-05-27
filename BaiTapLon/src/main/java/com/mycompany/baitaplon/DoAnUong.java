@@ -12,25 +12,36 @@ import java.util.Scanner;
  * @author Admin
  */
 public class DoAnUong {
+
     private int ma;
     private String ten;
     private int gia;
-    
+
     public DoAnUong() {
+        this.ma = 0;
+        this.ten = "";
+        this.gia = 0;
     }
-    
+
     public DoAnUong(int ma, String ten, int gia) {
         this.ten = ten;
         this.gia = gia;
         this.ma = ma;
     }
+
     public void nhap(Scanner scanner) {
-        System.out.println("Nhap vao ma: ");
-        this.setMa(scanner.nextInt());
-        System.out.println("Nhap vao ten: ");
-        this.setTen(scanner.nextLine());
-        System.out.println("Nhap vao gia: ");
-        this.setGia(scanner.nextInt());
+        //dùng nextInt xong sẽ bị bỏ qua cái nextLine tiếp theo
+        try {
+            System.out.println("Nhap vao ma: ");
+            this.setMa(Integer.parseInt(scanner.nextLine()));
+            System.out.println("Nhap vao ten: ");
+            this.setTen(scanner.nextLine());
+            System.out.println("Nhap vao gia: ");
+            this.setGia(Integer.parseInt(scanner.nextLine()));
+        } catch (Exception e) {
+            System.err.println("Nhap sai kieu du lieu.");
+        }
+
     }
 
     @Override

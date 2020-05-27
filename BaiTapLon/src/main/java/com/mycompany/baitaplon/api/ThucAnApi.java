@@ -21,63 +21,66 @@ public class ThucAnApi extends Api {
     public void readShow() throws SQLException {
         String sql = "select * from thuc_an;";
         super.read(sql);
-        showSC();
+        showThucAn();
     }
 
-    public void addSC(ThucAn s) throws SQLException {
-        String sql = s.toString();
-        sql = "insert into thuc_an values (" + sql + ");";
-        super.writeOrDelete(sql, "add");
+    public void addThucAn(ThucAn s) throws SQLException {
+        try {
+            cStm = conn.prepareCall("{call addThucAn(?,?,?,?)}");
+            cStm.setInt(1, s.getMa());
+            cStm.setString(2, s.getTen());
+            cStm.setInt(3, s.getGia());
+            cStm.setBoolean(4, s.isIsAnChay());
+            cStm.execute();
+        } catch (SQLException e) {
+            System.err.println("Add Thuc An that bai");
+        } finally {
+            System.out.println("Add Thuc An thanh cong");
+            cStm.close();
+        }
     }
 
-    public void deleteSC() throws SQLException {
-        String sql = "delete from thuc_an where MaSC ='" + selected + "';";
-        super.writeOrDelete(sql, "delete");
+    public void deleteThucAn() throws SQLException {
+        String sql1 = "delete from thuc_an_chay where MaThucAnChay =" + selected + ";";
+        super.writeOrDelete(sql1, "delete in ThucAnChay table");
+
+        String sql = "delete from thuc_an where MaThucAn =" + selected + ";";
+        super.writeOrDelete(sql, "delete in ThucAn table");
     }
 
-    public void findSC(String tenHoacMa) throws SQLException {
+    public boolean findThucAn(String tenHoacMa) throws SQLException {
         cStm = conn.prepareCall("{call findThucAn(?)}");
-        cStm.setString(1, "%" + tenHoacMa + "%");
+        cStm.setString(1, tenHoacMa);
         rs = cStm.executeQuery();
-    }//ok
-
-    protected boolean isNullRs() throws SQLException {
         if (rs.isBeforeFirst() == false) {
             System.out.println("Khong tim thay thuc an nhu yeu cau.");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     protected void edit(ThucAn an) throws SQLException {
         try {
-            pStm = conn.prepareStatement("update thuc_an set "
-                    + "TenThucAn = ?,"
-                    + "Gia=?,"
-                    + " where MaThucAn = ?;");
-            pStm.setString(1, an.getTen());
-            pStm.setInt(2, an.getGia());
-            pStm.setInt(3, this.selected);
-            int kq = pStm.executeUpdate();
-            if (kq == 1) {
-                System.out.println("Edit success");
-            } else {
-                System.out.println("Edit fail");
-            }
+            cStm = conn.prepareCall("{call updateThucAn(?,?,?,?)}");
+            cStm.setInt("MaThucAn", an.getMa());
+            cStm.setString("TenThucAn", an.getTen());
+            cStm.setInt("Gia", an.getGia());
+            cStm.setBoolean("chay", an.isIsAnChay());
+            cStm.execute();
         } catch (SQLException e) {
             System.err.println("Edit err fail.");
         } finally {
-            pStm.close();
+            cStm.close();
         }
 
     }
 
-    protected void showSC() throws SQLException {
+    protected void showThucAn() throws SQLException {
         //this.setSelected(rs.getString("MaSC"));
-        System.out.format("  Ma Thuc An | Ten Thuc An      |  Gia         |\n");
-        System.out.format("+------------+------------------+--------------+%n");
+        System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         |\n");
+        System.out.format("+------------+---------------------------------------------+--------------+%n");
         while (rs.next()) {
-            System.out.printf("| %-11s|  %-16d| %-12d|\n",
+            System.out.printf("| %-11d|  %-43s| %-13d|\n",
                     rs.getInt("MaThucAn"),
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"));
@@ -85,15 +88,16 @@ public class ThucAnApi extends Api {
 
     }
 
-    protected void showSC(int limit) throws SQLException {
+    protected void showThucAn(int limit) throws SQLException {
         if (rs.next()) {
-            System.out.format("  Ma Thuc An | Ten Thuc An      |  Gia         |\n");
-            System.out.format("+------------+------------------+--------------+%n");
-            System.out.printf("| %-11s|  %-16d| %-12d|\n",
+            System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         |\n");
+            System.out.format("+------------+---------------------------------------------+--------------+%n");
+            System.out.printf("| %-11d|  %-43s| %-13d|\n",
                     rs.getInt("MaThucAn"),
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"));
-            this.setSelected(rs.getInt("MaSC"));
+
+            this.setSelected(rs.getInt("MaThucAn"));
         }
     }
 

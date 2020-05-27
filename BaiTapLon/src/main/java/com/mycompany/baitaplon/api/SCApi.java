@@ -88,7 +88,7 @@ public class SCApi extends Api {
     protected void showSC(int limit) throws SQLException {
         if (rs.next()) {
             System.out.format("  Ten sanh          | vi tri |suc chua | gia thue    \n");
-            System.out.format("+-------------------+--------+---------+-------------+%n");
+            System.out.format("+-------------------+--------+---------+-------------+\n");
             System.out.printf("| %-18s|  %-6d| %-8d| %-12d|\n",
                     rs.getString("TenSC"),
                     rs.getInt("ViTriSC"),

@@ -7,8 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -19,7 +17,11 @@ public class DanhSachSanh extends SCApi {
     public void them(SanhCuoi s) throws SQLException {
         super.addSC(s);
     }
-
+    public void them(Scanner scanner) throws SQLException{
+        SanhCuoi sc = new SanhCuoi();
+        sc.nhap(scanner);
+        super.addSC(sc);
+    }
     public void xuat() throws SQLException {
         super.readShow();
     }
