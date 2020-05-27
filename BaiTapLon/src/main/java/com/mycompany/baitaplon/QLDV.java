@@ -6,7 +6,7 @@
 package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.DVApi;
 import java.sql.SQLException;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 //import java.util.List;
 import java.util.Scanner;
 
@@ -56,6 +56,7 @@ public class QLDV extends DVApi{
      * 
      * @param kw: Tên dịch vụ
      * @return 
+     * @throws java.sql.SQLException 
      */
 //    public ArrayList<DichVu> traCuu(String kw) {
 //        kw = kw.toLowerCase();

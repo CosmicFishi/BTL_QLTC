@@ -27,12 +27,12 @@ public abstract class Menu {
         this.slThucAn = slAn;
     }
     
-    public void nhap(Scanner scanner) {
-        System.out.println("Nhap vao ten thuc an: ");
-        this.tenThucAn = scanner.nextLine();
-        System.out.println("Nhap vao gia: ");
-        this.gia = scanner.nextInt();
-    }
+//    public void nhap(Scanner scanner) {
+//        System.out.println("Nhap vao ten thuc an: ");
+//        this.tenThucAn = scanner.nextLine();
+//        System.out.println("Nhap vao gia: ");
+//        this.gia = scanner.nextInt();
+//    }
 
     @Override
     public String toString() {

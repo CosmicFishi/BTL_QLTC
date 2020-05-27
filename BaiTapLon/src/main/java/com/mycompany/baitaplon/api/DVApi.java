@@ -15,6 +15,7 @@ import java.sql.SQLException;
 public class DVApi extends Api{
     
     private static String selected;
+    private static String maHoaDon;
     
     /**
      * Ham xuat ra danh sach
@@ -37,8 +38,14 @@ public class DVApi extends Api{
     }
     //ham xoa mot dich vu 
     public void deleteDV() throws SQLException {
-        String sql  = "delete from dv where maDv= '" + selected + "';";
+        String sql  = "delete from dv where maDv= '" + getSelected() + "';";
         super.writeOrDelete(sql, "delete");
+    }
+    //thiếu hàm tìm dịch vụ bằng mã hóa đơn (overloading)
+    public void findDV(int MaHD) throws SQLException {
+        cStm = conn.prepareCall("{call findDvByMaHoaDon(?)}"); // phải thêm một hàm trong mysql
+        cStm.setInt(1,MaHD);
+        rs = cStm.executeQuery();
     }
     //ham tim kiem dich vu bang ma dich vu
     public void findDV(String maDV) throws SQLException {
@@ -74,7 +81,7 @@ public class DVApi extends Api{
             pStm.setString(1, d.getMaDV());
             pStm.setString(2, d.getTenDV());
             pStm.setInt(3, d.getGiaDV());
-            pStm.setString(4, DVApi.selected);
+            pStm.setString(4, DVApi.getSelected());
             int kq = pStm.executeUpdate();
             if(kq == 1)
                 System.out.println("edit successful");
@@ -126,5 +133,19 @@ public class DVApi extends Api{
      */
     public static void setSelected(String aSelected) {
         selected = aSelected;
+    }
+
+    /**
+     * @return the maHoaDon
+     */
+    public static String getMaHoaDon() {
+        return maHoaDon;
+    }
+
+    /**
+     * @param aMaHoaDon the maHoaDon to set
+     */
+    public static void setMaHoaDon(String aMaHoaDon) {
+        maHoaDon = aMaHoaDon;
     }
 }

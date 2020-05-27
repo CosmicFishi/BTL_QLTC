@@ -29,9 +29,9 @@ public class Api {
     private static final String password = "haungo230899";
     
     protected Statement stm = null;
-    protected PreparedStatement pStm = null;
-    protected ResultSet rs = null;
-    protected CallableStatement cStm = null;
+    protected PreparedStatement pStm = null; 
+    protected ResultSet rs = null; //biến  trả về 
+    protected CallableStatement cStm = null; //dùng trong store procedures
     
     public static void connectSql() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");

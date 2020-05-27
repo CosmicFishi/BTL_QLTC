@@ -40,7 +40,7 @@ public class DvKaraoke extends DichVu {
 
     @Override
     public String toString() {
-        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\nKhoang thoi gian: %s\n ",
+        return String.format("\'%s\', \'%s\', \'%d\', \'%s\'",
                 this.getMaDV(), this.getTenDV(), this.getGiaDV(), this.KhoangTG);
     }
 
