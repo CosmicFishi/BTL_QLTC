@@ -31,17 +31,12 @@ public class DoAnUong {
 
     public void nhap(Scanner scanner) {
         //dùng nextInt xong sẽ bị bỏ qua cái nextLine tiếp theo
-        try {
-            System.out.println("Nhap vao ma: ");
-            this.setMa(Integer.parseInt(scanner.nextLine()));
-            System.out.println("Nhap vao ten: ");
-            this.setTen(scanner.nextLine());
-            System.out.println("Nhap vao gia: ");
-            this.setGia(Integer.parseInt(scanner.nextLine()));
-        } catch (Exception e) {
-            System.err.println("Nhap sai kieu du lieu.");
-        }
-
+        System.out.println("Nhap vao ma: ");
+        this.setMa(Integer.parseInt(scanner.nextLine()));
+        System.out.println("Nhap vao ten: ");
+        this.setTen(scanner.nextLine());
+        System.out.println("Nhap vao gia: ");
+        this.setGia(Integer.parseInt(scanner.nextLine()));
     }
 
     @Override

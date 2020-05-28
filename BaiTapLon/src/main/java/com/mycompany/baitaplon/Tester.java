@@ -44,6 +44,7 @@ public class Tester {
             //ds.xoa(scanner);
             //ds.them(ta);
             ds.updateThucAn(scanner);
+            ds.xuat();
             
             
         } catch (SQLException e) {

@@ -47,8 +47,12 @@ public class DanhSachThucAn extends ThucAnApi {
         System.out.println("Ban muon cap nhat ThucAn tren(y/n): ");
         if (scanner.nextLine().equals("y")) {
             ThucAn ta = new ThucAn();
-            ta.nhap(scanner);
-            super.edit(ta);
+            try {
+                ta.nhap(scanner);
+                super.edit(ta);
+            } catch (Exception e) {
+                System.err.println("Nhap sai kieu du lieu");
+            }
         } else {
             System.out.println("Da huy bo cap nhat.");
         }

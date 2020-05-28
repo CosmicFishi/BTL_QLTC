@@ -62,11 +62,14 @@ public class ThucAnApi extends Api {
     protected void edit(ThucAn an) throws SQLException {
         try {
             cStm = conn.prepareCall("{call updateThucAn(?,?,?,?)}");
-            cStm.setInt("MaThucAn", an.getMa());
-            cStm.setString("TenThucAn", an.getTen());
-            cStm.setInt("Gia", an.getGia());
-            cStm.setBoolean("chay", an.isIsAnChay());
-            cStm.execute();
+            cStm.setInt(1, an.getMa());
+            cStm.setString(2, an.getTen());
+            cStm.setInt(3, an.getGia());
+            cStm.setBoolean(4, an.isIsAnChay());
+            if (cStm.executeUpdate()==1)
+                System.out.println("Update thanh cong.");
+            else
+                System.out.println("Update that bai");
         } catch (SQLException e) {
             System.err.println("Edit err fail.");
         } finally {
