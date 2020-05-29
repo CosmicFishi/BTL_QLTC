@@ -48,8 +48,8 @@ public class DvThueCS extends DichVu {
     
     @Override
     public String toString() {
-        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\nTen ca si: %s\nSo luong bai hat: %d\n",
-                this.getMaDV(),this.getTenDV(),this.getGiaDV(),this.tenCS,this.soLuongBH);
+        return String.format("%sTen ca si: %s\nSo luong bai hat: %d\n",
+                super.toString(),this.tenCS,this.soLuongBH);
     }
     
     
