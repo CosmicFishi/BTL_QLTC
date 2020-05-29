@@ -7,6 +7,8 @@ package com.mycompany.baitaplon;
 
 import com.mycompany.baitaplon.api.ThucUongApi;
 import java.sql.SQLException;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,8 +17,10 @@ import java.util.Scanner;
  * @author Admin
  */
 public class DanhSachThucUong extends ThucUongApi{
-    protected List<ThucUong> dsThucUong;
-    protected int[] slThucUong;
+    protected List<ThucUong> dsThucUong = new ArrayList<>();
+    protected int[] slThucUong = new int[50];
+    
+    public DanhSachThucUong(){}
     
     public DanhSachThucUong(List<ThucUong> dsThucUong, int[] slUong) {
         this.dsThucUong = dsThucUong;
@@ -29,14 +33,15 @@ public class DanhSachThucUong extends ThucUongApi{
     }
     public void them(ThucUong e, int sl){
         dsThucUong.add(e);
-        slThucUong[slThucUong.length] = sl;
+        slThucUong[dsThucUong.size()-1] = sl;
     }
     public void them(Scanner scanner){
         ThucUong ta = new ThucUong();
         ta.nhap(scanner);
-        System.out.print("Nhap vao so luong thuc an: ");
+        System.out.print("Nhap vao so luong ThucUong: ");
         int sl = scanner.nextInt();
         them(ta, sl);
+        scanner.nextLine();
     }
     public void themTuSql(Scanner scanner, int ma) throws SQLException{
         xuatThucUong();

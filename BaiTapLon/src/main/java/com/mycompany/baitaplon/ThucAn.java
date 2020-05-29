@@ -25,8 +25,10 @@ public class ThucAn extends DoAnUong{
         this.isAnChay = isAnChay;
     }
     public void nhap(Scanner scanner) {
+        System.out.println("-------------------------------------------------");
+        System.out.println("Nhap thuc an: ");
         super.nhap(scanner);
-        System.out.println("Co an chay duoc: 1 hoac 0 ");
+        System.out.print("isChay (1 hoac 0): ");
         this.setIsAnChay(scanner.nextInt() == 1); //trả về true nếu là 1, false nếu là 0
     }
 

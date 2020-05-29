@@ -19,39 +19,58 @@ import java.util.Scanner;
 public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        try {
-            Api api = new Api();
-            Api.connectSql();
-        } catch (Exception e) {
-            System.err.println("error create Api.");
-        }
-
-        try {
-            //SanhCuoi a= new SanhCuoi("S011","Sảnh hoang vu", 4, 450, 45000000);
-            //DanhSachSanh ds = new DanhSachSanh();
-//            ds.them(a);
+        Scanner scanner = new Scanner(System.in);
+        
+        DanhSachThucAn dsAn1 = new DanhSachThucAn();
+        DanhSachThucUong dsUong1 = new DanhSachThucUong();
+        
+        //dsAn1.them(scanner);
+        //dsAn1.them(scanner);
+        dsAn1.them(scanner);
+        dsAn1.them(scanner);
+        dsAn1.xuat();
+//        dsUong1.them(scanner);
+//        dsUong1.them(scanner);
+//        
+//        Menu menu1 = new Menu(dsAn1, dsUong1);
+//         
+//        QLMenu qlmenu = new QLMenu();
+//        qlmenu.them(menu1);
+//        qlmenu.xuat();
+        
+//        try {
+//            Api api = new Api();
+//            Api.connectSql();
+//        } catch (Exception e) {
+//            System.err.println("error create Api.");
+//        }
+//
+//        try {
+//            //SanhCuoi a= new SanhCuoi("S011","Sảnh hoang vu", 4, 450, 45000000);
+//            //DanhSachSanh ds = new DanhSachSanh();
+////            ds.them(a);
+////            ds.xuat();
+////            System.out.println("==============================");
+//            Scanner scanner = new Scanner(System.in);
+////            ds.xoa(scanner);
+////            ds.xuat();
+//            //System.out.println("==============================");
+//            //ds.capNhat(scanner);
+//            //ds.xuat();
+//            ThucAn ta = new ThucAn(11, "bun man", 25000, true);
+//            //ta.nhap(scanner);
+//            DanhSachThucAn ds = new DanhSachThucAn();
+//            //ds.xoa(scanner);
+//            //ds.them(ta);
+//            ds.updateThucAn(scanner);
 //            ds.xuat();
-//            System.out.println("==============================");
-            Scanner scanner = new Scanner(System.in);
-//            ds.xoa(scanner);
-//            ds.xuat();
-            //System.out.println("==============================");
-            //ds.capNhat(scanner);
-            //ds.xuat();
-            ThucAn ta = new ThucAn(11, "bun man", 25000, true);
-            //ta.nhap(scanner);
-            DanhSachThucAn ds = new DanhSachThucAn();
-            //ds.xoa(scanner);
-            //ds.them(ta);
-            ds.updateThucAn(scanner);
-            ds.xuat();
-            
-            
-        } catch (SQLException e) {
-            System.err.print(e.getMessage());
-        } finally {
-            Api.disconnectSql();
-        }
+//            
+//            
+//        } catch (SQLException e) {
+//            System.err.print(e.getMessage());
+//        } finally {
+//            Api.disconnectSql();
+//        }
 //        DichVu d = new DichVu();
 //        System.out.println();
 //Thử sảnh cưới

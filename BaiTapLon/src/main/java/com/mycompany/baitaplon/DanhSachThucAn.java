@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class DanhSachThucAn extends ThucAnApi {
     private List<ThucAn> dsThucAn = new ArrayList<>();
-    private int[] slThucAn;
+    private int[] slThucAn = new int[50];
     
     public DanhSachThucAn(){}
     
@@ -30,27 +30,52 @@ public class DanhSachThucAn extends ThucAnApi {
             System.out.println(ta);
         }
     }
+    
+    
+    /**
+     *Dùng để thêm ThucAn có sẵn
+     * @param e Truyền vào 1 thức ăn
+     * @param sl Truyền vào số lượng thức ăn đó
+     */
     public void them(ThucAn e, int sl){
         dsThucAn.add(e);
-        slThucAn[slThucAn.length] = sl;
+        slThucAn[dsThucAn.size()-1] = sl;
     }
+
+    /**
+     *Dùng để thêm ThucAn vào danh sách bằng cách tạo bằng tay qua scanner
+     * @param scanner
+     */
     public void them(Scanner scanner){
         ThucAn ta = new ThucAn();
         ta.nhap(scanner);
         System.out.print("Nhap vao so luong thuc an: ");
         int sl = scanner.nextInt();
         them(ta, sl);
+        scanner.nextLine();
     }
-    public void themTuSql(Scanner scanner, int ma) throws SQLException{
+
+    /**
+     *dùng để thêm thức ăn có sẵn trong mysql vào danh sách thức ăn
+     * @param scanner
+     * @param ma
+     * @throws SQLException
+     */
+    public void them(Scanner scanner, int ma) throws SQLException{
         dsThucAn.add(getThucAn(ma));
         System.out.print("Nhap vao so luong thuc an: ");
         int sl = scanner.nextInt();
         slThucAn[slThucAn.length] = sl;
     }
     
+    /**
+     *Dùng để xuất tất cả ThucAn trong Mysql
+     * @throws SQLException
+     */
     public void xuatThucAn() throws SQLException{
         super.readShow();
     }
+    
     public void themThucAn(ThucAn ta) throws SQLException{
         super.addThucAn(ta);
     }

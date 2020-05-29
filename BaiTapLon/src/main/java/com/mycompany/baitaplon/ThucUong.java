@@ -25,9 +25,10 @@ public class ThucUong extends DoAnUong {
     
     @Override
     public void nhap(Scanner scanner) {
+        System.out.println("-------------------------------------------------");
+        System.out.println("Nhap thuc uong: ");
         super.nhap(scanner);
-        scanner.nextLine();
-        System.out.println("Nhap vao hang san xuat: ");
+        System.out.print("Nhap vao hang san xuat: ");
         this.setHangSX(scanner.nextLine());
     }
 

@@ -14,7 +14,7 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public abstract class Menu {
+public class Menu {
     protected DanhSachThucAn dsAn;
     protected DanhSachThucUong dsUong;
     
@@ -33,7 +33,10 @@ public abstract class Menu {
 
     @Override
     public String toString() {
-        return String.format("");
+        String kq;
+        System.out.println("Ds Thuc An: ");
+        for()
+        return kq;
     }
     
     

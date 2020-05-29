@@ -32,12 +32,10 @@ public class DoAnUong {
     public void nhap(Scanner scanner) {
         //dùng nextInt xong sẽ bị bỏ qua cái nextLine tiếp theo 
         // nên chuyển về dùng như này
-        System.out.println("Nhap vao ma: ");
-        this.setMa(Integer.parseInt(scanner.nextLine()));
-        System.out.println("Nhap vao ten: ");
-        this.setTen(scanner.nextLine());
-        System.out.println("Nhap vao gia: ");
-        this.setGia(Integer.parseInt(scanner.nextLine()));
+        System.out.print("Ten: ");
+        this.ten=scanner.nextLine();
+        System.out.print("Gia: ");
+        this.gia = (Integer.parseInt(scanner.nextLine()));
     }
 
     @Override
