@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `quanlytieccuoi` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `quanlytieccuoi`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlytieccuoi
+-- Host: 127.0.0.1    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -26,7 +24,7 @@ DROP TABLE IF EXISTS `thuc_an`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thuc_an` (
   `MaThucAn` int NOT NULL,
-  `TenThucAn` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `TenThucAn` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `Gia` decimal(10,0) NOT NULL DEFAULT '0',
   PRIMARY KEY (`MaThucAn`),
   UNIQUE KEY `MaThucAn_UNIQUE` (`MaThucAn`)
@@ -52,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-23 21:47:31
+-- Dump completed on 2020-05-29 19:30:23

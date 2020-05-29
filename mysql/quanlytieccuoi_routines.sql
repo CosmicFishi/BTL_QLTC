@@ -16,29 +16,8 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dv_ca_si`
+-- Dumping routines for database 'quanlytieccuoi'
 --
-
-DROP TABLE IF EXISTS `dv_ca_si`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `dv_ca_si` (
-  `MaDV` int NOT NULL,
-  `ThongTinCaSi` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `SoLuongBaiHat` int NOT NULL,
-  KEY `fk_ca_si_hoa_don_idx` (`MaDV`),
-  CONSTRAINT `fk_ca_si_dv` FOREIGN KEY (`MaDV`) REFERENCES `dv` (`MaDv`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dv_ca_si`
---
-
-LOCK TABLES `dv_ca_si` WRITE;
-/*!40000 ALTER TABLE `dv_ca_si` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dv_ca_si` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +28,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29 19:30:23
+-- Dump completed on 2020-05-29 19:30:24
