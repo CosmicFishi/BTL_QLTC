@@ -21,7 +21,7 @@ public class ThucAn extends DoAnUong{
     }
     
     public ThucAn( String ten, int gia, boolean isAnChay) {
-        super(dem++, ten, gia);
+        super(++dem, ten, gia);
         this.isAnChay = isAnChay;
     }
     public void nhap(Scanner scanner) {

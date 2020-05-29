@@ -9,6 +9,8 @@ import com.mycompany.baitaplon.SanhCuoi;
 import com.mycompany.baitaplon.ThucAn;
 import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,6 +19,30 @@ import java.sql.SQLException;
 public class ThucAnApi extends Api {
 
     protected static int selected;
+
+    public List<ThucAn> getList() throws SQLException {
+        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
+                + "from thuc_an ta"
+                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";	
+        super.read(sql);
+
+        List<ThucAn> kq = new ArrayList<>();
+        while (rs.next()) {
+            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
+                    rs.getInt("Gia"), rs.getBoolean("isChay"));
+        }
+        return kq;
+    }
+    public ThucAn getThucAn(int ma) throws SQLException{
+        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
+                + "from thuc_an ta"
+                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay" 
+                +"where ta.MaThucAn = 1;";
+        super.read(sql);
+        ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
+                    rs.getInt("Gia"), rs.getBoolean("isChay"));
+        return ta;
+    }
 
     public void readShow() throws SQLException {
         String sql = "select * from thuc_an;";
@@ -66,10 +92,11 @@ public class ThucAnApi extends Api {
             cStm.setString(2, an.getTen());
             cStm.setInt(3, an.getGia());
             cStm.setBoolean(4, an.isIsAnChay());
-            if (cStm.executeUpdate()==1)
+            if (cStm.executeUpdate() == 1) {
                 System.out.println("Update thanh cong.");
-            else
+            } else {
                 System.out.println("Update that bai");
+            }
         } catch (SQLException e) {
             System.err.println("Edit err fail.");
         } finally {

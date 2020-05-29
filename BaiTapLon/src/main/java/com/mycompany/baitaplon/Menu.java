@@ -5,6 +5,9 @@
  */
 package com.mycompany.baitaplon;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,26 +15,19 @@ import java.util.Scanner;
  * @author Admin
  */
 public abstract class Menu {
-    protected int[] dsThucUong;
-    protected int[] slThucUong;
-    private int[] dsThucAn;
-    private int[] slThucAn;
+    protected DanhSachThucAn dsAn;
+    protected DanhSachThucUong dsUong;
     
     public Menu() {
     }
     
-    public Menu(int[] dsAn,int[] slAn, int[] dsUong, int[] slUong) {
-        this.dsThucUong = dsUong;
-        this.slThucUong = slUong;
-        this.dsThucAn = dsAn;
-        this.slThucAn = slAn;
+    public Menu(DanhSachThucAn dsA, DanhSachThucUong dsU) {
+        this.dsAn = dsA;
+        this.dsUong = dsU;
     }
     
-    public void nhap(Scanner scanner) {
-        System.out.println("Nhap vao ten thuc an: ");
-        this.tenThucAn = scanner.nextLine();
-        System.out.println("Nhap vao gia: ");
-        this.gia = scanner.nextInt();
+    public void nhap(Scanner scanner) throws SQLException {
+        this.dsAn.them(scanner);
     }
 
     @Override

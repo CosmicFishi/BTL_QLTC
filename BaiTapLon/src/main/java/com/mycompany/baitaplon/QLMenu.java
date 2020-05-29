@@ -25,19 +25,18 @@ public class QLMenu {
         });
     }
     public void capNhat(Menu n) {
-        Scanner s = new Scanner(System.in);
-        n.nhap(s);
+        //Scanner s = new Scanner(System.in);
     }
     public void xoa(Menu m) {
         this.ql.remove(m);
     }
-    public ArrayList<Menu> traCuu(String kw) {
-        kw = kw.toLowerCase();
-        ArrayList<Menu> kq = new ArrayList<>();
-        for(Menu m: this.ql) {
-            if(m.getTenThucAn().toLowerCase().contains(kw) == true)
-                kq.add(m);
-        }
-        return kq;
-    }
+//    public ArrayList<Menu> traCuu(String kw) {
+//        kw = kw.toLowerCase();
+//        ArrayList<Menu> kq = new ArrayList<>();
+//        for(Menu m: this.ql) {
+//            if(m.getTenThucAn().toLowerCase().contains(kw) == true)
+//                kq.add(m);
+//        }
+//        return kq;
+//    }
 }

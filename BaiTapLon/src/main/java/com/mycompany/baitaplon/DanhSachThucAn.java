@@ -7,27 +7,60 @@ package com.mycompany.baitaplon;
 
 import com.mycompany.baitaplon.api.ThucAnApi;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
 public class DanhSachThucAn extends ThucAnApi {
+    private List<ThucAn> dsThucAn = new ArrayList<>();
+    private int[] slThucAn;
     
+    public DanhSachThucAn(){}
     
-    public void xuat() throws SQLException{
+    public DanhSachThucAn(List<ThucAn> dsThucAn,int[] slAn) {
+        this.dsThucAn = dsThucAn;
+        this.slThucAn = slAn;
+    }
+    public void xuat(){
+        
+    }
+    public void them(ThucAn e, int sl){
+        dsThucAn.add(e);
+        slThucAn[slThucAn.length] = sl;
+    }
+    public void them(Scanner scanner){
+        ThucAn ta = new ThucAn();
+        ta.nhap(scanner);
+    }
+    public void them() throws Exception{
+        try {
+            this.dsThucAn.addAll(getList());
+        } catch (SQLException ex) {
+            throw new Exception("khong the them bang sql.");
+        }
+    }
+    public void them(int ma) throws SQLException{
+        getThucAn(ma);
+    }
+    
+    public void xuatThucAn() throws SQLException{
         super.readShow();
     }
-    public void them(ThucAn ta) throws SQLException{
+    public void themThucAn(ThucAn ta) throws SQLException{
         super.addThucAn(ta);
     }
-    public void them(Scanner scanner) throws SQLException{
+    public void themThucAn(Scanner scanner) throws SQLException{
         ThucAn ta = new ThucAn();
         ta.nhap(scanner);
         super.addThucAn(ta);
     }
-    public void xoa(Scanner scanner) throws SQLException{
+    public void xoaThucAn(Scanner scanner) throws SQLException{
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa) == false)

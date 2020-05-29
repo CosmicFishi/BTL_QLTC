@@ -19,7 +19,7 @@ public class ThucUong extends DoAnUong {
         super();
     }
     public ThucUong(String ten, int gia, String nhaSX) {
-        super(dem++, ten, gia);
+        super(++dem, ten, gia);
         this.hangSX = nhaSX;
     }
     
