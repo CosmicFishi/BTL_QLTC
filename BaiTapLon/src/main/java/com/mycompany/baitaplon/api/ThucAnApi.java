@@ -19,7 +19,7 @@ import java.util.List;
 public class ThucAnApi extends Api {
 
     protected static int selected;
-
+    // unusesual
     public List<ThucAn> getList() throws SQLException {
         String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
                 + "from thuc_an ta"
@@ -37,7 +37,7 @@ public class ThucAnApi extends Api {
         String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
                 + "from thuc_an ta"
                 + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay" 
-                +"where ta.MaThucAn = 1;";
+                + "where ta.MaThucAn = "+ma+";";
         super.read(sql);
         ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
                     rs.getInt("Gia"), rs.getBoolean("isChay"));
@@ -75,7 +75,7 @@ public class ThucAnApi extends Api {
     }
 
     public boolean findThucAn(String tenHoacMa) throws SQLException {
-        cStm = conn.prepareCall("{call findThucAn(?)}");
+        cStm = conn.prepareCall("{call findThucAnChay(?)}");
         cStm.setString(1, tenHoacMa);
         rs = cStm.executeQuery();
         if (rs.isBeforeFirst() == false) {
@@ -107,25 +107,27 @@ public class ThucAnApi extends Api {
 
     protected void showThucAn() throws SQLException {
         //this.setSelected(rs.getString("MaSC"));
-        System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         |\n");
-        System.out.format("+------------+---------------------------------------------+--------------+%n");
+        System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
+        System.out.format("+------------+---------------------------------------------+--------------+-------%n");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d|\n",
+            System.out.printf("| %-11d|  %-43s| %-13d| %-6s\n",
                     rs.getInt("MaThucAn"),
                     rs.getString("TenThucAn"),
-                    rs.getInt("Gia"));
+                    rs.getInt("Gia"),
+                    rs.getBoolean("isChay"));
         }
 
     }
 
     protected void showThucAn(int limit) throws SQLException {
         if (rs.next()) {
-            System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         |\n");
-            System.out.format("+------------+---------------------------------------------+--------------+%n");
-            System.out.printf("| %-11d|  %-43s| %-13d|\n",
+            System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
+            System.out.format("+------------+---------------------------------------------+--------------+-------%n");
+            System.out.printf("| %-11d|  %-43s| %-13d| %-6s\n",
                     rs.getInt("MaThucAn"),
                     rs.getString("TenThucAn"),
-                    rs.getInt("Gia"));
+                    rs.getInt("Gia"),
+                    rs.getBoolean("isChay"));
 
             this.setSelected(rs.getInt("MaThucAn"));
         }

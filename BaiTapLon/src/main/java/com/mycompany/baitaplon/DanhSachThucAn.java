@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +26,9 @@ public class DanhSachThucAn extends ThucAnApi {
         this.slThucAn = slAn;
     }
     public void xuat(){
-        
+        for(ThucAn ta: dsThucAn){
+            System.out.println(ta);
+        }
     }
     public void them(ThucAn e, int sl){
         dsThucAn.add(e);
@@ -37,16 +37,15 @@ public class DanhSachThucAn extends ThucAnApi {
     public void them(Scanner scanner){
         ThucAn ta = new ThucAn();
         ta.nhap(scanner);
+        System.out.print("Nhap vao so luong thuc an: ");
+        int sl = scanner.nextInt();
+        them(ta, sl);
     }
-    public void them() throws Exception{
-        try {
-            this.dsThucAn.addAll(getList());
-        } catch (SQLException ex) {
-            throw new Exception("khong the them bang sql.");
-        }
-    }
-    public void them(int ma) throws SQLException{
-        getThucAn(ma);
+    public void themTuSql(Scanner scanner, int ma) throws SQLException{
+        dsThucAn.add(getThucAn(ma));
+        System.out.print("Nhap vao so luong thuc an: ");
+        int sl = scanner.nextInt();
+        slThucAn[slThucAn.length] = sl;
     }
     
     public void xuatThucAn() throws SQLException{

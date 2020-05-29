@@ -28,6 +28,7 @@ public abstract class Menu {
     
     public void nhap(Scanner scanner) throws SQLException {
         this.dsAn.them(scanner);
+        this.dsUong.them(scanner);
     }
 
     @Override

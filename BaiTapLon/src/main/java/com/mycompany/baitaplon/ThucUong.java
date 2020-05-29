@@ -28,12 +28,20 @@ public class ThucUong extends DoAnUong {
         super.nhap(scanner);
         scanner.nextLine();
         System.out.println("Nhap vao hang san xuat: ");
-        this.hangSX = scanner.nextLine();
+        this.setHangSX(scanner.nextLine());
     }
 
     @Override
     public String toString() {
         String kq = super.toString();
-        return String.format(kq + ", %s", this.hangSX);
+        return String.format(kq + ", %s", this.getHangSX());
+    }
+
+    public String getHangSX() {
+        return hangSX;
+    }
+
+    public void setHangSX(String hangSX) {
+        this.hangSX = hangSX;
     }
 }
