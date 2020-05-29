@@ -30,7 +30,8 @@ public class DoAnUong {
     }
 
     public void nhap(Scanner scanner) {
-        //dùng nextInt xong sẽ bị bỏ qua cái nextLine tiếp theo
+        //dùng nextInt xong sẽ bị bỏ qua cái nextLine tiếp theo 
+        // nên chuyển về dùng như này
         System.out.println("Nhap vao ma: ");
         this.setMa(Integer.parseInt(scanner.nextLine()));
         System.out.println("Nhap vao ten: ");

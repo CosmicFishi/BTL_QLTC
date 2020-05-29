@@ -12,13 +12,14 @@ import java.util.Scanner;
  * @author Admin
  */
 public class ThucUong extends DoAnUong {
+    private static int dem = 0;
     private String hangSX;
-
+    
     public ThucUong() {
         super();
     }
-    public ThucUong(int ma, String ten, int gia, String nhaSX) {
-        super(ma, ten, gia);
+    public ThucUong(String ten, int gia, String nhaSX) {
+        super(dem++, ten, gia);
         this.hangSX = nhaSX;
     }
     

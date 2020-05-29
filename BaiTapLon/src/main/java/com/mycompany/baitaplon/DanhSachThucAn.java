@@ -14,6 +14,8 @@ import java.util.Scanner;
  * @author Admin
  */
 public class DanhSachThucAn extends ThucAnApi {
+    
+    
     public void xuat() throws SQLException{
         super.readShow();
     }

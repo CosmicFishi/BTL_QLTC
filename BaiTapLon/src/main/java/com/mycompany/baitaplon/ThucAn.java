@@ -13,14 +13,15 @@ import java.util.Scanner;
  */
 public class ThucAn extends DoAnUong{
     private boolean isAnChay;
-    
+    private static int dem = 0;
+   
     public ThucAn() {
         super();
         this.isAnChay=false;
     }
     
-    public ThucAn( int ma, String ten, int gia, boolean isAnChay) {
-        super(ma, ten, gia);
+    public ThucAn( String ten, int gia, boolean isAnChay) {
+        super(dem++, ten, gia);
         this.isAnChay = isAnChay;
     }
     public void nhap(Scanner scanner) {
