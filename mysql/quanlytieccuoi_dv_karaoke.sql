@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `quanlytieccuoi` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `quanlytieccuoi`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlytieccuoi
+-- Host: 127.0.0.1    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -25,12 +23,10 @@ DROP TABLE IF EXISTS `dv_karaoke`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dv_karaoke` (
-  `MaHD` int NOT NULL,
+  `MaDV` int NOT NULL,
   `KhoangThoiGianThue` decimal(3,1) NOT NULL,
-  `GiaDv` int NOT NULL,
-  PRIMARY KEY (`MaHD`),
-  KEY `fk_karaoke_hoa_don_idx` (`MaHD`),
-  CONSTRAINT `fk_karaoke_hoa_don` FOREIGN KEY (`MaHD`) REFERENCES `hoa_don` (`MaHoaDon`)
+  KEY `fk_karaoke_hoa_don_idx` (`MaDV`),
+  CONSTRAINT `fk_karaoke_dv` FOREIGN KEY (`MaDV`) REFERENCES `dv` (`MaDv`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-23 21:47:31
+-- Dump completed on 2020-05-29 19:30:23
