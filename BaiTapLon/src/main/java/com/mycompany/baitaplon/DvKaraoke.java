@@ -40,9 +40,10 @@ public class DvKaraoke extends DichVu {
 
     @Override
     public String toString() {
-        return String.format("\'%s\', \'%s\', \'%d\', \'%s\'",
-                this.getMaDV(), this.getTenDV(), this.getGiaDV(), this.KhoangTG);
+        return String.format("%sKhoang thoi gian: %s",super.toString(),this.KhoangTG); 
     }
+
+    
 
     
     /**
