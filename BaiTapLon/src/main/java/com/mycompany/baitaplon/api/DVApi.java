@@ -73,10 +73,10 @@ public class DVApi extends Api{
     protected void edit(DichVu d) throws SQLException {
         try {
             pStm = conn.prepareStatement("update dv set" + 
-                    "MaDv = ?," +
+                    "MaDV = ?," +
                     "TenDv = ?,"+
                     "GiaDichVu = ?" + 
-                    "where MaDv = ?");
+                    "where MaDV = ?");
             pStm.setString(1, d.getMaDV());
             pStm.setString(2, d.getTenDV());
             pStm.setInt(3, d.getGiaDV());
@@ -137,14 +137,4 @@ public class DVApi extends Api{
     /**
      * @return the maHoaDon
      */
-    public static String getMaHoaDon() {
-        return maHoaDon;
-    }
-
-    /**
-     * @param aMaHoaDon the maHoaDon to set
-     */
-    public static void setMaHoaDon(String aMaHoaDon) {
-        maHoaDon = aMaHoaDon;
-    }
 }
