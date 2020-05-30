@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DVApi extends Api{
     
     private static String selected;
-    private static String maHoaDon;
+    //private static String maHoaDon;
     
     /**
      * Ham xuat ra danh sach
@@ -33,17 +33,16 @@ public class DVApi extends Api{
      */
     public void addDV(DichVu d) throws SQLException {
         String sql = d.toString();
-        sql = "insert into dv values("+ sql +")";
-        super.writeOrDelete(sql, "add");
+        sql = "insert into dv values("+ sql +")";  
+        super.writeOrDelete(sql, "add"); //Nhập mã, tên và giá dịch vụ vào bảng dịch vụ
     }
     //ham xoa mot dich vu 
     public void deleteDV() throws SQLException {
-        String sql  = "delete from dv where maDv= '" + getSelected() + "';";
+        String sql  = "delete from dv where maDV= '" + getSelected() + "';";
         super.writeOrDelete(sql, "delete");
     }
-    //thiếu hàm tìm dịch vụ bằng mã hóa đơn (overloading)
     public void findDV(int MaHD) throws SQLException {
-        cStm = conn.prepareCall("{call findDvByMaHoaDon(?)}"); // phải thêm một hàm trong mysql
+        cStm = conn.prepareCall("{call findDvByMaDichVu(?)}"); // phải thêm một hàm trong mysql
         cStm.setInt(1,MaHD);
         rs = cStm.executeQuery();
     }

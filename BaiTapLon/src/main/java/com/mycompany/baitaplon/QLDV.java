@@ -42,8 +42,8 @@ public class QLDV { //extends DVApi
     }
     public void xoa(DichVu d) {
         this.ql.remove(d);
-//        System.out.println("Nhap vao ma dich vu can xoa: ");
-//        String dvXoa = scanner.nextLine();
+//        System.out.println("Nhap vao maich vu can xoa: ");
+//        String dvXoa  d= scanner.nextLine();
 //        findDV(dvXoa);
 //        if(isNullRS() == true ) return; 
 //        super.showDV(1);

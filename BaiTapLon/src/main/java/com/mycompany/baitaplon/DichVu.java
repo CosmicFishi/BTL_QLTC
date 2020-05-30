@@ -36,10 +36,10 @@ public abstract class DichVu {
         System.out.println("Nhap vao gia dich vu: ");
         this.setGiaDV(scanner.nextInt());
     }
-
+    public abstract String xuat();
     @Override
     public String toString() {
-        return String.format("Ma dich vu: %s\nTen dich vu: %s\nGia dich vu: %s\n", this.maDV, this.tenDV, this.giaDV);
+        return String.format("\'%s\',\'%s\', %d", this.maDV, this.tenDV, this.giaDV);
     }
 
     /**

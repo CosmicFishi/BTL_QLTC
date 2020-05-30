@@ -40,9 +40,14 @@ public class DvKaraoke extends DichVu {
 
     @Override
     public String toString() {
-        return String.format("%sKhoang thoi gian: %s",super.toString(),this.KhoangTG); 
+        return super.toString();
+        //return String.format("%sKhoang thoi gian: %s",super.toString(),this.KhoangTG); 
     }
-
+    @Override
+        public String xuat() {
+//            System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
+            return String.format("\'%s\',\'%s\'",this.getMaDV(),this.KhoangTG);
+        }
     
 
     
@@ -59,6 +64,10 @@ public class DvKaraoke extends DichVu {
     public void setKhoangTG(String KhoangTG) {
         this.KhoangTG = KhoangTG;
     }
+    /**
+     * hàm xuất để truy xuất mysql
+     */
+    
     
     
     

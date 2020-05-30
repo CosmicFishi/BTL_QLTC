@@ -48,10 +48,15 @@ public class DvThueCS extends DichVu {
     
     @Override
     public String toString() {
-        return String.format("%sTen ca si: %s\nSo luong bai hat: %d\n",
-                super.toString(),this.tenCS,this.soLuongBH);
+        return super.toString();
+//        return String.format("%sTen ca si: %s\nSo luong bai hat: %d\n",
+//                super.toString(),this.tenCS,this.soLuongBH);
     }
-    
+    @Override
+    public String xuat() {
+//        System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
+        return String.format("\'%s\',\'%s\', %d",this.getMaDV(), this.tenCS,this.soLuongBH);
+    }
     
     /**
      * @return the thongTinCS
@@ -80,6 +85,11 @@ public class DvThueCS extends DichVu {
     public void setSoLuongBH(int soLuongBH) {
         this.soLuongBH = soLuongBH;
     }
+
+    /**
+     * Hàm xuất để truy xuất mysql
+     */
+    
     
     
 }

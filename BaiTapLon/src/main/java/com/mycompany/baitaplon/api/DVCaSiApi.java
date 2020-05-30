@@ -16,11 +16,21 @@ public class DVCaSiApi extends DVApi {
 
     @Override
     public void addDV(DichVu d) throws SQLException {
-        String sql = d.toString();
-        sql = "insert into dv_ca_si values("  + sql + ")";
-        super.writeOrDelete(sql, "add");
+        super.addDV(d);
+        String sql2 = d.xuat();
+        sql2 = "insert into dv_ca_si values(" + sql2  + ")";
+        super.writeOrDelete(sql2, "add");
     }
 
+    @Override
+    public void deleteDV() throws SQLException {
+        super.deleteDV(); 
+        String sql2 = "delete from dv_ca_si where MaDV= " + getSelected() +";" ;
+        super.writeOrDelete(sql2, "delete");
+    }
+    
+
+    //cần phải chỉnh lại
     @Override
     public void readShow() throws SQLException {
         String sql = "select * from dv_ca_si";

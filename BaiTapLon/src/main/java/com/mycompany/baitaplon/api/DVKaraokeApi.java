@@ -16,6 +16,7 @@ import java.sql.SQLException;
  */
 public class DVKaraokeApi extends DVApi{
 
+    //cần phải chỉnh sựa lại
     @Override
     public void readShow() throws SQLException {
         String sql = "select * from dv_karaoke";
@@ -30,17 +31,20 @@ public class DVKaraokeApi extends DVApi{
      */
     @Override
     public void addDV(DichVu d) throws SQLException {
-        String sql = d.toString();
-        sql = "insert into dv_karaoke values(" +  sql + ")";
-        super.writeOrDelete(sql, "add");
+        super.addDV(d);
+        String sql2 = d.xuat();
+        sql2 ="insert into dv_karaoke values(" + sql2 + ")";
+        super.writeOrDelete(sql2, "add"); // thêm mã và khoảng thời gian thuê vào bảng karaoke
     }
 
     @Override
     public void deleteDV() throws SQLException {
-        String sql = "delete from dv_karaoke where MaHD = " + getMaHoaDon() + ";";
-        super.writeOrDelete(sql, "delete");
+        super.deleteDV();
+        String sql2  =  "delete from dv_karaoke where MaDV= " + getSelected()  + ";";
+        super.writeOrDelete(sql2, "delete");
     }
    
+    //cần phải chỉnh sửa lại hàm xuất
     @Override
     protected void showDV() throws SQLException {
         System.out.println("Ma hoa don        | Khoang thoi gian thue    |Gia dich vu \n");
