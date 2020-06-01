@@ -26,6 +26,17 @@ public class DanhSachThucUong extends ThucUongApi{
         this.dsThucUong = dsThucUong;
         this.slThucUong = slUong;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder kq = new StringBuilder();
+        for(int i =0; i<this.dsThucUong.size(); i++){
+            kq.append(dsThucUong.get(i).xuat()).append(" ,so luong: ")
+                    .append(slThucUong[i]).append("\n");
+        }
+        return kq.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public void xuat(){
         for(ThucUong ta: dsThucUong){
             System.out.println(ta);

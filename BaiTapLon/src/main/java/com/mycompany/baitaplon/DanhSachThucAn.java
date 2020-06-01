@@ -30,7 +30,13 @@ public class DanhSachThucAn extends ThucAnApi {
             System.out.println(ta);
         }
     }
-    
+    public String toString() {
+        StringBuilder kq = new StringBuilder();
+        for(int i =0; i<this.dsThucAn.size(); i++){
+            kq.append(dsThucAn.get(i).xuat()).append(" ,so luong: ").append(slThucAn[i]).append("\n");
+        }
+        return kq.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      *Dùng để thêm ThucAn có sẵn

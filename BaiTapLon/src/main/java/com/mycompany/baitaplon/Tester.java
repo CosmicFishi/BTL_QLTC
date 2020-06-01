@@ -28,24 +28,29 @@ public class Tester {
 //        ql.capNhat(d1, DVCS );
         
 //thử đồ ăn, thức uổng của Hậu
-//        Scanner scanner = new Scanner(System.in);
-//        
-//        DanhSachThucAn dsAn1 = new DanhSachThucAn();
-//        DanhSachThucUong dsUong1 = new DanhSachThucUong();
-//        
-//        //dsAn1.them(scanner);
-//        //dsAn1.them(scanner);
-//        dsAn1.them(scanner);
-//        dsAn1.them(scanner);
-//        dsAn1.xuat();
-//        dsUong1.them(scanner);
-//        dsUong1.them(scanner);
-//        
-//        Menu menu1 = new Menu(dsAn1, dsUong1);
-//         
-//        QLMenu qlmenu = new QLMenu();
-//        qlmenu.them(menu1);
-//        qlmenu.xuat();
+        Scanner scanner = new Scanner(System.in);
+        
+        DanhSachThucAn dsAn1 = new DanhSachThucAn();
+        DanhSachThucUong dsUong1 = new DanhSachThucUong();
+        
+        ThucUong uong1 = new ThucUong("coca", 12000, "My");
+        ThucUong uong2 = new ThucUong("sting", 10000, "VN");
+        ThucAn an1 = new ThucAn("lau", 25000, false);
+        
+        //dsAn1.them(scanner);
+        //dsAn1.them(scanner);
+        //dsAn1.them(scanner);
+        dsAn1.them(an1, 5);
+        dsUong1.them(uong1, 10);
+        dsUong1.them(uong2, 5);
+        //dsUong1.them(scanner);
+        
+        Menu menu1 = new Menu(dsAn1, dsUong1);
+        Menu menu2 = new Menu(dsAn1, dsUong1);
+        QLMenu qlmenu = new QLMenu();
+        qlmenu.them(menu1);
+        qlmenu.them(menu2);
+        qlmenu.xuat();
         
 //        try {
 //            Api api = new Api();

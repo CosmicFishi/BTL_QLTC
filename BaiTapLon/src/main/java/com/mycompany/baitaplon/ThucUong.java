@@ -22,7 +22,9 @@ public class ThucUong extends DoAnUong {
         super(++dem, ten, gia);
         this.hangSX = nhaSX;
     }
-    
+    public String xuat(){
+        return String.format("Ma: %-3d Ten: %-15s Gia: %-9d Nha sx: %-7s", this.getMa(), this.getTen(), this.getGia(), this.hangSX);
+    }
     @Override
     public void nhap(Scanner scanner) {
         System.out.println("-------------------------------------------------");

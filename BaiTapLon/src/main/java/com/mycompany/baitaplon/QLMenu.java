@@ -20,9 +20,11 @@ public class QLMenu {
         this.ql.add(m);
     }
     public void xuat() {
-        this.ql.forEach((Menu m) -> {
-            System.out.println(m);
-        });
+        int dem = 1;
+        for (int i =0; i<ql.size(); i++){
+            System.out.printf("------------Menu %d-----------\n", dem++);
+            System.out.println(ql.get(i).toString());
+        }
     }
     public void capNhat(Menu n) {
         //Scanner s = new Scanner(System.in);
