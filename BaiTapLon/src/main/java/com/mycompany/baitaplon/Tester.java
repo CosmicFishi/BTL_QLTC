@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.baitaplon;
+import com.mycompany.baitaplon.api.*; //để sài gói API
 
 import com.mycompany.baitaplon.api.Api;
 import java.sql.Connection;
@@ -19,16 +20,24 @@ import java.util.Scanner;
 public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Scanner scanner = new Scanner(System.in);
+//Thử dịch vụ của Dũng
+//        DichVu d1 = new DvKaraoke("01", "alo", 3000, "1 tieng");
+//        DichVu d2 = new DvThueCS("02", "hi hi", 1000, "dung", 5);
+//        DVCaSiApi DVCS = new DVCaSiApi();
+//        QLDV ql = new QLDV();
+//        ql.capNhat(d1, DVCS );
         
-        DanhSachThucAn dsAn1 = new DanhSachThucAn();
-        DanhSachThucUong dsUong1 = new DanhSachThucUong();
-        
-        //dsAn1.them(scanner);
-        //dsAn1.them(scanner);
-        dsAn1.them(scanner);
-        dsAn1.them(scanner);
-        dsAn1.xuat();
+//thử đồ ăn, thức uổng của Hậu
+//        Scanner scanner = new Scanner(System.in);
+//        
+//        DanhSachThucAn dsAn1 = new DanhSachThucAn();
+//        DanhSachThucUong dsUong1 = new DanhSachThucUong();
+//        
+//        //dsAn1.them(scanner);
+//        //dsAn1.them(scanner);
+//        dsAn1.them(scanner);
+//        dsAn1.them(scanner);
+//        dsAn1.xuat();
 //        dsUong1.them(scanner);
 //        dsUong1.them(scanner);
 //        

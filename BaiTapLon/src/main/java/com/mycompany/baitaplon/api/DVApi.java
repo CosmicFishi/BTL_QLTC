@@ -7,6 +7,7 @@ package com.mycompany.baitaplon.api;
 
 import com.mycompany.baitaplon.DichVu;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -41,9 +42,9 @@ public class DVApi extends Api{
         String sql  = "delete from dv where maDV= '" + getSelected() + "';";
         super.writeOrDelete(sql, "delete");
     }
-    public void findDV(int MaHD) throws SQLException {
+    public void findDV(int MaDV) throws SQLException {
         cStm = conn.prepareCall("{call findDvByMaDichVu(?)}"); // phải thêm một hàm trong mysql
-        cStm.setInt(1,MaHD);
+        cStm.setInt(1,MaDV);
         rs = cStm.executeQuery();
     }
     //ham tim kiem dich vu bang ma dich vu
@@ -70,17 +71,19 @@ public class DVApi extends Api{
      * @param d
      * @throws SQLException 
      */
-    protected void edit(DichVu d) throws SQLException {
+    public void edit(DichVu d) throws SQLException {
+        Scanner s = new Scanner(System.in);
         try {
             pStm = conn.prepareStatement("update dv set" + 
-                    "MaDV = ?," +
                     "TenDv = ?,"+
                     "GiaDichVu = ?" + 
                     "where MaDV = ?");
-            pStm.setString(1, d.getMaDV());
-            pStm.setString(2, d.getTenDV());
-            pStm.setInt(3, d.getGiaDV());
-            pStm.setString(4, DVApi.getSelected());
+            System.out.println("Nhap vao ten dich vu: ");
+            pStm.setString(1, s.nextLine());
+            System.out.println("Nhap vao gia dich vu: ");
+            s.nextLine();
+            pStm.setInt(2, s.nextInt());
+            pStm.setString(3, d.getMaDV());
             int kq = pStm.executeUpdate();
             if(kq == 1)
                 System.out.println("edit successful");
@@ -92,7 +95,7 @@ public class DVApi extends Api{
             pStm.close();
         }
     }
-    protected void showDV() throws SQLException {
+    public void showDV() throws SQLException {
         System.out.println("Ma dich vu        | Ten dich vu              |Gia dich vu \n");
         System.out.println("+----------------+|+------------------------+|+-----------+\n");
         while(rs.next()) {

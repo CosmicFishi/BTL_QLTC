@@ -31,13 +31,13 @@ public class Menu {
         this.dsUong.them(scanner);
     }
 
-    @Override
-    public String toString() {
-        String kq;
-        System.out.println("Ds Thuc An: ");
-        for()
-        return kq;
-    }
+//    @Override
+//    public String toString() {
+//        String kq;
+//        System.out.println("Ds Thuc An: ");
+//        for()
+//        return kq;
+//    }
     
     
 }

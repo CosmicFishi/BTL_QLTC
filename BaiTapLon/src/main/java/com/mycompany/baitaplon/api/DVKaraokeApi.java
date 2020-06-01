@@ -8,6 +8,7 @@ package com.mycompany.baitaplon.api;
 import com.mycompany.baitaplon.DichVu;
 import com.mycompany.baitaplon.DvKaraoke;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -43,20 +44,39 @@ public class DVKaraokeApi extends DVApi{
         super.writeOrDelete(sql2, "delete");
     }
 
-    public void editKa(DvKaraoke d) {
+    @Override
+    public void edit(DichVu d) throws SQLException {
+        Scanner s = new Scanner(System.in);
+        super.edit(d); 
         try{
             pStm = conn.prepareCall("update dv_karaoke set"
                     + "KhoangThoiGianThue = ?"
                     + "where MaDV = ?");
-            pStm.setString(1, d.getKhoangTG());
+            System.out.println("Nhap vao khoang thoi gian thue: ");
+            pStm.setString(1, s.nextLine() );
             pStm.setString(2, d.getMaDV());
         } catch(SQLException e) {
             System.err.println("error");
+        } finally {
+            pStm.close();
         }
     }
+
+    
+//    public void editKa(DvKaraoke d) {
+//        try{
+//            pStm = conn.prepareCall("update dv_karaoke set"
+//                    + "KhoangThoiGianThue = ?"
+//                    + "where MaDV = ?");
+//            pStm.setString(1, d.getKhoangTG());
+//            pStm.setString(2, d.getMaDV());
+//        } catch(SQLException e) {
+//            System.err.println("error");
+//        }
+//    }
    
     @Override
-    protected void showDV() throws SQLException {
+    public void showDV() throws SQLException {
         System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
         System.out.println("+---------------+|+------------------------+|+-----------+\n");
         while(rs.next()) {
@@ -66,9 +86,8 @@ public class DVKaraokeApi extends DVApi{
                     rs.getInt("giaDichVu"));
         }
     }
-//Thiếu hàm edit
     @Override
-    protected void showDV(int i) throws SQLException {
+    public void showDV(int i) throws SQLException {
         if(rs.next()) {
             System.out.println("Ma dich vu        | Khoang thoi gian thue    |Gia dich vu \n");
             System.out.println("+----------------+|+------------------------+|+-----------+\n");

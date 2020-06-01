@@ -5,6 +5,8 @@
  */
 package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.DVApi;
+import com.mycompany.baitaplon.api.DVCaSiApi;
+import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +17,17 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class QLDV { //extends DVApi
+public class QLDV extends DVApi{ 
     private List<DichVu> ql = new ArrayList<DichVu>();
     
-    public void them(DichVu d) {
+    public void them(DichVu d, DVApi dA) throws SQLException {
         this.ql.add(d);
+        dA.addDV(d);
     }
-    public void capNhat(DichVu d) {
-        Scanner scanner = new Scanner(System.in);
-        d.nhap(scanner);
+    public void capNhat(DichVu d, DVApi dA) throws SQLException {
+//        Scanner scanner = new Scanner(System.in);
+//        d.nhap(scanner); 
+
 //        DichVu d = new DichVu();
 //        System.out.println("Nhap vao ma dich vu: ");
 //        String maDichVu = scanner.nextLine();
@@ -38,10 +42,11 @@ public class QLDV { //extends DVApi
 //        }   else {
 //            System.out.println("Da huy bo cap nhat");
 //        }
-        
+        dA.edit(d);
     }
-    public void xoa(DichVu d) {
+    public void xoa(DichVu d, DVApi dA) throws SQLException {
         this.ql.remove(d);
+        dA.deleteDV();
 //        System.out.println("Nhap vao maich vu can xoa: ");
 //        String dvXoa  d= scanner.nextLine();
 //        findDV(dvXoa);
@@ -71,8 +76,9 @@ public class QLDV { //extends DVApi
         return kq;
     }
     
-    public void xuat() throws SQLException {
+    public void xuat(DVApi dA) throws SQLException {
          this.ql.forEach((DichVu d) -> System.out.println(d));
+         dA.readShow();
 //        super.readShow();
     }
 }

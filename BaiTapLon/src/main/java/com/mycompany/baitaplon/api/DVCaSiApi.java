@@ -9,6 +9,7 @@ import com.mycompany.baitaplon.DichVu;
 import com.mycompany.baitaplon.DvThueCS;
 import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -38,22 +39,45 @@ public class DVCaSiApi extends DVApi {
         super.read(sql);
         showDV();
     }
-    public void editCa(DvThueCS d) {
+
+    @Override
+    public void edit(DichVu d) throws SQLException {
+        Scanner s = new Scanner(System.in);
+        super.edit(d); 
         try{
             pStm = conn.prepareCall("update dv_ca_si set"
                     + "ThongTinCaSi = ?"
                     + "SoLuongBaiHat = ?"
                     + "where MaDV = ?");
-            pStm.setString(1, d.getTenCS());
-            pStm.setInt(2, d.getSoLuongBH());
+            System.out.println("Nhap vao ten ca si: ");
+            pStm.setString(1, s.nextLine());
+            s.nextLine();
+            System.out.println("Nhap vao so luong bai hat: ");
+            pStm.setInt(2, s.nextInt());
             pStm.setString(3, d.getMaDV());
         } catch(SQLException e) {
             System.err.println("error");
+        } finally {
+            pStm.close();
         }
     }
+    
+//    public void editCa(DvThueCS d) {
+//        try{
+//            pStm = conn.prepareCall("update dv_ca_si set"
+//                    + "ThongTinCaSi = ?"
+//                    + "SoLuongBaiHat = ?"
+//                    + "where MaDV = ?");
+//            pStm.setString(1, d.getTenCS());
+//            pStm.setInt(2, d.getSoLuongBH());
+//            pStm.setString(3, d.getMaDV());
+//        } catch(SQLException e) {
+//            System.err.println("error");
+//        }
+//    }
 
     @Override
-    protected void showDV() throws SQLException {
+    public void showDV() throws SQLException {
         super.showDV();
         System.out.println("|Ma dich vu   |Thong tin ca si      | So luong bai hat  |\n");
         System.out.println("|+-----------+|+--------------------|+-----------------+|\n");
@@ -64,9 +88,8 @@ public class DVCaSiApi extends DVApi {
                     rs.getInt("SoLuongBaiHat"));
         }
     }
-//Thiếu hàm edit
     @Override
-    protected void showDV(int i) throws SQLException {
+    public void showDV(int i) throws SQLException {
         if(rs.next()) {
             System.out.println("|Ma dich vu   | Thong tin ca si      | So luong bai hat  |\n");
             System.out.println("|+-----------+|+---------------------|+-----------------+|\n");
