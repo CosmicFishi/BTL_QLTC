@@ -34,7 +34,7 @@ public class DVApi extends Api{
      */
     public void addDV(DichVu d) throws SQLException {
         String sql = d.toString();
-        sql = "insert into dv values("+ sql +")";  
+        sql = "insert into dv values("+ sql +")";
         super.writeOrDelete(sql, "add"); //Nhập mã, tên và giá dịch vụ vào bảng dịch vụ
     }
     //ham xoa mot dich vu 

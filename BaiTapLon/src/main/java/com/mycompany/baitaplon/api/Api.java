@@ -26,7 +26,7 @@ public class Api {
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
-    private static final String password = "12345678";
+    private static final String password = "haungo230899";
     
     protected Statement stm = null;
     protected PreparedStatement pStm = null; 
@@ -50,7 +50,7 @@ public class Api {
         } catch (Exception e) {
             throw new Error("can't readSC");
         } finally{
-            //stm.close();
+            stm.close();
         }
     }
     protected void writeOrDelete(String sql, String action) throws SQLException{

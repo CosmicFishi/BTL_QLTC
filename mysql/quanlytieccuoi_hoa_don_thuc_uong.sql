@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: quanlytieccuoi
+-- Host: localhost    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29 19:30:23
+-- Dump completed on 2020-06-03 10:12:18

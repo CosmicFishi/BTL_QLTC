@@ -27,11 +27,12 @@ public class Tester {
         } catch(ClassNotFoundException | SQLException e) {
             System.err.println("khong truy cap duoc mysql");
         }
-        DichVu d1 = new DvKaraoke(1, "alo", 3000, "1 tieng");
-        DichVu d2 = new DvThueCS(2, "hi hi", 1000, "dung", 5);
+        DichVu d1 = new DvKaraoke(5, "alo", 3000, "1 tieng");
+        DichVu d2 = new DvThueCS(5, "hi hi", 1000, "dung", 5);
         DVCaSiApi DVCS = new DVCaSiApi();
         QLDV ql = new QLDV();
-        ql.them(d2, DVCS);
+        ql.them(d1, DVCS);
+        
         ql.xuat(DVCS);
         //ql.capNhat(d1, DVCS );
         
