@@ -25,7 +25,7 @@ public class DvKaraoke extends DichVu {
      * @param gia: Giá dịch vụ
      * @param TG: Thời gian thuê
      */
-    public DvKaraoke(String maDV, String ten, int gia, String TG ) {
+    public DvKaraoke(int maDV, String ten, int gia, String TG ) {
         super(maDV,ten,gia);
         this.KhoangTG = TG;
     }
@@ -46,7 +46,7 @@ public class DvKaraoke extends DichVu {
     @Override
         public String xuat() {
 //            System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
-            return String.format("\'%s\',\'%s\'",this.getMaDV(),this.KhoangTG);
+            return String.format("%d',\'%s\'",this.getMaDV(),this.KhoangTG);
         }
     
 

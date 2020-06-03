@@ -20,10 +20,22 @@ import java.util.Scanner;
 public class QLDV extends DVApi{ 
     private List<DichVu> ql = new ArrayList<DichVu>();
     
+    /**
+     * thêm vào một dịch vụ
+     * @param d: Dịch vụ
+     * @param dA: Api của dịch vụ đó
+     * @throws SQLException 
+     */
     public void them(DichVu d, DVApi dA) throws SQLException {
         this.ql.add(d);
         dA.addDV(d);
     }
+    /**
+     * Cập nhật dịch vụ 
+     * @param d: Dịch vụ
+     * @param dA: Api của dịch vụ đó
+     * @throws SQLException 
+     */
     public void capNhat(DichVu d, DVApi dA) throws SQLException {
 //        Scanner scanner = new Scanner(System.in);
 //        d.nhap(scanner); 
@@ -44,6 +56,12 @@ public class QLDV extends DVApi{
 //        }
         dA.edit(d);
     }
+    /**
+     * Xoa mot dich vu
+     * @param d: dịch vụ
+     * @param dA: Api của dịch vụ đó
+     * @throws SQLException 
+     */
     public void xoa(DichVu d, DVApi dA) throws SQLException {
         this.ql.remove(d);
         dA.deleteDV();
@@ -76,6 +94,11 @@ public class QLDV extends DVApi{
         return kq;
     }
     
+    /**
+     * Xuất ra danh sách các dịch vụ
+     * @param dA: Api của một dịch vụ cụ thể
+     * @throws SQLException 
+     */
     public void xuat(DVApi dA) throws SQLException {
          this.ql.forEach((DichVu d) -> System.out.println(d));
          dA.readShow();

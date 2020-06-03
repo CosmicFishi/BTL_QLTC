@@ -54,7 +54,7 @@ public class DVCaSiApi extends DVApi {
             s.nextLine();
             System.out.println("Nhap vao so luong bai hat: ");
             pStm.setInt(2, s.nextInt());
-            pStm.setString(3, d.getMaDV());
+            pStm.setInt(3, d.getMaDV());
         } catch(SQLException e) {
             System.err.println("error");
         } finally {

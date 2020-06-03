@@ -26,7 +26,7 @@ public class Api {
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
-    private static final String password = "haungo230899";
+    private static final String password = "12345678";
     
     protected Statement stm = null;
     protected PreparedStatement pStm = null; 
@@ -35,7 +35,9 @@ public class Api {
     
     public static void connectSql() throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.cj.jdbc.Driver");
+        System.out.println("Accessing mysql...");
         conn = DriverManager.getConnection(url, user, password);
+        System.out.println("Accessed");
     }
     public static void disconnectSql() throws SQLException{
         conn.close();

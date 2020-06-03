@@ -83,7 +83,7 @@ public class DVApi extends Api{
             System.out.println("Nhap vao gia dich vu: ");
             s.nextLine();
             pStm.setInt(2, s.nextInt());
-            pStm.setString(3, d.getMaDV());
+            pStm.setInt(3, d.getMaDV());
             int kq = pStm.executeUpdate();
             if(kq == 1)
                 System.out.println("edit successful");

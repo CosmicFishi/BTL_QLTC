@@ -12,16 +12,16 @@ import java.util.Scanner;
  * @author Admin
  */
 public abstract class DichVu {
-    private String maDV;
+    private int maDV;
     private String tenDV;
     private int giaDV;
 
     public DichVu() {
-        this.maDV = "ma dich vu";
+        this.maDV = 0;
         this.tenDV = "ten";
         this.giaDV = 0;
     }
-    public DichVu(String ma, String ten, int gia) {
+    public DichVu(int ma, String ten, int gia) {
         this.maDV = ma;
         this.tenDV = ten;
         this.giaDV = gia;
@@ -30,7 +30,7 @@ public abstract class DichVu {
     
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ma dich vu: ");
-        this.setMaDV(scanner.nextLine());
+        this.setMaDV(scanner.nextInt());
         System.out.println("Nhap vao ten dich vu: ");
         this.setTenDV(scanner.nextLine());
         System.out.println("Nhap vao gia dich vu: ");
@@ -39,20 +39,20 @@ public abstract class DichVu {
     public abstract String xuat();
     @Override
     public String toString() {
-        return String.format("\'%s\',\'%s\', %d", this.maDV, this.tenDV, this.giaDV);
+        return String.format("%d,\'%s\', %d", this.maDV, this.tenDV, this.giaDV);
     }
 
     /**
      * @return the maDV
      */
-    public String getMaDV() {
+    public int getMaDV() {
         return maDV;
     }
 
     /**
      * @param maDV the maDV to set
      */
-    public void setMaDV(String maDV) {
+    public void setMaDV(int maDV) {
         this.maDV = maDV;
     }
 

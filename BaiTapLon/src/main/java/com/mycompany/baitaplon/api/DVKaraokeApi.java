@@ -54,7 +54,7 @@ public class DVKaraokeApi extends DVApi{
                     + "where MaDV = ?");
             System.out.println("Nhap vao khoang thoi gian thue: ");
             pStm.setString(1, s.nextLine() );
-            pStm.setString(2, d.getMaDV());
+            pStm.setInt(2, d.getMaDV());
         } catch(SQLException e) {
             System.err.println("error");
         } finally {

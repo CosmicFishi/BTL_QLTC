@@ -29,7 +29,7 @@ public class DvThueCS extends DichVu {
      * @param tenCS: Tên ca sĩ
      * @param soLuong: Số lượng bài hát
      */
-    public DvThueCS(String maDV, String ten, int gia, String tenCS, int soLuong) {
+    public DvThueCS(int maDV, String ten, int gia, String tenCS, int soLuong) {
         super(maDV,ten,gia);
         this.tenCS = tenCS;
         this.soLuongBH = soLuong;
@@ -55,7 +55,7 @@ public class DvThueCS extends DichVu {
     @Override
     public String xuat() {
 //        System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
-        return String.format("\'%s\',\'%s\', %d",this.getMaDV(), this.tenCS,this.soLuongBH);
+        return String.format("%d,\'%s\', %d",this.getMaDV(), this.tenCS,this.soLuongBH);
     }
     
     /**
