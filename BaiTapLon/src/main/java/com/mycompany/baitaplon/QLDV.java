@@ -28,7 +28,7 @@ public class QLDV extends DVApi{
      */
     public void them(DichVu d, DVApi dA) throws SQLException {
         this.ql.add(d);
-        dA.addDV(d);
+        //dA.addDV(d);
     }
     /**
      * Cập nhật dịch vụ 
@@ -37,8 +37,8 @@ public class QLDV extends DVApi{
      * @throws SQLException 
      */
     public void capNhat(DichVu d, DVApi dA) throws SQLException {
-//        Scanner scanner = new Scanner(System.in);
-//        d.nhap(scanner); 
+        Scanner scanner = new Scanner(System.in);
+        d.nhap(scanner); 
 
 //        DichVu d = new DichVu();
 //        System.out.println("Nhap vao ma dich vu: ");
@@ -54,7 +54,7 @@ public class QLDV extends DVApi{
 //        }   else {
 //            System.out.println("Da huy bo cap nhat");
 //        }
-        dA.edit(d);
+        //dA.edit(d);
     }
     /**
      * Xoa mot dich vu
@@ -64,7 +64,7 @@ public class QLDV extends DVApi{
      */
     public void xoa(DichVu d, DVApi dA) throws SQLException {
         this.ql.remove(d);
-        dA.deleteDV();
+        //dA.deleteDV();
 //        System.out.println("Nhap vao maich vu can xoa: ");
 //        String dvXoa  d= scanner.nextLine();
 //        findDV(dvXoa);
@@ -101,7 +101,7 @@ public class QLDV extends DVApi{
      */
     public void xuat(DVApi dA) throws SQLException {
          this.ql.forEach((DichVu d) -> System.out.println(d));
-         dA.readShow();
+         //dA.readShow();
 //        super.readShow();
     }
 }
