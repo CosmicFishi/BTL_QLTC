@@ -21,27 +21,31 @@ import java.util.Scanner;
 public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
+//Thử dịch vụ của Dũng 
+        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
+        System.out.println(d1.xuat());
 
 //thử đồ ăn, thức uổng của Hậu
-        Scanner scanner = new Scanner(System.in);
-        try {
-            DanhSachThucAn dsAn1 = new DanhSachThucAn();
-            DanhSachThucUong dsUong1 = new DanhSachThucUong();
-            dsUong1.themTuSql(scanner);
-            dsAn1.themTuSql(scanner);
-            
-            Menu menu1 = new Menu(dsAn1, dsUong1);
-            QLMenu qlmenu = new QLMenu();
-            qlmenu.them(menu1);
-            qlmenu.xuat();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        } finally{
-            Api.disconnectSql();
-            System.out.println("Disconnected to mysql database.");
-        }
+//        Scanner scanner = new Scanner(System.in);
+//        try {
+//            DanhSachThucAn dsAn1 = new DanhSachThucAn();
+//            DanhSachThucUong dsUong1 = new DanhSachThucUong();
+//            dsUong1.themTuSql(scanner);
+//            dsAn1.themTuSql(scanner);
+//            
+//            Menu menu1 = new Menu(dsAn1, dsUong1);
+//            QLMenu qlmenu = new QLMenu();
+//            qlmenu.them(menu1);
+//            qlmenu.xuat();
+//        } catch (Exception e) {
+//            System.err.println(e.getMessage());
+//        } finally{
+//            Api.disconnectSql();
+//            System.out.println("Disconnected to mysql database.");
+//        }
         
 //        ThucUong uong1 = new ThucUong("coca", 12000, "My");
 //        ThucUong uong2 = new ThucUong("sting", 10000, "VN");
