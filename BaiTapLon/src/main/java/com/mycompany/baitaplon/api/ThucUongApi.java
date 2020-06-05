@@ -22,11 +22,17 @@ public class ThucUongApi extends Api {
 
     public ThucUong getThucUong(int ma) throws SQLException {
         String sql = "select * "
-                + "from thuc_uong"
+                + "from thuc_uong "
                 + "where MaThucUong = " + ma + ";";
         super.read(sql);
-        ThucUong tu = new ThucUong();
-        return tu;
+        if(rs.next()){
+            String ten = rs.getString("TenThucUong");
+            int gia = rs.getInt("Gia");
+            String nhaSX = rs.getString("HangSX");
+            ThucUong tu = new ThucUong(ten, gia, nhaSX);
+            return tu;
+        }
+        return new ThucUong();
     }
 
     public void readShow(String tenBang) throws SQLException {

@@ -39,7 +39,7 @@ public class DanhSachThucAn extends ThucAnApi {
     }
     
     /**
-     *Dùng để thêm ThucAn có sẵn
+     *Dùng để khởi tạo thêm ThucAn có sẵn
      * @param e Truyền vào 1 thức ăn
      * @param sl Truyền vào số lượng thức ăn đó
      */
@@ -49,7 +49,7 @@ public class DanhSachThucAn extends ThucAnApi {
     }
 
     /**
-     *Dùng để thêm ThucAn vào danh sách bằng cách tạo bằng tay qua scanner
+     *(ADMIN) Dùng để thêm ThucAn vào danh sách bằng cách tạo bằng tay qua scanner
      * @param scanner
      */
     public void them(Scanner scanner){
@@ -60,36 +60,59 @@ public class DanhSachThucAn extends ThucAnApi {
         them(ta, sl);
         scanner.nextLine();
     }
-
+    
     /**
-     *dùng để thêm thức ăn có sẵn trong mysql vào danh sách thức ăn
+     *(USER)Dùng để thêm thức ăn vào danh sách menu từ cơ sở dữ liệu
      * @param scanner
-     * @param ma
      * @throws SQLException
      */
-    public void them(Scanner scanner, int ma) throws SQLException{
-        dsThucAn.add(getThucAn(ma));
-        System.out.print("Nhap vao so luong thuc an: ");
-        int sl = scanner.nextInt();
-        slThucAn[slThucAn.length] = sl;
+    public void themTuSql(Scanner scanner) throws SQLException{
+        xuatThucAn();
+        while(true){
+            System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
+            int ma = scanner.nextInt();
+            scanner.nextLine();
+            if(ma == -1) break;
+            dsThucAn.add(get1ThucAn(ma));
+            System.out.print("Nhap vao so luong thuc an: ");
+            int sl = scanner.nextInt();
+            slThucAn[dsThucAn.size() - 1] = sl;
+        }
     }
     
     /**
-     *Dùng để xuất tất cả ThucAn trong Mysql
+     *(ADMIN)Dùng để xuất tất cả ThucAn trong Mysql
      * @throws SQLException
      */
     public void xuatThucAn() throws SQLException{
         super.readShow();
     }
     
+    /**
+     *(ADMIN)thêm thức ăn đã tạo sẵn vào mysql
+     * @param ta ThucAn
+     * @throws SQLException
+     */
     public void themThucAn(ThucAn ta) throws SQLException{
         super.addThucAn(ta);
     }
+
+    /**
+     *Thêm thức ăn bằng nhập bằng tay trong console vào mysql.
+     * @param scanner
+     * @throws SQLException
+     */
     public void themThucAn(Scanner scanner) throws SQLException{
         ThucAn ta = new ThucAn();
         ta.nhap(scanner);
         super.addThucAn(ta);
     }
+
+    /**
+     *Nhập vào mã thức ăn cần xóa trong mysql.
+     * @param scanner
+     * @throws SQLException
+     */
     public void xoaThucAn(Scanner scanner) throws SQLException{
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
@@ -104,6 +127,12 @@ public class DanhSachThucAn extends ThucAnApi {
             System.out.println("Da huy xoa.");
         }
     }
+    
+    /**
+     *Nhập tên hoặc mã thức ăn cần update trong mysql
+     * @param scanner
+     * @throws SQLException
+     */
     public void updateThucAn(Scanner scanner) throws SQLException{
         System.out.println("Nhap ten hoac ma ThucAn can cap nhat: ");
         String tenHoacMa = scanner.nextLine();

@@ -13,20 +13,68 @@ import java.util.Scanner;
  * @author Admin
  */
 public class DanhSachSanh extends SCApi {
+    private final List<SanhCuoi> dsSanh = new ArrayList<>();
+    
+    public DanhSachSanh(){};
+    
+    /**
+     *thêm Sảnh cưới vào List<SanhCuoi>.
+     * @param s
+     */
+    public void them(SanhCuoi s){
+        this.dsSanh.add(s);
+    }
 
-    public void them(SanhCuoi s) throws SQLException {
+    /**
+     *Xuất tất cả sảnh cưới trong List<SanhCuoi>.
+     */
+    public void xuat(){
+        System.out.println("MaSC   |Ten Sanh Cuoi       |vi tri|suc chua|gia thue       |");
+        for(SanhCuoi sc: this.dsSanh){
+            System.out.println(sc);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    /**
+     *Them sảnh cưới đã tạo vào mysql.
+     * @param s Sảnh Cưới đã tạo
+     * @throws SQLException
+     */
+    public void themMySQL(SanhCuoi s) throws SQLException {
         super.addSC(s);
     }
-    public void them(Scanner scanner) throws SQLException{
+
+    /**
+     *Them sảnh cưới tạo bằng tay qua scanner vào mysql
+     * @param scanner
+     * @throws SQLException
+     */
+    public void themMysql(Scanner scanner) throws SQLException{
         SanhCuoi sc = new SanhCuoi();
         sc.nhap(scanner);
         super.addSC(sc);
     }
-    public void xuat() throws SQLException {
+    
+    /**
+     *xuất tất cả sảnh cưới trong mysql 
+     * @throws SQLException
+     */
+    public void xuatMysql() throws SQLException {
         super.readShow();
     }
-
-    public void capNhat(Scanner scanner) throws SQLException {
+    
+    /**
+     *cập nhật sảnh cưới qua console trong danh sách sảnh cưới từ mysql.
+     * @param scanner
+     * @throws SQLException
+     */
+    public void capNhatMysql(Scanner scanner) throws SQLException {
         SanhCuoi sc = new SanhCuoi();
         System.out.println("Nhap ten hoac ma SC can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
@@ -43,7 +91,12 @@ public class DanhSachSanh extends SCApi {
         }
     }
 
-    public void xoa(Scanner scanner) throws SQLException {
+    /**
+     *xóa sảnh cưới qua console bằng scanner trong mysql
+     * @param scanner
+     * @throws SQLException
+     */
+    public void xoaMysql(Scanner scanner) throws SQLException {
         System.out.println("Nhap ma SC hoac tenSC can xoa: ");
         String tenHoacMa = scanner.nextLine();
         findSC(tenHoacMa);

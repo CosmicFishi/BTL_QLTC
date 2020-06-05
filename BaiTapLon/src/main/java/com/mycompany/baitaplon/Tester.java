@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.baitaplon;
+
 import com.mycompany.baitaplon.api.*; //để sài gói API
 
 import com.mycompany.baitaplon.api.Api;
@@ -20,46 +21,38 @@ import java.util.Scanner;
 public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-//Thử dịch vụ của Dũng
-        try{
-            Api api = new Api();
-            Api.connectSql();
-        } catch(ClassNotFoundException | SQLException e) {
-            System.err.println("khong truy cap duoc mysql");
-        }
-        DichVu d1 = new DvKaraoke(5, "alo", 3000, "1 tieng");
-        DichVu d2 = new DvThueCS(5, "hi hi", 1000, "dung", 5);
-        DVCaSiApi DVCS = new DVCaSiApi();
-        QLDV ql = new QLDV();
-        ql.them(d1, DVCS);
-        
-        ql.xuat(DVCS);
-        //ql.capNhat(d1, DVCS );
-        
+        Api api = new Api();
+        Api.connectSql();
+
 //thử đồ ăn, thức uổng của Hậu
-//        Scanner scanner = new Scanner(System.in);
-//        
-//        DanhSachThucAn dsAn1 = new DanhSachThucAn();
-//        DanhSachThucUong dsUong1 = new DanhSachThucUong();
-//        
+        Scanner scanner = new Scanner(System.in);
+        try {
+            DanhSachThucAn dsAn1 = new DanhSachThucAn();
+            DanhSachThucUong dsUong1 = new DanhSachThucUong();
+            dsUong1.themTuSql(scanner);
+            dsAn1.themTuSql(scanner);
+            
+            Menu menu1 = new Menu(dsAn1, dsUong1);
+            QLMenu qlmenu = new QLMenu();
+            qlmenu.them(menu1);
+            qlmenu.xuat();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } finally{
+            Api.disconnectSql();
+            System.out.println("Disconnected to mysql database.");
+        }
+        
 //        ThucUong uong1 = new ThucUong("coca", 12000, "My");
 //        ThucUong uong2 = new ThucUong("sting", 10000, "VN");
 //        ThucAn an1 = new ThucAn("lau", 25000, false);
-//        
-//        //dsAn1.them(scanner);
-//        //dsAn1.them(scanner);
-//        //dsAn1.them(scanner);
+//        dsAn1.them(scanner);
+//        dsAn1.them(scanner);
+//        dsAn1.them(scanner);
 //        dsAn1.them(an1, 5);
 //        dsUong1.them(uong1, 10);
 //        dsUong1.them(uong2, 5);
-//        //dsUong1.them(scanner);
-//        
-//        Menu menu1 = new Menu(dsAn1, dsUong1);
-//        Menu menu2 = new Menu(dsAn1, dsUong1);
-//        QLMenu qlmenu = new QLMenu();
-//        qlmenu.them(menu1);
-//        qlmenu.them(menu2);
-//        qlmenu.xuat();
+//        dsUong1.them(scanner);
         
 //        try {
 //            Api api = new Api();
