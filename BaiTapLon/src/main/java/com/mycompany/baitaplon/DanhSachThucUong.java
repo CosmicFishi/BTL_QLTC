@@ -54,12 +54,18 @@ public class DanhSachThucUong extends ThucUongApi{
         them(ta, sl);
         scanner.nextLine();
     }
-    public void themTuSql(Scanner scanner, int ma) throws SQLException{
+    public void themTuSql(Scanner scanner) throws SQLException{
         xuatThucUong();
-        dsThucUong.add(getThucUong(ma));
-        System.out.print("Nhap vao so luong thuc an: ");
-        int sl = scanner.nextInt();
-        slThucUong[slThucUong.length] = sl;
+        while(true){
+            System.out.print("Nhap ma thuc uong muon them(-1 to exit): ");
+            int ma = scanner.nextInt();
+            scanner.nextLine();
+            if(ma == -1) break;
+            dsThucUong.add(getThucUong(ma));
+            System.out.print("Nhap vao so luong thuc uong: ");
+            int sl = scanner.nextInt();
+            slThucUong[dsThucUong.size() - 1] = sl;
+        }
     }
     public void xuatThucUong() throws SQLException{
         super.readShow("thuc_uong");

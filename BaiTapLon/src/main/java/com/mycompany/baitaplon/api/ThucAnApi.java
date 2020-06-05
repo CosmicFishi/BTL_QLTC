@@ -19,11 +19,12 @@ import java.util.List;
 public class ThucAnApi extends Api {
 
     protected static int selected;
+
     // unusesual
     public List<ThucAn> getList() throws SQLException {
         String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
                 + "from thuc_an ta"
-                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";	
+                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";
         super.read(sql);
 
         List<ThucAn> kq = new ArrayList<>();
@@ -33,20 +34,36 @@ public class ThucAnApi extends Api {
         }
         return kq;
     }
-    public ThucAn getThucAn(int ma) throws SQLException{
-        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
-                + "from thuc_an ta"
-                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay" 
-                + "where ta.MaThucAn = "+ma+";";
+
+    /**
+     * Lấy một dòng trong csdl trả về lưu dưới dạng new ThucAn()
+     * 
+     * @param ma Mã thức ăn trong csdl
+     * @return về một Thức Ăn trong sơ sở dữ liệu thành new ThucAn
+     * @throws SQLException
+     */
+    public ThucAn get1ThucAn(int ma) throws SQLException {
+        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay' "
+                + "from thuc_an ta "
+                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay "
+                + "where ta.MaThucAn = " + ma + ";";
         super.read(sql);
-        ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
+        if (rs.next()) {
+            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
                     rs.getInt("Gia"), rs.getBoolean("isChay"));
-        return ta;
+            return ta;
+        }
+        return new ThucAn();
     }
 
+    /**
+     * In ra console tất cả dữ liệu thức ăn đã lưu trong Mysql.
+     *
+     * @throws SQLException
+     */
     public void readShow() throws SQLException {
-        String sql = "select * from thuc_an;";
-        super.read(sql);
+        cStm = conn.prepareCall("{call getThucAn()}");
+        rs = cStm.executeQuery();
         showThucAn();
     }
 

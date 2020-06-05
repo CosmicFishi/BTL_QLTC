@@ -19,6 +19,9 @@ public class SanhCuoi {
     private int sucChua = 0;
     private int giaThue;
     
+    /**
+     *Khởi tạo SanhCuoi rỗng
+     */
     public SanhCuoi() {
         this.tenSanh = "TenRong";
         this.viTriSanh = -1;
@@ -26,9 +29,9 @@ public class SanhCuoi {
     }
     /**
      * Nhập vào tên, vị trí sảnh và sức chứa
-     * @param ten : tên
-     * @param vt : vị trí
-     * @param sc : sức chứa
+     * @param ten : String tên
+     * @param vt : int vị trí
+     * @param sc : int sức chứa
      */
     public SanhCuoi(String maSC, String ten, int vt, int sc, int giaThue) {
         this.maSC=maSC;
@@ -37,7 +40,18 @@ public class SanhCuoi {
         this.sucChua = sc;
         this.giaThue=giaThue;
     }
-
+    
+    /**
+     *Xuất sảnh cưới mã, tên, vị trí, sức chứa, giá thuê
+     */
+    public void xuat(){
+        System.out.printf("%-7s|%-20s|%-5d|%-6d|%-15d", 
+                this.maSC, this.tenSanh, this.viTriSanh, this.sucChua, this.giaThue);
+    }
+    /**
+     *Nhập dữ liệu vào SanhCuoi đã tạo qua scanner
+     * @param scanner
+     */
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ten sanh: ");
         this.tenSanh = scanner.nextLine();
@@ -54,7 +68,8 @@ public class SanhCuoi {
         return String.format("\'%s\', \'%s\', %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
                 this.sucChua, this.getGiaThue());
     }
-    
+    // <editor-fold defaultstate="collapsed" desc="Get and set">
+
     /**
      * @return the maSC
      */
@@ -118,5 +133,5 @@ public class SanhCuoi {
     public void setGiaThue(int giaThue) {
         this.giaThue = giaThue;
     }
-    
+    // </editor-fold>
 }

@@ -13,9 +13,9 @@ import java.util.Scanner;
  */
 public class DoAnUong {
 
-    private int ma;
-    private String ten;
-    private int gia;
+    protected int ma;
+    protected String ten;
+    protected int gia;
 
     public DoAnUong() {
         this.ma = 0;
@@ -42,7 +42,7 @@ public class DoAnUong {
     public String toString() {
         return String.format("%d, '%s', %d", this.getMa(), this.getTen(), this.getGia());
     }
-
+    // <editor-fold defaultstate="collapsed" desc="Get set">
     public int getMa() {
         return ma;
     }
@@ -66,4 +66,5 @@ public class DoAnUong {
     public void setGia(int gia) {
         this.gia = gia;
     }
+    // </editor-fold>
 }

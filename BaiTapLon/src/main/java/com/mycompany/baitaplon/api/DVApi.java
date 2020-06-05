@@ -30,14 +30,14 @@ public class DVApi extends Api{
     /**
      * Ham them mot dich vu
      * @param d
-     * @throws SQLException 
+     * @throws SQLException
      */
     public void addDV(DichVu d) throws SQLException {
         String sql = d.toString();
         sql = "insert into dv values("+ sql +")";
         super.writeOrDelete(sql, "add"); //Nhập mã, tên và giá dịch vụ vào bảng dịch vụ
     }
-    //ham xoa mot dich vu 
+    //ham xoa mot dich vu
     public void deleteDV() throws SQLException {
         String sql  = "delete from dv where maDV= '" + getSelected() + "';";
         super.writeOrDelete(sql, "delete");

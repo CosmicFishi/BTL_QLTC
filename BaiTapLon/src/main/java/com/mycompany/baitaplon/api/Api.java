@@ -19,54 +19,54 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-
 // executeQuery for select
 //executeUpdate for INSERT, UPDATE and DELETE stm
 public class Api {
+
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
     private static final String password = "haungo230899";
-    
+
     protected Statement stm = null;
-    protected PreparedStatement pStm = null; 
+    protected PreparedStatement pStm = null;
     protected ResultSet rs = null; //biến  trả về 
-    protected CallableStatement cStm = null; //dùng trong store procedures
-    
-    public static void connectSql() throws ClassNotFoundException, SQLException{
+    protected CallableStatement cStm = null; //dùng trong store procedures//dùng trong store procedures
+
+    public static void connectSql() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         System.out.println("Accessing mysql...");
         conn = DriverManager.getConnection(url, user, password);
         System.out.println("Accessed");
+        System.out.println("===================================================");
     }
-    public static void disconnectSql() throws SQLException{
+
+    public static void disconnectSql() throws SQLException {;
+        System.out.println("===================================================");
         conn.close();
     }
-    protected void read(String sql) throws SQLException{
+
+    protected void read(String sql) throws SQLException {
         try {
             this.stm = conn.createStatement();
             this.rs = stm.executeQuery(sql);
-            //return rs;
         } catch (Exception e) {
             throw new Error("can't readSC");
-        } finally{
-            stm.close();
         }
     }
-    protected void writeOrDelete(String sql, String action) throws SQLException{
+
+    protected void writeOrDelete(String sql, String action) throws SQLException {
         try {
             stm = conn.createStatement();
             int kq = stm.executeUpdate(sql);
-            if (kq==1)
-                System.out.println(action+" success.");
-            else
-                System.out.println(action+" fail.");
+            if (kq == 1) {
+                System.out.println(action + " success.");
+            } else {
+                System.out.println(action + " fail.");
+            }
         } catch (Exception e) {
             throw new Error("can't writeSC");
-        } finally{
-            stm.close();
         }
-    }
 //    protected abstract void edit(String sql);
 //    private void delete(String dong) throws SQLException{
 //        try {
@@ -89,4 +89,5 @@ public class Api {
 //                );
 //        }
 //    }
+    }
 }
