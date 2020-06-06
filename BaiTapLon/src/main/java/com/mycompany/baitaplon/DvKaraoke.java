@@ -63,20 +63,18 @@ public class DvKaraoke extends DichVu implements tuongtacSQL{
 //        showDV();
 //    }
 
+        //where MaDv = "+ this.getMaDV() + ";"
     @Override
     public void readSQLShow() {
         super.readSQLShow();
-        String sql = "select * from dv_karaoke";
+        super.showSQL();
+        String sql = "select * from dv_karaoke where MaDv = "+ this.getMaDV() + ";" ; 
         try {
             super.read(sql);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        try {
-            showDV();
-        } catch (SQLException ex) {
-            System.err.println("can't show data");
-        }
+        showSQL();
     }
     @Override
     public void addSQL() {
@@ -91,21 +89,23 @@ public class DvKaraoke extends DichVu implements tuongtacSQL{
     }
     @Override
     public void deleteSQL() {
-        super.deleteSQL();
+        
         String sql = "delete from dv_karaoke where MaDv =  " + this.getMaDV()+";";
         try {
             super.writeOrDelete(sql, "delete");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+        super.deleteSQL();
     }
     @Override
     public void editSQL() {
+        super.editSQL();
         Scanner s = new Scanner(System.in);
         try {
-            pStm = conn.prepareCall("update dv_karaoke set"
-                    + "KhoangThoiGianThue = ?"
-                    + "where MaDV = ?");
+            pStm = conn.prepareCall("update dv_karaoke set "
+                    + "KhoangThoiGianThue = ? "
+                    + "where MaDv = ?");
             System.out.println("Nhap vao khoang thoi gian thue: ");
             pStm.setString(1, s.nextLine() );
             pStm.setInt(2, this.getMaDV());
@@ -128,13 +128,12 @@ public class DvKaraoke extends DichVu implements tuongtacSQL{
     @Override
     public void showSQL() {
         try {
-            System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
-            System.out.println("+---------------+|+------------------------+|+-----------+\n");
+            System.out.println("Ma dich vu        | Khoang thoi gian thue    |");
+            System.out.println("+----------------+|+------------------------+|");
             while(rs.next()) {
-                System.out.printf("|%-17d| %-25s| %-12d|\n",
+                System.out.printf("|%-17d| %-25s|\n",
                         rs.getInt("MaDV"),
-                        rs.getString("KhoangThoiGianThue"),
-                        rs.getInt("giaDichVu"));
+                        rs.getString("KhoangThoiGianThue"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

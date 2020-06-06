@@ -51,20 +51,16 @@ public abstract class DichVu extends Api implements tuongtacSQL{
     }
     
 //Phần tương tác với mysql
-    
+    // where MaDv =" + this.maDV + "
     @Override
     public void readSQLShow() {
-        String sql = "select * from dv";
+        String sql = "select * from dv where MaDv =" + this.maDV + ";";
         try {
             super.read(sql);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        try {
-            showDV();
-        } catch (SQLException ex) {
-            System.err.println("can't show data");
-        }
+        //this.showSQL();
         
     }
     @Override
@@ -92,14 +88,14 @@ public abstract class DichVu extends Api implements tuongtacSQL{
     public void editSQL() {
         Scanner s = new Scanner(System.in);
         try {
-            pStm = conn.prepareStatement("update dv set" + 
-                    "TenDv = ?,"+
-                    "GiaDichVu = ?" + 
-                    "where MaDV = ?");
+            pStm = conn.prepareStatement("update dv set " + 
+                    "TenDv = ? ,"+
+                    "GiaDichVu = ? " + 
+                    "where MaDv = ? ");
             System.out.println("Nhap vao ten dich vu: ");
             pStm.setString(1, s.nextLine());
             System.out.println("Nhap vao gia dich vu: ");
-            s.nextLine();
+            //s.nextLine();
             pStm.setInt(2, s.nextInt());
             pStm.setInt(3, this.getMaDV());
             int kq = pStm.executeUpdate();
@@ -121,11 +117,11 @@ public abstract class DichVu extends Api implements tuongtacSQL{
     @Override
     public void showSQL() {
         try {
-            System.out.println("Ma dich vu        | Ten dich vu              |Gia dich vu \n");
-            System.out.println("+----------------+|+------------------------+|+-----------+\n");
+            System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu ");
+            System.out.println("+----------------+|+------------------------+|+-----------+");
             while(rs.next()) {
-                System.out.printf("|%-18s| %-25s| %-12d|\n",
-                        rs.getString("MaDv"),
+                System.out.printf("|%-17d| %-25s| %-12d|\n",
+                        rs.getInt("MaDv"),
                         rs.getString("TenDv"),
                         rs.getInt("giaDichVu"));
             }
@@ -237,7 +233,7 @@ public abstract class DichVu extends Api implements tuongtacSQL{
                 rs.getString("MaDv"),
                 rs.getString("TenDv"),
                 rs.getInt("giaDichVu"));
-        DVApi.setSelected(rs.getString("MaDv"));
+        //DVApi.setSelected(rs.getString("MaDv"));
     }
     
 

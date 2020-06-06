@@ -67,18 +67,16 @@ public class DvThueCS extends DichVu implements tuongtacSQL{
     @Override
     public void readSQLShow() {
         super.readSQLShow();
-        String sql = "select * from dv_ca_si";
+        super.showSQL();
+        String sql = "select * from dv_ca_si where MaDv = " + this.getMaDV() + ";";
         try {
             super.read(sql);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-        try {
-            showDV();
-        } catch (SQLException ex) {
-            System.err.println("can't show data");
-        }
+        showSQL();
     }
+    
     @Override
     public void addSQL() {
         super.addSQL();
@@ -92,23 +90,23 @@ public class DvThueCS extends DichVu implements tuongtacSQL{
     }
     @Override
     public void deleteSQL() {
-        super.deleteSQL();
         String sql = "delete from dv_ca_si where MaDv =  " + this.getMaDV()+";";
         try {
             super.writeOrDelete(sql, "delete");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+        super.deleteSQL();
     }
     @Override
     public void editSQL() {
         Scanner s = new Scanner(System.in);
         super.editSQL(); 
         try{
-            pStm = conn.prepareCall("update dv_ca_si set"
-                    + "ThongTinCaSi = ?"
-                    + "SoLuongBaiHat = ?"
-                    + "where MaDV = ?");
+            pStm = conn.prepareCall("update dv_ca_si set "
+                    + "ThongTinCaSi = ? "
+                    + "SoLuongBaiHat = ? "
+                    + "where MaDv = ? ");
             System.out.println("Nhap vao ten ca si: ");
             pStm.setString(1, s.nextLine());
             s.nextLine();
@@ -129,13 +127,13 @@ public class DvThueCS extends DichVu implements tuongtacSQL{
     @Override
     public void showSQL() {
         try {
-            System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
-            System.out.println("+---------------+|+------------------------+|+-----------+\n");
+            System.out.println("|Ma dich vu   |Thong tin ca si      | So luong bai hat  |");
+            System.out.println("|+-----------+|+--------------------|+-----------------+|");
             while(rs.next()) {
-                System.out.printf("|%-17d| %-25s| %-12d|\n",
-                        rs.getInt("MaDV"),
-                        rs.getString("KhoangThoiGianThue"),
-                        rs.getInt("giaDichVu"));
+            System.out.printf("|%-13d|%-23s| %-19d|\n",
+                    rs.getInt("MaDV"),
+                    rs.getString("ThongTinCaSi"),
+                    rs.getInt("SoLuongBaiHat"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
