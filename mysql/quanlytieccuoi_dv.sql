@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlytieccuoi
+-- Host: 127.0.0.1    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -36,7 +36,6 @@ CREATE TABLE `dv` (
 
 LOCK TABLES `dv` WRITE;
 /*!40000 ALTER TABLE `dv` DISABLE KEYS */;
-INSERT INTO `dv` VALUES (1,'karaoke',4000000),(2,'trang tri',1000000),(3,'casi',1000000),(4,'alo',3000),(5,'alo',3000);
 /*!40000 ALTER TABLE `dv` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-03 10:12:17
+-- Dump completed on 2020-06-06 10:30:20

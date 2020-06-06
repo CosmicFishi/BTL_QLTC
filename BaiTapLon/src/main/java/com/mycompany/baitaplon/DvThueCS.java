@@ -9,12 +9,14 @@ import static com.mycompany.baitaplon.api.DVApi.getSelected;
 import com.mycompany.baitaplon.api.DVCaSiApi;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public class DvThueCS extends DichVu {
+public class DvThueCS extends DichVu implements tuongtacSQL{
     private String tenCS;
     private int soLuongBH;
 
@@ -63,6 +65,86 @@ public class DvThueCS extends DichVu {
     
 //tương tác với mysql
     @Override
+    public void readSQLShow() {
+        super.readSQLShow();
+        String sql = "select * from dv_ca_si";
+        try {
+            super.read(sql);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        try {
+            showDV();
+        } catch (SQLException ex) {
+            System.err.println("can't show data");
+        }
+    }
+    @Override
+    public void addSQL() {
+        super.addSQL();
+        String sql = this.xuat();
+        sql = "insert into dv_ca_si values (" + sql + ");";
+        try {
+            super.writeOrDelete(sql, "add");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    @Override
+    public void deleteSQL() {
+        super.deleteSQL();
+        String sql = "delete from dv_ca_si where MaDv =  " + this.getMaDV()+";";
+        try {
+            super.writeOrDelete(sql, "delete");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    @Override
+    public void editSQL() {
+        Scanner s = new Scanner(System.in);
+        super.editSQL(); 
+        try{
+            pStm = conn.prepareCall("update dv_ca_si set"
+                    + "ThongTinCaSi = ?"
+                    + "SoLuongBaiHat = ?"
+                    + "where MaDV = ?");
+            System.out.println("Nhap vao ten ca si: ");
+            pStm.setString(1, s.nextLine());
+            s.nextLine();
+            System.out.println("Nhap vao so luong bai hat: ");
+            pStm.setInt(2, s.nextInt());
+            pStm.setInt(3, this.getMaDV());
+        } catch(SQLException e) {
+            System.err.println("error");
+        } finally {
+            try {
+                pStm.close();
+            } catch (SQLException ex) {
+                System.err.println("error in closing");
+            }
+        }
+    }
+
+    @Override
+    public void showSQL() {
+        try {
+            System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
+            System.out.println("+---------------+|+------------------------+|+-----------+\n");
+            while(rs.next()) {
+                System.out.printf("|%-17d| %-25s| %-12d|\n",
+                        rs.getInt("MaDV"),
+                        rs.getString("KhoangThoiGianThue"),
+                        rs.getInt("giaDichVu"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    
+    //Ham can xoa
+    
+    @Override
     public void addDVSQL(DichVu d) throws SQLException {
         super.addDVSQL(d);
         String sql2 = d.xuat();
@@ -77,13 +159,13 @@ public class DvThueCS extends DichVu {
         super.writeOrDelete(sql2, "delete");
     }
     
-    @Override
-    public void readSQLShow() throws SQLException {
-        super.readSQLShow();
-        String sql = "select * from dv_Ca_Si";
-        super.read(sql);
-        showDV();
-    }
+//    @Override
+//    public void readSQLShow() throws SQLException {
+//        super.readSQLShow();
+//        String sql = "select * from dv_Ca_Si";
+//        super.read(sql);
+//        showDV();
+//    }
 
     @Override
     public void editSQL(DichVu d) throws SQLException {

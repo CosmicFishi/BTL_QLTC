@@ -26,7 +26,9 @@ public class Tester {
         Api.connectSql();
 //Thử dịch vụ của Dũng 
         DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
-        System.out.println(d1.xuat());
+        d1.addSQL();
+        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
+        d2.addSQL();
 
 //thử đồ ăn, thức uổng của Hậu
 //        Scanner scanner = new Scanner(System.in);
