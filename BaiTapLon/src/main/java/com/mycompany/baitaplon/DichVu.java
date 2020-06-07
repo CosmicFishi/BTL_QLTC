@@ -6,17 +6,14 @@
 package com.mycompany.baitaplon;
 
 import com.mycompany.baitaplon.api.Api;
-import com.mycompany.baitaplon.api.DVApi;
 import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public abstract class DichVu extends Api implements tuongtacSQL{
+public abstract class DichVu extends Api implements TuongTacSQL{
     
     private static String selected;
     
@@ -145,16 +142,16 @@ public abstract class DichVu extends Api implements tuongtacSQL{
      * @param d
      * @throws SQLException
      */
-    public void addDVSQL(DichVu d) throws SQLException {
-        String sql = d.toString();
-        sql = "insert into dv values("+ sql +")";
-        super.writeOrDelete(sql, "add"); //Nhập mã, tên và giá dịch vụ vào bảng dịch vụ
-    }  
-    //ham xoa mot dich vu
-    public void deleteDVSQL() throws SQLException {
-        String sql  = "delete from dv where maDV= '" + getSelected() + "';";
-        super.writeOrDelete(sql, "delete");
-    }
+//    public void addDVSQL(DichVu d) throws SQLException {
+//        String sql = d.toString();
+//        sql = "insert into dv values("+ sql +")";
+//        super.writeOrDelete(sql, "add"); //Nhập mã, tên và giá dịch vụ vào bảng dịch vụ
+//    }  
+//    //ham xoa mot dich vu
+//    public void deleteDVSQL() throws SQLException {
+//        String sql  = "delete from dv where maDV= '" + getSelected() + "';";
+//        super.writeOrDelete(sql, "delete");
+//    }
     //dời sang  qldv
     public void findDVSQL(int MaDV) throws SQLException {
         cStm = conn.prepareCall("{call findDvByMaDichVu(?)}"); // phải thêm một hàm trong mysql
@@ -186,40 +183,40 @@ public abstract class DichVu extends Api implements tuongtacSQL{
      * @param d
      * @throws SQLException 
      */
-    public void editSQL(DichVu d) throws SQLException {
-        Scanner s = new Scanner(System.in);
-        try {
-            pStm = conn.prepareStatement("update dv set" + 
-                    "TenDv = ?,"+
-                    "GiaDichVu = ?" + 
-                    "where MaDV = ?");
-            System.out.println("Nhap vao ten dich vu: ");
-            pStm.setString(1, s.nextLine());
-            System.out.println("Nhap vao gia dich vu: ");
-            s.nextLine();
-            pStm.setInt(2, s.nextInt());
-            pStm.setInt(3, d.getMaDV());
-            int kq = pStm.executeUpdate();
-            if(kq == 1)
-                System.out.println("edit successful");
-            else
-                System.out.println("Edit failed");
-        } catch (SQLException e) {
-            System.out.println("edit fail");
-        } finally {
-            pStm.close();
-        }
-    }
-    public void showDV() throws SQLException {
-        System.out.println("Ma dich vu        | Ten dich vu              |Gia dich vu \n");
-        System.out.println("+----------------+|+------------------------+|+-----------+\n");
-        while(rs.next()) {
-            System.out.printf("|%-18s| %-25s| %-12d|\n",
-                    rs.getString("MaDv"),
-                    rs.getString("TenDv"),
-                    rs.getInt("giaDichVu"));
-        }
-    }
+//    public void editSQL(DichVu d) throws SQLException {
+//        Scanner s = new Scanner(System.in);
+//        try {
+//            pStm = conn.prepareStatement("update dv set" + 
+//                    "TenDv = ?,"+
+//                    "GiaDichVu = ?" + 
+//                    "where MaDV = ?");
+//            System.out.println("Nhap vao ten dich vu: ");
+//            pStm.setString(1, s.nextLine());
+//            System.out.println("Nhap vao gia dich vu: ");
+//            s.nextLine();
+//            pStm.setInt(2, s.nextInt());
+//            pStm.setInt(3, d.getMaDV());
+//            int kq = pStm.executeUpdate();
+//            if(kq == 1)
+//                System.out.println("edit successful");
+//            else
+//                System.out.println("Edit failed");
+//        } catch (SQLException e) {
+//            System.out.println("edit fail");
+//        } finally {
+//            pStm.close();
+//        }
+//    }
+//    public void showDV() throws SQLException {
+//        System.out.println("Ma dich vu        | Ten dich vu              |Gia dich vu \n");
+//        System.out.println("+----------------+|+------------------------+|+-----------+\n");
+//        while(rs.next()) {
+//            System.out.printf("|%-18s| %-25s| %-12d|\n",
+//                    rs.getString("MaDv"),
+//                    rs.getString("TenDv"),
+//                    rs.getInt("giaDichVu"));
+//        }
+//    }
     /**
      * ham xuat ra mot dich vu 
      * @param i

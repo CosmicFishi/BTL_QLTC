@@ -5,18 +5,14 @@
  */
 package com.mycompany.baitaplon;
 
-import static com.mycompany.baitaplon.api.DVApi.getSelected;
 import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Admin
  */
-public class DvKaraoke extends DichVu implements tuongtacSQL{
+public class DvKaraoke extends DichVu implements TuongTacSQL{
     private String KhoangTG;
     
     public DvKaraoke() {
@@ -147,63 +143,63 @@ public class DvKaraoke extends DichVu implements tuongtacSQL{
      * @param d: dịch vụ karaoke
      * @throws SQLException 
      */
-    @Override
-    public void addDVSQL(DichVu d) throws SQLException {
-        super.addDVSQL(d);
-        String sql2 = d.xuat();
-        sql2 ="insert into dv_karaoke values(" + sql2 + ")";
-        super.writeOrDelete(sql2, "add"); // thêm mã và khoảng thời gian thuê vào bảng karaoke
-    }
-
-    @Override
-    public void deleteDVSQL() throws SQLException {
-        super.deleteDVSQL();
-        String sql2  =  "delete from dv_karaoke where MaDV= " + getSelected()  + ";";
-        super.writeOrDelete(sql2, "delete");
-    }
-
-    @Override
-    public void editSQL(DichVu d) throws SQLException {
-        Scanner s = new Scanner(System.in);
-        super.editSQL(d); 
-        try{
-            pStm = conn.prepareCall("update dv_karaoke set"
-                    + "KhoangThoiGianThue = ?"
-                    + "where MaDV = ?");
-            System.out.println("Nhap vao khoang thoi gian thue: ");
-            pStm.setString(1, s.nextLine() );
-            pStm.setInt(2, d.getMaDV());
-        } catch(SQLException e) {
-            System.err.println("error");
-        } finally {
-            pStm.close();
-        }
-    }
-
-    
-//    public void editKa(DvKaraoke d) {
+//    @Override
+//    public void addDVSQL(DichVu d) throws SQLException {
+//        super.addDVSQL(d);
+//        String sql2 = d.xuat();
+//        sql2 ="insert into dv_karaoke values(" + sql2 + ")";
+//        super.writeOrDelete(sql2, "add"); // thêm mã và khoảng thời gian thuê vào bảng karaoke
+//    }
+//
+//    @Override
+//    public void deleteDVSQL() throws SQLException {
+//        super.deleteDVSQL();
+//        String sql2  =  "delete from dv_karaoke where MaDV= " + getSelected()  + ";";
+//        super.writeOrDelete(sql2, "delete");
+//    }
+//
+//    @Override
+//    public void editSQL(DichVu d) throws SQLException {
+//        Scanner s = new Scanner(System.in);
+//        super.editSQL(d); 
 //        try{
 //            pStm = conn.prepareCall("update dv_karaoke set"
 //                    + "KhoangThoiGianThue = ?"
 //                    + "where MaDV = ?");
-//            pStm.setString(1, d.getKhoangTG());
-//            pStm.setString(2, d.getMaDV());
+//            System.out.println("Nhap vao khoang thoi gian thue: ");
+//            pStm.setString(1, s.nextLine() );
+//            pStm.setInt(2, d.getMaDV());
 //        } catch(SQLException e) {
 //            System.err.println("error");
+//        } finally {
+//            pStm.close();
 //        }
 //    }
-   
-    @Override
-    public void showDV() throws SQLException {
-        System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
-        System.out.println("+---------------+|+------------------------+|+-----------+\n");
-        while(rs.next()) {
-            System.out.printf("|%-17d| %-25s| %-12d|\n",
-                    rs.getInt("MaDV"),
-                    rs.getString("KhoangThoiGianThue"),
-                    rs.getInt("giaDichVu"));
-        }
-    }
+//
+//    
+////    public void editKa(DvKaraoke d) {
+////        try{
+////            pStm = conn.prepareCall("update dv_karaoke set"
+////                    + "KhoangThoiGianThue = ?"
+////                    + "where MaDV = ?");
+////            pStm.setString(1, d.getKhoangTG());
+////            pStm.setString(2, d.getMaDV());
+////        } catch(SQLException e) {
+////            System.err.println("error");
+////        }
+////    }
+//   
+//    @Override
+//    public void showDV() throws SQLException {
+//        System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
+//        System.out.println("+---------------+|+------------------------+|+-----------+\n");
+//        while(rs.next()) {
+//            System.out.printf("|%-17d| %-25s| %-12d|\n",
+//                    rs.getInt("MaDV"),
+//                    rs.getString("KhoangThoiGianThue"),
+//                    rs.getInt("giaDichVu"));
+//        }
+//    }
     @Override
     public void showDV(int i) throws SQLException {
         if(rs.next()) {

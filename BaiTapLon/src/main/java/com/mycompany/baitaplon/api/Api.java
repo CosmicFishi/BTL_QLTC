@@ -51,7 +51,7 @@ public class Api {
             this.stm = conn.createStatement();
             this.rs = stm.executeQuery(sql);
         } catch (Exception e) {
-            throw new Error("can't readSC");
+            throw new Error("can't read query");
         }
     }
 
@@ -65,7 +65,7 @@ public class Api {
                 System.out.println(action + " fail.");
             }
         } catch (Exception e) {
-            throw new Error("can't writeSC");
+            throw new Error("can't update or delete");
         }
 //    protected abstract void edit(String sql);
 //    private void delete(String dong) throws SQLException{
