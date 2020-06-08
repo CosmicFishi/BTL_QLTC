@@ -52,6 +52,9 @@ public class DvKaraoke extends DichVu {
 //            System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
             return String.format("%d',\'%s\'",this.getMaDV(),this.KhoangTG);
         }
+        
+        
+        
 //phần tương tác với mysql
     @Override
     public void readSQLShow() throws SQLException {

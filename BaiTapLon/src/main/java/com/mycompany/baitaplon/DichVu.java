@@ -17,7 +17,6 @@ import java.util.Scanner;
 public abstract class DichVu extends Api{
     
     private static String selected;
-    
     private int maDV;
     private String tenDV;
     private int giaDV;
