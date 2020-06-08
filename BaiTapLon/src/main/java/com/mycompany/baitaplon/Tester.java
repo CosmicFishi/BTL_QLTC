@@ -31,9 +31,9 @@ public class Tester {
         d2.addSQL();
 //        d1.readSQLShow();
 //        d2.readSQLShow();
-        
-        d1.editSQL();
-        d1.readSQLShow();
+        QLDV ql = new QLDV();
+        //ql.xuatDsSQL();
+        ql.traCuuSQL("idw");
         d1.deleteSQL();
         d2.deleteSQL();
 //thử đồ ăn, thức uổng của Hậu
