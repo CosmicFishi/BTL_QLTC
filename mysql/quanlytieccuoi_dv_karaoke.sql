@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: localhost    Database: quanlytieccuoi
+-- Host: 127.0.0.1    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -23,10 +23,10 @@ DROP TABLE IF EXISTS `dv_karaoke`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `dv_karaoke` (
-  `MaDV` int NOT NULL,
-  `KhoangThoiGianThue` decimal(3,1) NOT NULL,
-  KEY `fk_karaoke_hoa_don_idx` (`MaDV`),
-  CONSTRAINT `fk_karaoke_dv` FOREIGN KEY (`MaDV`) REFERENCES `dv` (`MaDv`)
+  `MaDv` int NOT NULL,
+  `KhoangThoiGianThue` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  KEY `fk_karaoke_hoa_don_idx` (`MaDv`),
+  CONSTRAINT `fk_karaoke_dv` FOREIGN KEY (`MaDv`) REFERENCES `dv` (`MaDv`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-03 10:12:17
+-- Dump completed on 2020-06-06 10:30:20

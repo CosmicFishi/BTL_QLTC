@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.mycompany.baitaplon;
+import com.mycompany.baitaplon.api.Api;
 import com.mycompany.baitaplon.api.DVApi;
 import com.mycompany.baitaplon.api.DVCaSiApi;
 import com.mycompany.baitaplon.api.DVKaraokeApi;
@@ -11,15 +12,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author Admin
  */
-public class QLDV extends DVApi{ 
+public class QLDV extends Api{ 
     private List<DichVu> ql = new ArrayList<DichVu>();
     
+    public void themSQL(DichVu d) {
+        d.addSQL();
+    }
+    public void capNhatSQL(DichVu d) {
+        d.editSQL();
+    }
+    public void traCuuSQL(String kw) {
+        try {
+            //trying to code
+            String sql = "select * from dv where TenDv = " + kw + ";";
+            super.read(sql);
+        } catch (SQLException ex) {
+            System.err.println("Khong tim thay!");
+        }
+    }
+    public void xuatDsSQL() {
+        
+    }
+    public void xoaSQL(DichVu d) {
+        d.deleteSQL();
+    }
     /**
      * thêm vào một dịch vụ
      * @param d: Dịch vụ
@@ -27,7 +51,7 @@ public class QLDV extends DVApi{
      * @throws SQLException 
      */
     public void them(DichVu d, DVApi dA) throws SQLException {
-        this.ql.add(d);
+        //this.ql.add(d);
         //dA.addDV(d);
     }
     /**
