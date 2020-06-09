@@ -6,14 +6,16 @@
 package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.Api;
 import com.mycompany.baitaplon.api.DVApi;
-import com.mycompany.baitaplon.api.DVCaSiApi;
-import com.mycompany.baitaplon.api.DVKaraokeApi;
+//import com.mycompany.baitaplon.api.DVCaSiApi;
+//import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 
 /**
@@ -30,16 +32,55 @@ public class QLDV extends Api{
         d.editSQL();
     }
     public void traCuuSQL(String kw) {
-        try {
-            //trying to code
-            String sql = "select * from dv where TenDv = " + kw + ";";
+            try {
+            String sql = "select dv.*, cs.ThongTinCaSi , cs.SoLuongBaiHat, kara.KhoangThoiGianThue\n" +
+            "	from dv\n" +
+            "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n " +
+            "	left join dv_karaoke kara on dv.MaDv = kara.MaDv\n" +
+            "   where dv.TenDv = '" + kw + "';";
             super.read(sql);
+//            System.out.println(rs.isBeforeFirst());
+            if(rs.isBeforeFirst()== true) {
+                System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
+                System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+                while(rs.next()) {
+                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                        rs.getInt("MaDv"),
+                        rs.getString("TenDv"),
+                        rs.getInt("giaDichVu"),
+                        rs.getString("ThongTinCaSi"),
+                        rs.getInt("SoLuongBaiHat"),
+                        rs.getString("KhoangThoiGianThue"));
+                }
+            }  else {
+                System.out.println("Khong tim thay");
+            }
+            
         } catch (SQLException ex) {
-            System.err.println("Khong tim thay!");
+            System.err.println(ex.getMessage());
         }
     }
     public void xuatDsSQL() {
-        
+        try {
+            String sql = "select dv.*, cs.ThongTinCaSi , cs.SoLuongBaiHat, kara.KhoangThoiGianThue\n" +
+            "	from dv\n" +
+            "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n" +
+            "	left join dv_karaoke kara on dv.MaDv = kara.MaDv;";
+            super.read(sql);
+            System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
+            System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+            while(rs.next()) {
+                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                        rs.getInt("MaDv"),
+                        rs.getString("TenDv"),
+                        rs.getInt("giaDichVu"),
+                        rs.getString("ThongTinCaSi"),
+                        rs.getInt("SoLuongBaiHat"),
+                        rs.getString("KhoangThoiGianThue"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
     }
     public void xoaSQL(DichVu d) {
         d.deleteSQL();
