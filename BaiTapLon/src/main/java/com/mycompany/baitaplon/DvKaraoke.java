@@ -50,12 +50,6 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
 //            System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
             return String.format("%d,\'%s\'",this.getMaDV(),this.KhoangTG);
         }
-<<<<<<< HEAD
-        
-        
-        
-//phần tương tác với mysql
-=======
 //phần tương tác với mysql 
 //    @Override
 //    public void readSQLShow() throws SQLException {
@@ -66,7 +60,6 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
 //    }
 
         //where MaDv = "+ this.getMaDV() + ";"
->>>>>>> 437dc326f95280816a388fc7e32597f5355d9930
     @Override
     public void readSQLShow() {
         super.readSQLShow();
