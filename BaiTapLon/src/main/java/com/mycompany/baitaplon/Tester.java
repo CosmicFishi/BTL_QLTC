@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -23,25 +24,34 @@ public class Tester {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
+        Scanner scanner = new Scanner(System.in);
 //Thử dịch vụ của Dũng 
-//        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
-//        d1.addSQL();
-//        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
-//        d2.addSQL();
-////        d1.readSQLShow();
-////        d2.readSQLShow();
-//        QLDV ql = new QLDV();
-//        //ql.xuatDsSQL();
-//        ql.traCuuSQL("idw");
-//        d1.deleteSQL();
-//        d2.deleteSQL();
+        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
+        d1.addSQL();
+        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
+        d2.addSQL();
+//        d1.readSQLShow();
+//        d2.readSQLShow();
+        QLDV ql = new QLDV();
+        ql.xuatDsSQL();
+        //ql.nhapLuaChon(scanner, 1);
+        List<Integer> luaChon = new ArrayList<>();
+//        luaChon.add(1);
+        luaChon.add(2);
+        ql.nhapLuaChonSQL(1,luaChon);
+        ql.xuatLuaChonTuSQL(1);
+        //ql.xuatDsSQL();
+        //ql.traCuuSQL("idk");
+        ql.xoaLuaChonSQL(1);
+        d1.deleteSQL();
+        d2.deleteSQL();
 //thử đồ ăn, thức uổng của Hậu
-        try {
-            Scanner scanner = new Scanner(System.in);
-            QLMenu qlmenu = new QLMenu();
-            qlmenu.chon(scanner);
-            qlmenu.xuat();
-            
+//        try {
+//            Scanner scanner = new Scanner(System.in);
+//            QLMenu qlmenu = new QLMenu();
+//            qlmenu.chon(scanner);
+//            qlmenu.xuat();
+//            
 //            DanhSachThucAn dsAn1 = new DanhSachThucAn();
 //            DanhSachThucUong dsUong1 = new DanhSachThucUong();
 //            dsUong1.themTuSql(scanner);
@@ -88,12 +98,12 @@ public class Tester {
                 }
             }
             **/
-        } catch (NumberFormatException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            Api.disconnectSql();
-            System.out.println("Disconnected to mysql database.");
-        }
+//        } catch (NumberFormatException e) {
+//            System.err.println(e.getMessage());
+//        } finally {
+//            Api.disconnectSql();
+//            System.out.println("Disconnected to mysql database.");
+//        }
 //        ThucUong uong1 = new ThucUong("coca", 12000, "My");
 //        ThucUong uong2 = new ThucUong("sting", 10000, "VN");
 //        ThucAn an1 = new ThucAn("lau", 25000, false);

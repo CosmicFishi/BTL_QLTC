@@ -89,7 +89,7 @@ public class QLDV extends Api{
             "	from dv\n" +
             "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n" +
             "	left join dv_karaoke kara on dv.MaDv = kara.MaDv\n" + 
-            "   where MaDv = " + maDv + ";";
+            "   where dv.MaDv = " + maDv + ";";
             super.read(sql);
             while(rs.next()) {
                 System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
@@ -116,17 +116,23 @@ public class QLDV extends Api{
      */
     public void nhapLuaChon(Scanner s, int maHoaDon) {
         List<Integer> luaChon = new ArrayList<>();
-        System.out.println("Nhap vao lua chon cua ban (Ma dich vu): \nNhap vao -1 de hoan tat nhap");
-        while (s.nextInt() > 0) {
-            if(luaChon.contains(s.nextInt()) == false && isTonTaiDV(s.nextInt()))
-                luaChon.add(s.nextInt());
-            else
+        int c = 0;
+        System.out.println("Nhap vao lua chon cua ban (Ma dich vu)\n Nhap vao -1 de hoan tat nhap");
+        while (c != -1) {
+            c = s.nextInt();
+            if(luaChon.contains(c) == false && isTonTaiDV(c)) {
+                luaChon.add(c);
+                System.out.println("lua chon thanh cong !!!");
+            }
+            else if(c != -1)
                 System.out.println("Lua chon da co trong danh sach hoac Lua chon khong ton tai !!!");
         }
-        
+        if(luaChon.isEmpty())
+            System.out.println("Danh sach lua chon rong !!!");
+        luaChon.forEach(i -> System.out.println(i.intValue()));
     };
     /**
-     * Các lựa chọn sẽ được nhập vào trong mysql
+     * Các lựa chọn sẽ được nhập vào trong mysql || CẦN PHẢI THÊM LUACHON VAO TRONG HOADONTHUE
      * @param maHoaDon : Mã hóa đơn
      * @param luaChon : Danh sách các lựa chọn
      */
@@ -153,12 +159,10 @@ public class QLDV extends Api{
             System.err.println(ex.getMessage());
         }
         //lưu các mã dịch vụ vào một mảng
-        int[] luachon = null;
-        int i = 0;
+        List<Integer> luachon = new ArrayList<>();
         try {
             while(rs.next()) {
-                luachon[i] = rs.getInt("MaDv");
-                i++;
+                luachon.add(rs.getInt("MaDv"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -166,8 +170,7 @@ public class QLDV extends Api{
         //từ mảng xuất ra từng dịch vụ
         System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
         System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
-        for(int j = 0; j < luachon.length; j++)
-            xuatDsSQL(luachon[j]);
+        luachon.forEach(i -> xuatDsSQL(i));
     }
     /**
      * Xóa các lựa chọn của 1 hóa đơn
@@ -175,7 +178,7 @@ public class QLDV extends Api{
      */
     public void xoaLuaChonSQL(int maHoaDon) {
         try {
-            String sql = "delete * from hoa_don_dv where MaHD = " + maHoaDon +  ";";
+            String sql = "delete from hoa_don_dv where MaHD = " + maHoaDon +  ";";
             super.writeOrDelete(sql, "delete");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
