@@ -18,12 +18,13 @@ public class QLMenu {
     private List<Menu> ql = new ArrayList<>();
     
     public void chon(Scanner scanner) throws SQLException{
-        System.out.println("\t\t\t====Them DS Menu====");
+        System.out.println("===============Them DS Menu===============");
+        int dem = 0;
         while(true){
-            int dem = 0;
             this.them(new Menu());
+            System.out.println("=========Them Menu============");
             this.ql.get(dem++).nhap(scanner);
-            System.out.println("Ban co muon them menu (-1 to exit):");
+            System.out.print("Ban co muon them menu (1 them; -1 thoat):");
             int input = Integer.parseInt(scanner.nextLine());
             if(input == -1 ) return;
         }   
@@ -33,6 +34,7 @@ public class QLMenu {
         this.ql.add(m);
     }
     public void xuat() {
+        System.out.println("=========Xuat DS Menu===========");
         int dem = 1;
         for (int i =0; i<ql.size(); i++){
             System.out.printf("------------Menu %d-----------\n", dem++);

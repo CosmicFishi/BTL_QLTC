@@ -30,7 +30,7 @@ public class Menu {
     public void nhap(Scanner scanner) throws SQLException {
         this.dsAn.themTuSql(scanner);
         this.dsUong.themTuSql(scanner);
-        System.out.println("Nhap sl menu: ");
+        System.out.print("Nhap sl menu: ");
         this.setSlMenu(Integer.parseInt(scanner.nextLine()));
     }
 
@@ -38,7 +38,8 @@ public class Menu {
     public String toString() {
         StringBuilder kq = new StringBuilder("");
         kq.append("Ds Thuc An: \n").append(this.dsAn).append("\n")
-                .append("Ds Thuc Uong: \n").append(this.dsUong);
+                .append("Ds Thuc Uong: \n").append(this.dsUong)
+                .append("Sl menu: ").append(this.slMenu).append("\n");
         return kq.toString();
     }
 

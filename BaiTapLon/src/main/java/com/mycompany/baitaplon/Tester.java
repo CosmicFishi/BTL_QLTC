@@ -38,9 +38,10 @@ public class Tester {
 //thử đồ ăn, thức uổng của Hậu
         try {
             Scanner scanner = new Scanner(System.in);
-            //QLMenu qlmenu = new QLMenu();
-            //qlmenu.chon(scanner);
-            QLSanhCuoi lq = new QLSanhCuoi();
+            QLMenu qlmenu = new QLMenu();
+            qlmenu.chon(scanner);
+            qlmenu.xuat();
+            
 //            DanhSachThucAn dsAn1 = new DanhSachThucAn();
 //            DanhSachThucUong dsUong1 = new DanhSachThucUong();
 //            dsUong1.themTuSql(scanner);
@@ -50,6 +51,7 @@ public class Tester {
 //            QLMenu qlmenu = new QLMenu();
 //            qlmenu.them(menu1);
 //            qlmenu.xuat();
+/**
             System.out.println("1. xuat tat ca SC");
             System.out.println("2. them SC vao SQL");
             System.out.println("3. xoa SC trong SQL");
@@ -85,6 +87,7 @@ public class Tester {
                         break;
                 }
             }
+            **/
         } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
         } finally {
