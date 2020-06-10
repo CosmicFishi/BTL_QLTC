@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -12,62 +13,56 @@ import java.util.Scanner;
  * @author Admin
  */
 public class SanhCuoi {
+
     private int dem = 0;
     private String maSC;
     private String tenSanh;
     private int viTriSanh;
     private int sucChua = 0;
     private int giaThue;
-    
+
     /**
-     *Khởi tạo SanhCuoi rỗng
+     * Khởi tạo SanhCuoi rỗng
      */
-    public SanhCuoi(String s){}
+    public SanhCuoi(String s) {
+    }
     public SanhCuoi() {
         this.maSC = String.format("S%03d", dem);
         this.tenSanh = "TenRong";
         this.viTriSanh = -1;
         this.sucChua = 0;
     }
+
     /**
      * Nhập vào tên, vị trí sảnh và sức chứa
+     *
      * @param ten : String tên
      * @param vt : int vị trí
-     * @param sc : int sức chứa
+     * @param sc : int sức chứa4
      */
-    public SanhCuoi(String maSC, String ten, int vt, int sc, int giaThue) {
-        this.maSC=maSC;
+    public SanhCuoi(String ten, int vt, int sc, int giaThue) {
+        this.maSC = String.format("S%03d", dem);
         this.tenSanh = ten;
         this.viTriSanh = vt;
         this.sucChua = sc;
-        this.giaThue=giaThue;
+        this.giaThue = giaThue;
     }
-    
+    public SanhCuoi(String maSC, String ten, int vt, int sc, int giaThue) {
+        this.maSC = maSC;
+        this.tenSanh = ten;
+        this.viTriSanh = vt;
+        this.sucChua = sc;
+        this.giaThue = giaThue;
+    }
+
     /**
-     *Xuất sảnh cưới mã, tên, vị trí, sức chứa, giá thuê
+     * Xuất sảnh cưới mã, tên, vị trí, sức chứa, giá thuê
      */
-    public void xuat(){
-        System.out.printf("%-7s|%-20s|%-5d|%-6d|%-15d", 
+    public void xuat() {
+        System.out.printf("%-7s|%-20s|%-5d|%-6d|%-15d",
                 this.maSC, this.tenSanh, this.viTriSanh, this.sucChua, this.giaThue);
     }
-    /**
-     *Nhập dữ liệu vào SanhCuoi đã tạo qua scanner
-     * @param scanner
-     */
-    public void themTuSql(Scanner scanner) throws SQLException{
-        xuatMysql();
-        while(true){
-            System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
-            int ma = scanner.nextInt();
-            scanner.nextLine();
-            if(ma == -1) break;
-            dsThucAn.add(get1ThucAn(ma));
-            this.maThucAnSql[dsThucAn.size() - 1]=ma;
-            System.out.print("Nhap vao so luong thuc an: ");
-            int sl = scanner.nextInt();
-            slThucAn[dsThucAn.size() - 1] = sl;
-        }
-    }
+
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ten sanh: ");
         this.tenSanh = scanner.nextLine();
@@ -76,12 +71,12 @@ public class SanhCuoi {
         System.out.println("Nhap vao suc chua: ");
         this.sucChua = scanner.nextInt();
         System.out.println("Nhap gia thue: ");
-        this.giaThue=scanner.nextInt();
+        this.giaThue = scanner.nextInt();
     }
-    
+
     @Override
     public String toString() {
-        return String.format("\'%s\', \'%s\', %d, %d, %d",this.maSC,this.tenSanh,this.viTriSanh,
+        return String.format("\'%s\', \'%s\', %d, %d, %d", this.maSC, this.tenSanh, this.viTriSanh,
                 this.sucChua, this.getGiaThue());
     }
     // <editor-fold defaultstate="collapsed" desc="Get and set">

@@ -18,6 +18,7 @@ public class Menu {
     protected DanhSachThucAn dsAn = new DanhSachThucAn();
     protected DanhSachThucUong dsUong = new DanhSachThucUong();
     private int slMenu = 0;
+    
     public Menu() {
     }
     
@@ -30,7 +31,7 @@ public class Menu {
         this.dsAn.themTuSql(scanner);
         this.dsUong.themTuSql(scanner);
         System.out.println("Nhap sl menu: ");
-        this.slMenu = Integer.parseInt(scanner.nextLine());
+        this.setSlMenu(Integer.parseInt(scanner.nextLine()));
     }
 
     @Override
@@ -39,6 +40,14 @@ public class Menu {
         kq.append("Ds Thuc An: \n").append(this.dsAn).append("\n")
                 .append("Ds Thuc Uong: \n").append(this.dsUong);
         return kq.toString();
+    }
+
+    public int getSlMenu() {
+        return slMenu;
+    }
+
+    public void setSlMenu(int slMenu) {
+        this.slMenu = slMenu;
     }
     
     

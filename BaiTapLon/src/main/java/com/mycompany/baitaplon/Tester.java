@@ -37,11 +37,13 @@ public class Tester {
 //        d1.deleteSQL();
 //        d2.deleteSQL();
 //thử đồ ăn, thức uổng của Hậu
-        Scanner scanner = new Scanner(System.in);
-
         try {
+            Scanner scanner = new Scanner(System.in);
             QLMenu qlmenu = new QLMenu();
-            qlmenu.chon(scanner);
+            //qlmenu.chon(scanner);
+            QLSanhCuoi lq = new QLSanhCuoi();
+            SanhCuoi a = lq.taoScFromSQL(scanner);
+            a.xuat();
 //            DanhSachThucAn dsAn1 = new DanhSachThucAn();
 //            DanhSachThucUong dsUong1 = new DanhSachThucUong();
 //            dsUong1.themTuSql(scanner);

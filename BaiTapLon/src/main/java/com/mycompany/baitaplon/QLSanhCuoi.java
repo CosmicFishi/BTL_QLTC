@@ -7,55 +7,42 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public class DanhSachSanh extends SCApi {
-    private final List<SanhCuoi> dsSanh = new ArrayList<>();
-    
-    public DanhSachSanh(){};
-    
-    /**
-     *thêm Sảnh cưới vào List<SanhCuoi>.
-     * @param s
-     */
-    public void them(SanhCuoi s){
-        this.dsSanh.add(s);
-    }
-
-    /**
-     *Xuất tất cả sảnh cưới trong List<SanhCuoi>.
-     */
-    public void xuat(){
-        System.out.println("MaSC   |Ten Sanh Cuoi       |vi tri|suc chua|gia thue       |");
-        for(SanhCuoi sc: this.dsSanh){
-            System.out.println(sc);
-        }
-    }
-
+public class QLSanhCuoi extends SCApi {
+   
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    /**
-     *Them sảnh cưới đã tạo vào mysql.
-     * @param s Sảnh Cưới đã tạo
-     * @throws SQLException
-     */
-    public void themMySQL(SanhCuoi s) throws SQLException {
-        super.addSC(s);
-    }
 
     /**
-     *Them sảnh cưới tạo bằng tay qua scanner vào mysql
+     *Tao sảnh cưới từ SQL
+     * @param scanner
+     * @return
+     */
+    public SanhCuoi taoScFromSQL(Scanner scanner){
+        try {
+            xuatSC();
+            System.out.print("Nhap ma SC muon tao: ");
+            String ma = scanner.nextLine();
+            return get1SC(ma.toUpperCase());
+        } catch (SQLException ex) {
+            Logger.getLogger(QLSanhCuoi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new SanhCuoi();
+    }
+    /**
+     *(ADMIN) thêm sảnh cưới mới vào SQL
      * @param scanner
      * @throws SQLException
      */
-    public void themMysql(Scanner scanner) throws SQLException{
+    public void themSC(Scanner scanner) throws SQLException{
         SanhCuoi sc = new SanhCuoi();
         sc.nhap(scanner);
         super.addSC(sc);
@@ -65,7 +52,7 @@ public class DanhSachSanh extends SCApi {
      *xuất tất cả sảnh cưới trong mysql 
      * @throws SQLException
      */
-    public void xuatMysql() throws SQLException {
+    public void xuatSC() throws SQLException {
         super.readShow();
     }
     
@@ -74,7 +61,7 @@ public class DanhSachSanh extends SCApi {
      * @param scanner
      * @throws SQLException
      */
-    public void capNhatMysql(Scanner scanner) throws SQLException {
+    public void capNhatSC(Scanner scanner) throws SQLException {
         SanhCuoi sc = new SanhCuoi();
         System.out.println("Nhap ten hoac ma SC can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
@@ -96,12 +83,12 @@ public class DanhSachSanh extends SCApi {
      * @param scanner
      * @throws SQLException
      */
-    public void xoaMysql(Scanner scanner) throws SQLException {
+    public void xoaSC(Scanner scanner) throws SQLException {
         System.out.println("Nhap ma SC hoac tenSC can xoa: ");
         String tenHoacMa = scanner.nextLine();
         findSC(tenHoacMa);
         if (super.isNullRs()) return;
-        super.showSC(1);
+        super.showSC(1); 
         System.out.println("Ban muon xoa sanh tren: (y,n): ");
         if (scanner.nextLine().equals("y")) {
             super.deleteSC();

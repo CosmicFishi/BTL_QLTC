@@ -24,7 +24,21 @@ public class SCApi extends Api {
         sql = "insert into sanh_cuoi values (" + sql + ");";
         super.writeOrDelete(sql, "add");
     }
-
+    public SanhCuoi get1SC(String ma) throws SQLException {
+        String sql = "select * "
+                + "from sanh_cuoi "
+                + "where MaSC = '" + ma + "';";
+        super.read(sql);
+        if (rs.next()) {
+            SanhCuoi sc = new SanhCuoi(rs.getString("MaSC"),
+                    rs.getString("TenSC"),
+                    rs.getInt("ViTriSC"), 
+                    rs.getInt("SucChua"),
+                    rs.getInt("GiaThue"));
+            return sc;
+        }
+        return new SanhCuoi();
+    }
     public void deleteSC() throws SQLException {
         String sql = "delete from sanh_cuoi where MaSC ='" + selected + "';";
         super.writeOrDelete(sql, "delete");

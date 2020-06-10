@@ -58,7 +58,7 @@ public class HoaDonThue {
         this.giaMenu = 0; // cần thêm câu query
         this.giaDichVu = 0;
     }
-   
+    
      
 //    @Override
 //    public String toString() {
