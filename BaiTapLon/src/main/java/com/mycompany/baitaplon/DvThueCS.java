@@ -95,19 +95,18 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
         super.deleteSQL();
     }
     @Override
-    public void editSQL() {
-        Scanner s = new Scanner(System.in);
-        super.editSQL(); 
+    public void editSQL(Scanner scanner) {
+        super.editSQL(scanner); 
         try{
             pStm = conn.prepareCall("update dv_ca_si set "
                     + "ThongTinCaSi = ? "
                     + "SoLuongBaiHat = ? "
                     + "where MaDv = ? ");
             System.out.println("Nhap vao ten ca si: ");
-            pStm.setString(1, s.nextLine());
-            s.nextLine();
+            pStm.setString(1, scanner.nextLine());
+            scanner.nextLine();
             System.out.println("Nhap vao so luong bai hat: ");
-            pStm.setInt(2, s.nextInt());
+            pStm.setInt(2, scanner.nextInt());
             pStm.setInt(3, this.getMaDV());
         } catch(SQLException e) {
             System.err.println("error");

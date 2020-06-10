@@ -81,18 +81,17 @@ public abstract class DichVu extends Api implements TuongTacSQL{
     }
 
     @Override
-    public void editSQL() {
-        Scanner s = new Scanner(System.in);
+    public void editSQL(Scanner scanner) {
         try {
             pStm = conn.prepareStatement("update dv set " + 
                     "TenDv = ? ,"+
                     "GiaDichVu = ? " + 
                     "where MaDv = ? ");
             System.out.println("Nhap vao ten dich vu: ");
-            pStm.setString(1, s.nextLine());
+            pStm.setString(1, scanner.nextLine());
             System.out.println("Nhap vao gia dich vu: ");
             //s.nextLine();
-            pStm.setInt(2, s.nextInt());
+            pStm.setInt(2, scanner.nextInt());
             pStm.setInt(3, this.getMaDV());
             int kq = pStm.executeUpdate();
             if(kq == 1)

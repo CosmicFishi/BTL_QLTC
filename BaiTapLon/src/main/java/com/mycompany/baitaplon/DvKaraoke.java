@@ -95,15 +95,14 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
         super.deleteSQL();
     }
     @Override
-    public void editSQL() {
-        super.editSQL();
-        Scanner s = new Scanner(System.in);
+    public void editSQL(Scanner scanner) {
+        super.editSQL(scanner);
         try {
             pStm = conn.prepareCall("update dv_karaoke set "
                     + "KhoangThoiGianThue = ? "
                     + "where MaDv = ?");
             System.out.println("Nhap vao khoang thoi gian thue: ");
-            pStm.setString(1, s.nextLine() );
+            pStm.setString(1, scanner.nextLine() );
             pStm.setInt(2, this.getMaDV());
             int kq = pStm.executeUpdate();
             if(kq == 1)

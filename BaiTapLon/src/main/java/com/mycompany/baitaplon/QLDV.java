@@ -24,12 +24,13 @@ import java.util.logging.Logger;
  */
 public class QLDV extends Api{ 
     private List<DichVu> ql = new ArrayList<DichVu>();
+    Scanner scanner = new Scanner(System.in);
     
     public void themSQL(DichVu d) {
         d.addSQL();
     }
     public void capNhatSQL(DichVu d) {
-        d.editSQL();
+        d.editSQL(scanner);
     }
     public void traCuuSQL(String kw) {
             try {
@@ -82,20 +83,120 @@ public class QLDV extends Api{
             System.err.println(ex.getMessage());
         }
     }
+    public void xuatDsSQL(int maDv) {
+        try {
+            String sql = "select dv.*, cs.ThongTinCaSi , cs.SoLuongBaiHat, kara.KhoangThoiGianThue\n" +
+            "	from dv\n" +
+            "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n" +
+            "	left join dv_karaoke kara on dv.MaDv = kara.MaDv\n" + 
+            "   where MaDv = " + maDv + ";";
+            super.read(sql);
+            while(rs.next()) {
+                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                        rs.getInt("MaDv"),
+                        rs.getString("TenDv"),
+                        rs.getInt("giaDichVu"),
+                        rs.getString("ThongTinCaSi"),
+                        rs.getInt("SoLuongBaiHat"),
+                        rs.getString("KhoangThoiGianThue"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    //thiếu hàm xóa dựa vào mã dịch vụ
     public void xoaSQL(DichVu d) {
         d.deleteSQL();
     }
     
+    /**
+     * Nhập vào các lựa chọn
+     * @param s : Scanner
+     * @param maHoaDon : mã hóa đơn
+     */
     public void nhapLuaChon(Scanner s, int maHoaDon) {
         List<Integer> luaChon = new ArrayList<>();
-        System.out.println("Nhap vao lua chon cua ban (Ma dich vu): \nNhap vao -1 de hoan tat nhap hoac huy nhap");
-        do {
-            luaChon.add(s.nextInt());
-        } while (s.nextInt() != -1);
-        for(Integer i: luaChon) {
-            String sql = "insert into hoa_don_dv values()";
+        System.out.println("Nhap vao lua chon cua ban (Ma dich vu): \nNhap vao -1 de hoan tat nhap");
+        while (s.nextInt() > 0) {
+            if(luaChon.contains(s.nextInt()) == false && isTonTaiDV(s.nextInt()))
+                luaChon.add(s.nextInt());
+            else
+                System.out.println("Lua chon da co trong danh sach hoac Lua chon khong ton tai !!!");
         }
+        
     };
+    /**
+     * Các lựa chọn sẽ được nhập vào trong mysql
+     * @param maHoaDon : Mã hóa đơn
+     * @param luaChon : Danh sách các lựa chọn
+     */
+    public void nhapLuaChonSQL(int maHoaDon, List<Integer> luaChon) {
+        luaChon.forEach((i) -> {
+            try {
+                String sql = "insert into hoa_don_dv values("+  String.format("%d, %d", maHoaDon,i) + ");";
+                super.writeOrDelete(sql, "add");
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        });
+    }
+    /**
+     * xuất ra các lựa chọn của 1 hóa đơn
+     * @param maHoaDon 
+     */
+    public void xuatLuaChonTuSQL(int maHoaDon) {
+        //đọc dữ liệu về
+        try {
+            String sql = "select * from hoa_don_dv where MaHD = " + maHoaDon +";";
+            super.read(sql);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        //lưu các mã dịch vụ vào một mảng
+        int[] luachon = null;
+        int i = 0;
+        try {
+            while(rs.next()) {
+                luachon[i] = rs.getInt("MaDv");
+                i++;
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        //từ mảng xuất ra từng dịch vụ
+        System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
+        System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+        for(int j = 0; j < luachon.length; j++)
+            xuatDsSQL(luachon[j]);
+    }
+    /**
+     * Xóa các lựa chọn của 1 hóa đơn
+     * @param maHoaDon 
+     */
+    public void xoaLuaChonSQL(int maHoaDon) {
+        try {
+            String sql = "delete * from hoa_don_dv where MaHD = " + maHoaDon +  ";";
+            super.writeOrDelete(sql, "delete");
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+    /**
+     * Kiểm tra mã dịch vụ có tồn tại trong mysql
+     * @param maDv
+     * @return 
+     */
+    public boolean isTonTaiDV(int maDv) {
+        try {
+            String sql = "select MaDv from dv where MaDv = " + maDv + ";";
+            super.read(sql);
+            if(rs.isBeforeFirst()) 
+                return true;
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
     /**
      * thêm vào một dịch vụ
      * @param d: Dịch vụ
