@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class SanhCuoi {
 
-    private int dem = 0;
+    private int dem = 11;
     private String maSC;
     private String tenSanh;
     private int viTriSanh;
@@ -24,8 +24,7 @@ public class SanhCuoi {
     /**
      * Khởi tạo SanhCuoi rỗng
      */
-    public SanhCuoi(String s) {
-    }
+    
     public SanhCuoi() {
         this.maSC = String.format("S%03d", dem);
         this.tenSanh = "TenRong";
@@ -35,10 +34,10 @@ public class SanhCuoi {
 
     /**
      * Nhập vào tên, vị trí sảnh và sức chứa
-     *
      * @param ten : String tên
      * @param vt : int vị trí
      * @param sc : int sức chứa4
+     * @param giaThue
      */
     public SanhCuoi(String ten, int vt, int sc, int giaThue) {
         this.maSC = String.format("S%03d", dem);
@@ -47,6 +46,14 @@ public class SanhCuoi {
         this.sucChua = sc;
         this.giaThue = giaThue;
     }
+    /**
+     * Nhập vào mã, tên, vị trí sảnh và sức chứa
+     * @param maSC : mã sảnh cưới vd S001
+     * @param ten : String tên
+     * @param vt : int vị trí
+     * @param sc : int sức chứa4
+     * @param giaThue 
+     */
     public SanhCuoi(String maSC, String ten, int vt, int sc, int giaThue) {
         this.maSC = maSC;
         this.tenSanh = ten;
@@ -64,14 +71,15 @@ public class SanhCuoi {
     }
 
     public void nhap(Scanner scanner) {
-        System.out.println("Nhap vao ten sanh: ");
+        System.out.print("Nhap vao ten sanh: ");
         this.tenSanh = scanner.nextLine();
-        System.out.println("Nhap vao vi tri sanh:  ");
+        System.out.print("Nhap vao vi tri sanh:  ");
         this.viTriSanh = scanner.nextInt();
-        System.out.println("Nhap vao suc chua: ");
+        System.out.print("Nhap vao suc chua: ");
         this.sucChua = scanner.nextInt();
-        System.out.println("Nhap gia thue: ");
+        System.out.print("Nhap gia thue: ");
         this.giaThue = scanner.nextInt();
+        scanner.nextLine();
     }
 
     @Override

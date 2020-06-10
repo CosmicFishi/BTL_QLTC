@@ -19,7 +19,6 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
-
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
@@ -39,11 +38,9 @@ public class Tester {
 //thử đồ ăn, thức uổng của Hậu
         try {
             Scanner scanner = new Scanner(System.in);
-            QLMenu qlmenu = new QLMenu();
+            //QLMenu qlmenu = new QLMenu();
             //qlmenu.chon(scanner);
             QLSanhCuoi lq = new QLSanhCuoi();
-            SanhCuoi a = lq.taoScFromSQL(scanner);
-            a.xuat();
 //            DanhSachThucAn dsAn1 = new DanhSachThucAn();
 //            DanhSachThucUong dsUong1 = new DanhSachThucUong();
 //            dsUong1.themTuSql(scanner);
@@ -53,7 +50,42 @@ public class Tester {
 //            QLMenu qlmenu = new QLMenu();
 //            qlmenu.them(menu1);
 //            qlmenu.xuat();
-        } catch (Exception e) {
+            System.out.println("1. xuat tat ca SC");
+            System.out.println("2. them SC vao SQL");
+            System.out.println("3. xoa SC trong SQL");
+            System.out.println("4. chinh sua SC trong SQL");
+            System.out.println("5. tim SC theo TEN || MA trong SQL");
+            System.out.println("6. tim SC theo VT || Sức Chứa trong SQL");
+            System.out.println("?. so khac de thoat.");
+            while (true) {
+                System.out.print("Chon : ");
+                int nhap = Integer.parseInt(scanner.nextLine());
+                if(nhap > 6) break;
+                switch (nhap) {
+                    case 1:
+                        lq.xuatSC();
+                        break;
+                    case 2:
+                        lq.themSC(scanner);
+                        break;
+                    case 3:
+                        lq.xoaSC(scanner);
+                        break;
+                    case 4:
+                        lq.capNhatSC(scanner);
+                        break;
+                    case 5:
+                        lq.timSCTenMa(scanner);
+                        break;
+                    case 6:
+                        lq.timSCViChua(scanner);
+                        break;
+                    default:
+                        System.out.println("Chọn sai chọn lại");
+                        break;
+                }
+            }
+        } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
         } finally {
             Api.disconnectSql();
