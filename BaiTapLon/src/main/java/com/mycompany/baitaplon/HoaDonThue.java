@@ -13,25 +13,43 @@ import java.util.Scanner;
  * @author Admin
  */
 public class HoaDonThue {
-    private String maHD;
+    private int maHD;
     private String tenBT;
     private String tenSanh;
-    private int giaThueSanh;
+    private GiaThue giaThueSanh;
     private String thoiDiemThue;
+    private int soBanThue;
     private Date ngayThue;
     private QLMenu menu;
     private int giaMenu;
     private QLDV dichVu;
     private int giaDichVu;
+    private int giaThue;
+    
+    {
+        this.giaThue = giaThueSanh.getGiaThue();
+    }
     
     public HoaDonThue(){
     
     }
     
-    public HoaDonThue(String maHD, String tenBT, String tenSanh, int giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
+    /**
+     * Của Admin sài
+     * @param maHD
+     * @param tenBT
+     * @param tenSanh
+     * @param giaThue
+     * @param thoiDiem
+     * @param ngay
+     * @param menu
+     * @param dv 
+     */
+    public HoaDonThue(int maHD, String tenBT, String tenSanh, int soBanThue, GiaThue giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
         this.maHD = maHD;
         this.tenBT = tenBT;
         this.tenSanh = tenSanh;
+        this.soBanThue = soBanThue;
         this.giaThueSanh = giaThue;
         this.thoiDiemThue = thoiDiem;
         this.ngayThue = ngay;
@@ -49,4 +67,13 @@ public class HoaDonThue {
     
     
     
+
+
+    /**
+     * phần nhập của người dùng
+     * @param s 
+     */
+    public void nhap(Scanner s) {
+        
+    } 
 }
