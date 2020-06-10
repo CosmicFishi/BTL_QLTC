@@ -19,7 +19,6 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
-
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
