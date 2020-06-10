@@ -5,7 +5,6 @@
  */
 package com.mycompany.baitaplon.api;
 
-import com.mycompany.baitaplon.SanhCuoi;
 import com.mycompany.baitaplon.ThucAn;
 import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
@@ -64,7 +63,7 @@ public class ThucAnApi extends Api {
     public void readShow() throws SQLException {
         cStm = conn.prepareCall("{call getThucAn()}");
         rs = cStm.executeQuery();
-        showThucAn();
+        showThucAn(false);
     }
 
     public void addThucAn(ThucAn s) throws SQLException {
@@ -122,8 +121,7 @@ public class ThucAnApi extends Api {
 
     }
 
-    protected void showThucAn() throws SQLException {
-        //this.setSelected(rs.getString("MaSC"));
+    protected void showThucAn(boolean nhap) throws SQLException {
         System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
         System.out.format("+------------+---------------------------------------------+--------------+-------%n");
         while (rs.next()) {
@@ -132,22 +130,10 @@ public class ThucAnApi extends Api {
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"),
                     rs.getBoolean("isChay"));
+            ThucAnApi.setSelected(rs.getInt("MaThucAn"));
+            if(nhap) break;
         }
 
-    }
-
-    protected void showThucAn(int limit) throws SQLException {
-        if (rs.next()) {
-            System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
-            System.out.format("+------------+---------------------------------------------+--------------+-------%n");
-            System.out.printf("| %-11d|  %-43s| %-13d| %-6s\n",
-                    rs.getInt("MaThucAn"),
-                    rs.getString("TenThucAn"),
-                    rs.getInt("Gia"),
-                    rs.getBoolean("isChay"));
-
-            this.setSelected(rs.getInt("MaThucAn"));
-        }
     }
 
     public static int getSelected() {

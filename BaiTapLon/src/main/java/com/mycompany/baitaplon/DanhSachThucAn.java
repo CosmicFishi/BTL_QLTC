@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +19,6 @@ import java.util.Scanner;
  */
 public class DanhSachThucAn extends ThucAnApi {
     private List<ThucAn> dsThucAn = new ArrayList<>();
-    private int[] maThucAnSql = new int[50];
     private int[] slThucAn = new int[50];
     
     public DanhSachThucAn(){}
@@ -26,11 +27,16 @@ public class DanhSachThucAn extends ThucAnApi {
         this.dsThucAn = dsThucAn;
         this.slThucAn = slAn;
     }
+
+    /**
+     *xuất thức ăn và số lượng thức ăn trong danh sách List<ThucAN>
+     */
     public void xuat(){
-        for(ThucAn ta: dsThucAn){
+        dsThucAn.forEach((ta) -> {
             System.out.println(ta);
-        }
+        });
     }
+    @Override
     public String toString() {
         StringBuilder kq = new StringBuilder();
         for(int i =0; i<this.dsThucAn.size(); i++){
@@ -65,23 +71,34 @@ public class DanhSachThucAn extends ThucAnApi {
     /**
      *(USER)Dùng để thêm thức ăn vào danh sách menu từ cơ sở dữ liệu
      * @param scanner
-     * @throws SQLException
      */
-    public void themTuSql(Scanner scanner) throws SQLException{
-        xuatThucAn();
-        while(true){
+    public void themTuSql(Scanner scanner){
+        try {
+            xuatThucAn();
+            while(true){
             System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
             int ma = scanner.nextInt();
             scanner.nextLine();
             if(ma == -1) break;
             dsThucAn.add(get1ThucAn(ma));
-            this.maThucAnSql[dsThucAn.size() - 1]=ma;
             System.out.print("Nhap vao so luong thuc an: ");
             int sl = scanner.nextInt();
             slThucAn[dsThucAn.size() - 1] = sl;
         }
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+    public void timThucAn(Scanner scanner){
+        try {
+            xuatThucAn();
+            System.out.print("Nhap vao ten hoac ma Thuc An can tim: ");
+            super.findThucAn(scanner.nextLine());
+            super.showThucAn(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      *(ADMIN)Dùng để xuất tất cả ThucAn trong Mysql
      * @throws SQLException
@@ -116,14 +133,14 @@ public class DanhSachThucAn extends ThucAnApi {
      * @throws SQLException
      */
     public void xoaThucAn(Scanner scanner) throws SQLException{
+        xuatThucAn();
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa) == false)
             return;
-        super.showThucAn(1);
+        super.showThucAn(true);
         System.out.println("Ban muon xoa sanh tren: (y,n): ");
         if (scanner.nextLine().equals("y")) {
-            System.out.println(selected);
             super.deleteThucAn();
         } else {
             System.out.println("Da huy xoa.");
@@ -136,26 +153,22 @@ public class DanhSachThucAn extends ThucAnApi {
      * @throws SQLException
      */
     public void updateThucAn(Scanner scanner) throws SQLException{
+        xuatThucAn();
         System.out.println("Nhap ten hoac ma ThucAn can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa)==false) return;
-        super.showThucAn(1);
+        super.showThucAn(true);
         System.out.println("Ban muon cap nhat ThucAn tren(y/n): ");
         if (scanner.nextLine().equals("y")) {
             ThucAn ta = new ThucAn();
             try {
                 ta.nhap(scanner);
                 super.edit(ta);
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 System.err.println("Nhap sai kieu du lieu");
             }
         } else {
             System.out.println("Da huy bo cap nhat.");
         }
     }
-
-    public int[] getMaThucAnSql() {
-        return maThucAnSql;
-    }
-    
 }

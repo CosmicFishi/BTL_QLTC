@@ -26,26 +26,72 @@ public class Tester {
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
 //Thử dịch vụ của Dũng 
-        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
-        d1.addSQL();
-        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
-        d2.addSQL();
-//        d1.readSQLShow();
-//        d2.readSQLShow();
-        QLDV ql = new QLDV();
-        ql.xuatDsSQL();
-        //ql.nhapLuaChon(scanner, 1);
-        List<Integer> luaChon = new ArrayList<>();
-//        luaChon.add(1);
-        luaChon.add(2);
-        ql.nhapLuaChonSQL(1,luaChon);
-        ql.xuatLuaChonTuSQL(1);
-        //ql.xuatDsSQL();
-        //ql.traCuuSQL("idk");
-        ql.xoaLuaChonSQL(1);
-        d1.deleteSQL();
-        d2.deleteSQL();
+//        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
+//        d1.addSQL();
+//        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
+//        d2.addSQL();
+////        d1.readSQLShow();
+////        d2.readSQLShow();
+//        QLDV ql = new QLDV();
+//        ql.xuatDsSQL();
+//        //ql.nhapLuaChon(scanner, 1);
+//        List<Integer> luaChon = new ArrayList<>();
+////        luaChon.add(1);
+//        luaChon.add(2);
+//        ql.nhapLuaChonSQL(1,luaChon);
+//        ql.xuatLuaChonTuSQL(1);
+//        //ql.xuatDsSQL();
+//        //ql.traCuuSQL("idk");
+//        ql.xoaLuaChonSQL(1);
+//        d1.deleteSQL();
+//        d2.deleteSQL();
 //thử đồ ăn, thức uổng của Hậu
+        try {
+            DanhSachThucAn lq = new DanhSachThucAn();
+            System.out.println("1. xuat tat ca ThucAn");
+            System.out.println("2. them ThucAn vao SQL");
+            System.out.println("3. xoa ThucAn trong SQL");
+            System.out.println("4. chinh sua ThucAn trong SQL");
+            System.out.println("5. tim ThucAn theo TEN || MA trong SQL");
+            System.out.println("6. them ThucAn tu Sql");
+            System.out.println("?. so khac de thoat.");
+            while (true) {
+                System.out.print("Chon : ");
+                int nhap = Integer.parseInt(scanner.nextLine());
+                if(nhap > 6) break;
+                switch (nhap) {
+                    case 1:
+                        lq.xuatThucAn();
+                        break;
+                    case 2:
+                        lq.themThucAn(scanner);
+                        break;
+                    case 3:
+                        lq.xoaThucAn(scanner);
+                        break;
+                    case 4:
+                        lq.updateThucAn(scanner);
+                        break;
+                    case 5:
+                        lq.timThucAn(scanner);
+                        break;
+                    case 6:
+                        lq.themTuSql(scanner);
+                        lq.xuat();
+                        break;
+                    default:
+                        System.out.println("Chọn sai chọn lại");
+                        break;
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            Api.disconnectSql();
+        }
+        
+        Api.disconnectSql();
+// <editor-fold defaultstate="collapsed" desc="Đã test">
 //        try {
 //            Scanner scanner = new Scanner(System.in);
 //            QLMenu qlmenu = new QLMenu();
@@ -204,5 +250,6 @@ public class Tester {
 //        System.out.println("=== tra cuu ===");
 //        ArrayList<DichVu> kq = ql.traCuu("hat");
 //        kq.forEach((DichVu d) -> System.out.println(d));
+// </editor-fold>
     }
 }

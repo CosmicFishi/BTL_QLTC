@@ -13,10 +13,11 @@ import java.util.Scanner;
  */
 public class ThucAn extends DoAnUong{
     private boolean isAnChay;
-    private static int dem = 0;
+    private static int dem = 12;
    
     public ThucAn() {
         super();
+        this.ma = ++dem;
         this.isAnChay=false;
     }
     
@@ -32,7 +33,9 @@ public class ThucAn extends DoAnUong{
         System.out.println("Nhap thuc an: ");
         super.nhap(scanner);
         System.out.print("isChay (1 hoac 0): ");
-        this.setIsAnChay(scanner.nextInt() == 1); //trả về true nếu là 1, false nếu là 0
+        this.setIsAnChay(scanner.nextInt() == 1);
+        scanner.nextLine();
+        //trả về true nếu là 1, false nếu là 0
     }
 
     @Override
