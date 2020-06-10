@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class DanhSachThucUong extends ThucUongApi{
     protected List<ThucUong> dsThucUong = new ArrayList<>();
     protected int[] slThucUong = new int[50];
+    private int[] maThucUongSql = new int[50];
     
     public DanhSachThucUong(){}
     
@@ -62,6 +63,7 @@ public class DanhSachThucUong extends ThucUongApi{
             scanner.nextLine();
             if(ma == -1) break;
             dsThucUong.add(getThucUong(ma));
+            this.maThucUongSql[dsThucUong.size() - 1]=ma;
             System.out.print("Nhap vao so luong thuc uong: ");
             int sl = scanner.nextInt();
             slThucUong[dsThucUong.size() - 1] = sl;
@@ -109,5 +111,9 @@ public class DanhSachThucUong extends ThucUongApi{
         } else {
             System.out.println("Da huy bo cap nhat.");
         }
+    }
+
+    public int[] getMaThucUongSql() {
+        return maThucUongSql;
     }
 }

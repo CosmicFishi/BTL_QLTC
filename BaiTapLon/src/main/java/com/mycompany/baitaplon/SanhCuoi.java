@@ -12,7 +12,7 @@ import java.util.Scanner;
  * @author Admin
  */
 public class SanhCuoi {
-    //Thiếu biến đếm ở đây (Sẽ thêm sau khi sửa xong sql)
+    private int dem = 0;
     private String maSC;
     private String tenSanh;
     private int viTriSanh;
@@ -22,7 +22,9 @@ public class SanhCuoi {
     /**
      *Khởi tạo SanhCuoi rỗng
      */
+    public SanhCuoi(String s){}
     public SanhCuoi() {
+        this.maSC = String.format("S%03d", dem);
         this.tenSanh = "TenRong";
         this.viTriSanh = -1;
         this.sucChua = 0;
@@ -52,6 +54,20 @@ public class SanhCuoi {
      *Nhập dữ liệu vào SanhCuoi đã tạo qua scanner
      * @param scanner
      */
+    public void themTuSql(Scanner scanner) throws SQLException{
+        xuatMysql();
+        while(true){
+            System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
+            int ma = scanner.nextInt();
+            scanner.nextLine();
+            if(ma == -1) break;
+            dsThucAn.add(get1ThucAn(ma));
+            this.maThucAnSql[dsThucAn.size() - 1]=ma;
+            System.out.print("Nhap vao so luong thuc an: ");
+            int sl = scanner.nextInt();
+            slThucAn[dsThucAn.size() - 1] = sl;
+        }
+    }
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ten sanh: ");
         this.tenSanh = scanner.nextLine();

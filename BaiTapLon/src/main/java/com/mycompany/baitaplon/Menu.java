@@ -15,9 +15,9 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Menu {
-    protected DanhSachThucAn dsAn;
-    protected DanhSachThucUong dsUong;
-    
+    protected DanhSachThucAn dsAn = new DanhSachThucAn();
+    protected DanhSachThucUong dsUong = new DanhSachThucUong();
+    private int slMenu = 0;
     public Menu() {
     }
     
@@ -27,8 +27,10 @@ public class Menu {
     }
     
     public void nhap(Scanner scanner) throws SQLException {
-        this.dsAn.them(scanner);
-        this.dsUong.them(scanner);
+        this.dsAn.themTuSql(scanner);
+        this.dsUong.themTuSql(scanner);
+        System.out.println("Nhap sl menu: ");
+        this.slMenu = Integer.parseInt(scanner.nextLine());
     }
 
     @Override

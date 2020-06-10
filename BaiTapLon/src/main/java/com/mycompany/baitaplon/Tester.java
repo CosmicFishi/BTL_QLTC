@@ -19,25 +19,29 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
 //Thử dịch vụ của Dũng 
-        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
-        d1.addSQL();
-        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
-        d2.addSQL();
-//        d1.readSQLShow();
-//        d2.readSQLShow();
-        QLDV ql = new QLDV();
-        //ql.xuatDsSQL();
-        ql.traCuuSQL("idw");
-        d1.deleteSQL();
-        d2.deleteSQL();
+//        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
+//        d1.addSQL();
+//        DichVu d2 = new DvThueCS(2, "idkw", 30,"Dung", 5);
+//        d2.addSQL();
+////        d1.readSQLShow();
+////        d2.readSQLShow();
+//        QLDV ql = new QLDV();
+//        //ql.xuatDsSQL();
+//        ql.traCuuSQL("idw");
+//        d1.deleteSQL();
+//        d2.deleteSQL();
 //thử đồ ăn, thức uổng của Hậu
-//        Scanner scanner = new Scanner(System.in);
-//        try {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            QLMenu qlmenu = new QLMenu();
+            qlmenu.chon(scanner);
 //            DanhSachThucAn dsAn1 = new DanhSachThucAn();
 //            DanhSachThucUong dsUong1 = new DanhSachThucUong();
 //            dsUong1.themTuSql(scanner);
@@ -47,13 +51,12 @@ public class Tester {
 //            QLMenu qlmenu = new QLMenu();
 //            qlmenu.them(menu1);
 //            qlmenu.xuat();
-//        } catch (Exception e) {
-//            System.err.println(e.getMessage());
-//        } finally{
-//            Api.disconnectSql();
-//            System.out.println("Disconnected to mysql database.");
-//        }
-        
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } finally {
+            Api.disconnectSql();
+            System.out.println("Disconnected to mysql database.");
+        }
 //        ThucUong uong1 = new ThucUong("coca", 12000, "My");
 //        ThucUong uong2 = new ThucUong("sting", 10000, "VN");
 //        ThucAn an1 = new ThucAn("lau", 25000, false);
@@ -64,7 +67,6 @@ public class Tester {
 //        dsUong1.them(uong1, 10);
 //        dsUong1.them(uong2, 5);
 //        dsUong1.them(scanner);
-        
 //        try {
 //            Api api = new Api();
 //            Api.connectSql();

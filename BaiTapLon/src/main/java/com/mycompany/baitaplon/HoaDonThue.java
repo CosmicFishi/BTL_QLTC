@@ -6,6 +6,7 @@
 package com.mycompany.baitaplon;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -23,7 +24,9 @@ public class HoaDonThue {
     private QLDV dichVu;
     private int giaDichVu;
     
-    public HoaDonThue(){}
+    public HoaDonThue(){
+    
+    }
     
     public HoaDonThue(String maHD, String tenBT, String tenSanh, int giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
         this.maHD = maHD;
@@ -37,7 +40,8 @@ public class HoaDonThue {
         this.giaMenu = 0; // cần thêm câu query
         this.giaDichVu = 0;
     }
-
+   
+     
 //    @Override
 //    public String toString() {
 //        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
