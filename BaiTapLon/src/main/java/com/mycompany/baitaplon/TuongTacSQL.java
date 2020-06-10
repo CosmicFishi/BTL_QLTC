@@ -5,6 +5,8 @@
  */
 package com.mycompany.baitaplon;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Admin
@@ -13,6 +15,6 @@ interface TuongTacSQL {
     public void readSQLShow();
     public void addSQL();
     public void deleteSQL();
-    public void editSQL();
+    public void editSQL(Scanner scanner);
     public void showSQL();
 }

@@ -85,6 +85,17 @@ public class QLDV extends Api{
     public void xoaSQL(DichVu d) {
         d.deleteSQL();
     }
+    
+    public void nhapLuaChon(Scanner s, int maHoaDon) {
+        List<Integer> luaChon = new ArrayList<>();
+        System.out.println("Nhap vao lua chon cua ban (Ma dich vu): \nNhap vao -1 de hoan tat nhap hoac huy nhap");
+        do {
+            luaChon.add(s.nextInt());
+        } while (s.nextInt() != -1);
+        for(Integer i: luaChon) {
+            String sql = "insert into hoa_don_dv values()";
+        }
+    };
     /**
      * thêm vào một dịch vụ
      * @param d: Dịch vụ
