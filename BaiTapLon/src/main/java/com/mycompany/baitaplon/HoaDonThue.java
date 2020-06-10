@@ -6,6 +6,7 @@
 package com.mycompany.baitaplon;
 
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
@@ -15,17 +16,33 @@ public class HoaDonThue {
     private String maHD;
     private String tenBT;
     private String tenSanh;
-    private int giaThueSanh;
+    private GiaThue giaThueSanh;
     private String thoiDiemThue;
     private Date ngayThue;
     private QLMenu menu;
     private int giaMenu;
     private QLDV dichVu;
     private int giaDichVu;
+    private int giaThue;
+    
+    {
+        this.giaThue = giaThueSanh.getGiaThue();
+    }
     
     public HoaDonThue(){}
     
-    public HoaDonThue(String maHD, String tenBT, String tenSanh, int giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
+    /**
+     * Của Admin sài
+     * @param maHD
+     * @param tenBT
+     * @param tenSanh
+     * @param giaThue
+     * @param thoiDiem
+     * @param ngay
+     * @param menu
+     * @param dv 
+     */
+    public HoaDonThue(String maHD, String tenBT, String tenSanh, GiaThue giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
         this.maHD = maHD;
         this.tenBT = tenBT;
         this.tenSanh = tenSanh;
@@ -38,11 +55,12 @@ public class HoaDonThue {
         this.giaDichVu = 0;
     }
 
-//    @Override
-//    public String toString() {
-//        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
-//    }
-    
-    
-    
+
+    /**
+     * phần nhập của người dùng
+     * @param s 
+     */
+    public void nhap(Scanner s) {
+        
+    } 
 }

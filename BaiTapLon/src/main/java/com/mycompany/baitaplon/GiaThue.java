@@ -5,7 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -39,7 +39,7 @@ public class GiaThue {
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao thoi diem thue: (Sang, chieu, toi) ");
         if(null == scanner.nextLine())
-            this.thoiDiem = ThoiDiem.TOI;
+            this.thoiDiem = null;
         else
             switch (scanner.nextLine()) {
             case "Sang":
