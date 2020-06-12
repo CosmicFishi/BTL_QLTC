@@ -71,7 +71,7 @@ public class GiaThue {
 
     @Override
     public String toString() {
-        return String.format("Gia thue: %d\nThoi diem: %s\nNgay thue: %s\nDip le: %b\n",
+        return String.format("%-14d|%-19s|%-15s|%-10b",
                 this.giaThue,this.thoiDiem,this.Ngay,this.isDipLe);
     }
     

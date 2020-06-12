@@ -24,7 +24,7 @@ public class HoaDonThue {
     private int giaMenu;
     private QLDV dichVu;
     private int giaDichVu;
-    private int giaThue;
+    private int giaThue; 
     
     {
         this.giaThue = giaThueSanh.getGiaThue();
@@ -39,6 +39,7 @@ public class HoaDonThue {
      * @param maHD
      * @param tenBT
      * @param tenSanh
+     * @param soBanThue
      * @param giaThue
      * @param thoiDiem
      * @param ngay

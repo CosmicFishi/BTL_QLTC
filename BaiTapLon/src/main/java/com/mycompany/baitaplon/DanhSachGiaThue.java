@@ -24,6 +24,11 @@ public class DanhSachGiaThue {
         g.nhap(s);
     }
     public void xuat() {
+        System.out.println("Gia thue:     |Thoi diem thue:    |Ngay thue:     |Dip le:   ");
         this.dsGia.forEach((GiaThue g) -> System.out.println(g));
     }
 }
+//    public void luaChon() {
+//        
+//    }
+//}
