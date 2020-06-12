@@ -119,7 +119,7 @@ public class HoaDonThue {
      * Phần xuất của riêng admin
      */
     public void xuat() {
-        System.out.printf("Ma hoa don: %d\n Ten bua tiec: \nSo ban thue:", this.maHD, this.tenBuoiTiec, this.soBanThue);
+        System.out.printf("Ma hoa don: %d\n Ten bua tiec: %s\nSo ban thue: %d\n", this.maHD, this.tenBuoiTiec, this.soBanThue);
         this.sanhCuoi.xuat();
         this.DSmenu.xuat();
         this.dichVu.xuat();
