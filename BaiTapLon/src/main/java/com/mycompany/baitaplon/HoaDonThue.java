@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,14 +20,16 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class HoaDonThue {
-    private int maHD;
+    private static int dem =0;//
+    private int maHD;//
     private String tenBuoiTiec;
     private int soBanThue;
     private Date ngayThue;
     
+    private QLSanhCuoi qlSanh = new QLSanhCuoi();
     private GiaThue giaThueSanh;
     private SanhCuoi sanhCuoi;
-    private QLMenu menu;
+    private QLMenu DSmenu;
     private QLDV dichVu;
     
     private int giaSanh;
@@ -37,6 +40,7 @@ public class HoaDonThue {
     private List<Integer> luaChonDv = new ArrayList<>();
     
     {
+        this.maHD = ++dem;
         this.giaHoaDon = giaThueSanh.getGiaThue();
     }
     
@@ -60,7 +64,7 @@ public class HoaDonThue {
         this.soBanThue = soBanThue;
         this.giaThueSanh = giaThue;
         this.ngayThue = ngay;
-        this.menu = menu;
+        this.DSmenu = menu;
         this.dichVu = dv;
         this.giaMenu = 0; // cần thêm câu query
         this.giaDichVu = 0;
@@ -71,7 +75,7 @@ public class HoaDonThue {
 //        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
 //    }
     public void tinhTien(){
-        this.giaMenu = this.menu.tinhGiaDs();
+        this.giaMenu = this.DSmenu.tinhGiaDs();
         this.giaSanh = this.sanhCuoi.getGiaThue() + this.giaThueSanh.getGiaThue();
         this.giaDichVu = this.dichVu.layTongTienDVSQL(this.maHD);
         this.giaHoaDon = this.giaMenu+ this.giaDichVu + this.giaSanh;
@@ -81,6 +85,12 @@ public class HoaDonThue {
      * @param s 
      */
     public void nhap(Scanner s) {
+        System.out.print("Nhap ten buoi tiec: ");
+        this.tenBuoiTiec = s.nextLine();
+        System.out.print("Nhap so ban thue: ");
+        this.soBanThue = Integer.parseInt(s.nextLine());
+        System.out.print("Nhap thoi diem thue: ");
+        this.giaThueSanh.nhap(s);
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Nhap vao ngay thang nam: ");
         String date = s.nextLine();
@@ -97,6 +107,12 @@ public class HoaDonThue {
         } else {
             System.out.println("ok then");
         }
+        try {
+            this.DSmenu.chon(s);
+        } catch (SQLException ex) {
+            System.err.println("Loi nhap menu.");
+        }
+        this.sanhCuoi=qlSanh.taoScFromSQL(s);
         tinhTien();
     } 
     public void capNhat() {};

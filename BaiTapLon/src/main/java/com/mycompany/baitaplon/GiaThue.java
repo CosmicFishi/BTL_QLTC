@@ -6,6 +6,7 @@
 package com.mycompany.baitaplon;
 
 //import java.util.Date;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -13,15 +14,13 @@ import java.util.Scanner;
  * @author Admin
  */
 public class GiaThue {
-    private int giaThue;
+    private int giaThue =0;
     private ThoiDiem thoiDiem;
     private NgayThue Ngay;
     private boolean isDipLe;
     
-    public GiaThue() {
-        this.giaThue = 0;
+    public GiaThue(ThoiDiem thoiDiem, Date ngayThue) {
         this.thoiDiem = ThoiDiem.SANG;
-        this.Ngay = null;
         this.isDipLe = false;
     }
     /**
@@ -42,14 +41,16 @@ public class GiaThue {
             this.thoiDiem = null;
         else
             switch (scanner.nextLine()) {
-            case "Sang":
+            case "1":
                 this.thoiDiem = ThoiDiem.SANG;
                 break;
-            case "Chieu":
+            case "2":
                 this.thoiDiem = ThoiDiem.CHIEU;
                 break;
-            default:
+            case "3":
                 this.thoiDiem = ThoiDiem.TOI;
+                break;
+            default:
                 break;
         }
         System.out.println("Nhap vao ngay thue(1 | 2): Ngay thuong hay thu Bay + Chu nhat ");
@@ -63,7 +64,6 @@ public class GiaThue {
     }
     
     private void tinhTien()  {
-        this.giaThue = 0;
         this.giaThue  = Ngay.layTien() +  thoiDiem.layTien();
         if  (this.isDipLe == true) 
             this.giaThue += 10000;

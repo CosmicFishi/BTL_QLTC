@@ -66,6 +66,8 @@ public class SanhCuoi {
      * Xuất sảnh cưới mã, tên, vị trí, sức chứa, giá thuê
      */
     public void xuat() {
+        System.out.format(" MaSC  |  Ten sanh          | vi tri |suc chua | gia thue    \n");
+        System.out.format("-------+-------------------+--------+---------+-------------+%n");
         System.out.printf("%-7s|%-20s|%-5d|%-6d|%-15d",
                 this.maSC, this.tenSanh, this.viTriSanh, this.sucChua, this.giaThue);
     }

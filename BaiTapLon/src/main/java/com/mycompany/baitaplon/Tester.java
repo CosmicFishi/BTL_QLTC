@@ -25,6 +25,12 @@ public class Tester {
         Api api = new Api();
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
+        try {
+            HoaDonThue hd1 = new HoaDonThue();
+            hd1.nhap(scanner);
+        } catch (Exception e) {
+        }
+        Api.disconnectSql();
 //Thử dịch vụ của Dũng 
 //        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
 //        d1.addSQL();
@@ -45,12 +51,12 @@ public class Tester {
 //        ql.xoaLuaChonSQL(1);
 //        d1.deleteSQL();
 //        d2.deleteSQL();
-        GiaThue g1 = new GiaThue(ThoiDiem.CHIEU, NgayThue.NgayThuong, true);
-        GiaThue g2 = new GiaThue(ThoiDiem.TOI, NgayThue.Bay_ChuNhat, true);
-        DanhSachGiaThue d1 = new DanhSachGiaThue();
-        d1.them(g1);
-        d1.them(g2);
-        d1.xuat();
+//        GiaThue g1 = new GiaThue(ThoiDiem.CHIEU, NgayThue.NgayThuong, true);
+//        GiaThue g2 = new GiaThue(ThoiDiem.TOI, NgayThue.Bay_ChuNhat, true);
+//        DanhSachGiaThue d1 = new DanhSachGiaThue();
+//        d1.them(g1);
+//        d1.them(g2);
+//        d1.xuat();
 //thử đồ ăn, thức uổng của Hậu
 //        try {
 //            DanhSachThucAn lq = new DanhSachThucAn();
