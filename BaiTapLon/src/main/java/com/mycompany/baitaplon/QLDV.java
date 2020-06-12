@@ -238,42 +238,13 @@ public class QLDV extends Api{
     public void capNhat(DichVu d, DVApi dA) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         d.nhap(scanner); 
-
-//        DichVu d = new DichVu();
-//        System.out.println("Nhap vao ma dich vu: ");
-//        String maDichVu = scanner.nextLine();
-//        //tim thay hay khong?
-//        findDV(maDichVu);
-//        if(isNullRS() == true) return; //khong tim thay thi return
-//        super.showDV(1); // tim thay thi xuat ra 1 thang
-//        System.out.println("Ban co muon cap nhat dich vu? (Y/N)");
-//        if(scanner.nextLine().equals("y")) {
-//            d.nhap(scanner);
-//            super.edit(d); //nhet vao ham edit trong API de update mysql
-//        }   else {
-//            System.out.println("Da huy bo cap nhat");
-//        }
-        //dA.edit(d);
     }
     /**
      * Xoa mot dich vu
      * @param d: dịch vụ
-     * @param dA: Api của dịch vụ đó
-     * @throws SQLException 
      */
-    public void xoa(DichVu d, DVApi dA) throws SQLException {
+    public void xoa(DichVu d) {
         this.ql.remove(d);
-        //dA.deleteDV();
-//        System.out.println("Nhap vao maich vu can xoa: ");
-//        String dvXoa  d= scanner.nextLine();
-//        findDV(dvXoa);
-//        if(isNullRS() == true ) return; 
-//        super.showDV(1);
-//        System.out.println("ban co muon xoa sanh nay khong? (Y/N)");
-//        if(scanner.nextLine().equals("y"))
-//            super.deleteDV(); //xoa dich vu ben trong mysql
-//        else
-//            System.out.println("Da dung xoa dich vu");
     }
     
     //Can phai ghi lai mot ham tim kiem bang stored procudure
@@ -295,10 +266,8 @@ public class QLDV extends Api{
     
     /**
      * Xuất ra danh sách các dịch vụ
-     * @param dA: Api của một dịch vụ cụ thể
-     * @throws SQLException 
      */
-    public void xuat(DVApi dA) throws SQLException {
+    public void xuat(){
          this.ql.forEach((DichVu d) -> System.out.println(d));
          //dA.readShow();
 //        super.readShow();

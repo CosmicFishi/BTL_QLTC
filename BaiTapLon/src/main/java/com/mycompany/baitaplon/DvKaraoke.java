@@ -42,8 +42,8 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
 
     @Override
     public String toString() {
-        return super.toString();
-        //return String.format("%sKhoang thoi gian: %s",super.toString(),this.KhoangTG); 
+//        super.toString();
+        return String.format("%sKhoang thoi gian: %s",super.toString(),this.KhoangTG); 
     }
     @Override
         public String xuat() {
@@ -51,15 +51,6 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
             return String.format("%d,\'%s\'",this.getMaDV(),this.KhoangTG);
         }
 //phần tương tác với mysql 
-//    @Override
-//    public void readSQLShow() throws SQLException {
-//        super.readSQLShow();
-//        String sql = "select * from dv_karaoke";
-//        super.read(sql);
-//        showDV();
-//    }
-
-        //where MaDv = "+ this.getMaDV() + ";"
     @Override
     public void readSQLShow() {
         super.readSQLShow();
@@ -134,71 +125,6 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
             System.err.println(ex.getMessage());
         }
     }
-    
-    //Ham can xoa
-    
-    /**
-     * Thêm dịch vụ karaoke
-     * @param d: dịch vụ karaoke
-     * @throws SQLException 
-     */
-//    @Override
-//    public void addDVSQL(DichVu d) throws SQLException {
-//        super.addDVSQL(d);
-//        String sql2 = d.xuat();
-//        sql2 ="insert into dv_karaoke values(" + sql2 + ")";
-//        super.writeOrDelete(sql2, "add"); // thêm mã và khoảng thời gian thuê vào bảng karaoke
-//    }
-//
-//    @Override
-//    public void deleteDVSQL() throws SQLException {
-//        super.deleteDVSQL();
-//        String sql2  =  "delete from dv_karaoke where MaDV= " + getSelected()  + ";";
-//        super.writeOrDelete(sql2, "delete");
-//    }
-//
-//    @Override
-//    public void editSQL(DichVu d) throws SQLException {
-//        Scanner s = new Scanner(System.in);
-//        super.editSQL(d); 
-//        try{
-//            pStm = conn.prepareCall("update dv_karaoke set"
-//                    + "KhoangThoiGianThue = ?"
-//                    + "where MaDV = ?");
-//            System.out.println("Nhap vao khoang thoi gian thue: ");
-//            pStm.setString(1, s.nextLine() );
-//            pStm.setInt(2, d.getMaDV());
-//        } catch(SQLException e) {
-//            System.err.println("error");
-//        } finally {
-//            pStm.close();
-//        }
-//    }
-//
-//    
-////    public void editKa(DvKaraoke d) {
-////        try{
-////            pStm = conn.prepareCall("update dv_karaoke set"
-////                    + "KhoangThoiGianThue = ?"
-////                    + "where MaDV = ?");
-////            pStm.setString(1, d.getKhoangTG());
-////            pStm.setString(2, d.getMaDV());
-////        } catch(SQLException e) {
-////            System.err.println("error");
-////        }
-////    }
-//   
-//    @Override
-//    public void showDV() throws SQLException {
-//        System.out.println("Ma dich vu       | Khoang thoi gian thue    |Gia dich vu \n");
-//        System.out.println("+---------------+|+------------------------+|+-----------+\n");
-//        while(rs.next()) {
-//            System.out.printf("|%-17d| %-25s| %-12d|\n",
-//                    rs.getInt("MaDV"),
-//                    rs.getString("KhoangThoiGianThue"),
-//                    rs.getInt("giaDichVu"));
-//        }
-//    }
     @Override
     public void showDV(int i) throws SQLException {
         if(rs.next()) {

@@ -99,6 +99,24 @@ public class HoaDonThue {
         }
         tinhTien();
     } 
+    /**
+     * (admin)
+     * Phần xuất của riêng admin
+     */
+    public void xuat() {
+        System.out.printf("Ma hoa don: %d\n Ten bua tiec: \nSo ban thue:", this.maHD, this.tenBuoiTiec, this.soBanThue);
+        this.sanhCuoi.xuat();
+        this.menu.xuat();
+        this.dichVu.xuat();
+        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", 
+                this.giaSanh, this.giaMenu, this.giaDichVu, this.giaHoaDon);
+        
+    }
+    public void xuatSQL() {
+        this.dichVu.xuatLuaChonTuSQL(this.maHD);
+    }
     public void capNhat() {};
-    public void xoa() {};
+    public void xoa() {
+        this.dichVu.xoaLuaChonSQL(this.maHD);
+    };
 }
