@@ -16,47 +16,45 @@ import java.util.Scanner;
  */
 public class HoaDonThue {
     private int maHD;
-    private String tenBT;
-    private String tenSanh;
-    private GiaThue giaThueSanh;
-    private String thoiDiemThue;
+    private String tenBuoiTiec;
     private int soBanThue;
     private Date ngayThue;
-    private QLMenu menu;
-    private int giaMenu;
-    private QLDV dichVu;
-    private int giaDichVu;
-    private int giaThue; 
     
-    private List<Integer> luaChon = new ArrayList<>();
+    private GiaThue giaThueSanh;
+    private SanhCuoi sanhCuoi;
+    private QLMenu menu;
+    private QLDV dichVu;
+    
+    private int giaSanh;
+    private int giaMenu;
+    private int giaDichVu;
+    private int giaHoaDon; 
+    
+    private List<Integer> luaChonDv = new ArrayList<>();
     
     {
-        this.giaThue = giaThueSanh.getGiaThue();
+        this.giaHoaDon = giaThueSanh.getGiaThue();
     }
     
-    public HoaDonThue(){
-    
-    }
+    public HoaDonThue(){}
     
     /**
      * Của Admin sài
      * @param maHD
      * @param tenBT
-     * @param tenSanh
+     * @param sanhCuoi
      * @param soBanThue
      * @param giaThue
-     * @param thoiDiem
      * @param ngay
      * @param menu
      * @param dv 
      */
-    public HoaDonThue(int maHD, String tenBT, String tenSanh, int soBanThue, GiaThue giaThue, String thoiDiem, Date ngay, QLMenu menu, QLDV dv ) {
+    public HoaDonThue(int maHD, String tenBT, SanhCuoi sanhCuoi, int soBanThue, GiaThue giaThue, Date ngay, QLMenu menu, QLDV dv ) {
         this.maHD = maHD;
-        this.tenBT = tenBT;
-        this.tenSanh = tenSanh;
+        this.tenBuoiTiec = tenBT;
+        this.sanhCuoi = sanhCuoi;
         this.soBanThue = soBanThue;
         this.giaThueSanh = giaThue;
-        this.thoiDiemThue = thoiDiem;
         this.ngayThue = ngay;
         this.menu = menu;
         this.dichVu = dv;
@@ -64,16 +62,16 @@ public class HoaDonThue {
         this.giaDichVu = 0;
     }
     
-     
 //    @Override
 //    public String toString() {
 //        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
 //    }
-    
-    
-    
-
-
+    public void tinhTien(){
+        this.giaMenu = this.menu.tinhGiaDs();
+        this.giaSanh = this.sanhCuoi.getGiaThue() + this.giaThueSanh.getGiaThue();
+        this.giaDichVu = this.dichVu.layTongTienDVSQL(this.maHD);
+        this.giaHoaDon = this.giaMenu+ this.giaDichVu + this.giaSanh;
+    }
     /**
      * phần nhập của người dùng
      * @param s 
@@ -84,9 +82,10 @@ public class HoaDonThue {
         if("y".equals(s.nextLine().toLowerCase())) {
             System.out.println("Danh sach cac dich vu: ");
                 this.dichVu.xuatDsSQL();
-                luaChon = this.dichVu.nhapLuaChon(s, maHD);
+                luaChonDv = this.dichVu.nhapLuaChon(s, maHD);
         } else {
             System.out.println("ok then");
         }
+        tinhTien();
     } 
 }
