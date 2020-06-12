@@ -113,8 +113,9 @@ public class QLDV extends Api{
      * Nhập vào các lựa chọn
      * @param s : Scanner
      * @param maHoaDon : mã hóa đơn
+     * @return Danh sách các lưa chọn mà người dùng đã nhập
      */
-    public void nhapLuaChon(Scanner s, int maHoaDon) {
+    public List<Integer> nhapLuaChon(Scanner s, int maHoaDon) {
         List<Integer> luaChon = new ArrayList<>();
         int c = 0;
         System.out.println("Nhap vao lua chon cua ban (Ma dich vu)\n Nhap vao -1 de hoan tat nhap");
@@ -129,7 +130,8 @@ public class QLDV extends Api{
         }
         if(luaChon.isEmpty())
             System.out.println("Danh sach lua chon rong !!!");
-        luaChon.forEach(i -> System.out.println(i.intValue()));
+//        luaChon.forEach(i -> System.out.println(i.intValue()));
+        return luaChon;
     };
     /**
      * Các lựa chọn sẽ được nhập vào trong mysql || CẦN PHẢI THÊM LUACHON VAO TRONG HOADONTHUE
@@ -199,6 +201,23 @@ public class QLDV extends Api{
             System.err.println(ex.getMessage());
         }
         return false;
+    }
+    public int layTongTienDVSQL(int maHoaDon) {
+        int kq = 0;
+        try {
+            
+            String sql = "select dv.GiaDichVu\n"
+                    + "from dv\n"
+                    + "left join hoa_don_dv hddv on hddv.MaDv = dv.MaDv\n"
+                    + "where hddv.MaHD = " + maHoaDon + ";";
+            super.read(sql);
+            while(rs.next()) {
+                kq += rs.getInt("GiaDichVu");
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return kq;
     }
     /**
      * thêm vào một dịch vụ

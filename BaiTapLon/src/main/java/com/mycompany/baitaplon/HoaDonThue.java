@@ -5,7 +5,9 @@
  */
 package com.mycompany.baitaplon;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,6 +27,8 @@ public class HoaDonThue {
     private QLDV dichVu;
     private int giaDichVu;
     private int giaThue; 
+    
+    private List<Integer> luaChon = new ArrayList<>();
     
     {
         this.giaThue = giaThueSanh.getGiaThue();
@@ -76,5 +80,13 @@ public class HoaDonThue {
      */
     public void nhap(Scanner s) {
         
+        System.out.println("Ban co muon them dich vu khong? (Y | N)");
+        if("y".equals(s.nextLine().toLowerCase())) {
+            System.out.println("Danh sach cac dich vu: ");
+                this.dichVu.xuatDsSQL();
+                luaChon = this.dichVu.nhapLuaChon(s, maHD);
+        } else {
+            System.out.println("ok then");
+        }
     } 
 }
