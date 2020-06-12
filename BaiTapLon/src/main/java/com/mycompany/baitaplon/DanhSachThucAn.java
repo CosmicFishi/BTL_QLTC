@@ -27,7 +27,13 @@ public class DanhSachThucAn extends ThucAnApi {
         this.dsThucAn = dsThucAn;
         this.slThucAn = slAn;
     }
-
+    public int tinhGiaDs(){
+        int kq= 0;
+        for (int i=0; i< this.dsThucAn.size() ; i++){
+            kq += this.dsThucAn.get(i).gia * this.slThucAn[i];
+        }
+        return kq;
+    }
     /**
      *xuất thức ăn và số lượng thức ăn trong danh sách List<ThucAN>
      */

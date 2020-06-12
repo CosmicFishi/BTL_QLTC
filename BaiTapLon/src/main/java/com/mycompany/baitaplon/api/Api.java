@@ -26,7 +26,7 @@ public class Api {
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
-    private static final String password = "12345678";
+    private static final String password = "haungo230899";
 
     protected Statement stm = null;
     protected PreparedStatement pStm = null;
@@ -68,27 +68,5 @@ public class Api {
         } catch (Exception e) {
             throw new Error("can't update or delete");
         }
-//    protected abstract void edit(String sql);
-//    private void delete(String dong) throws SQLException{
-//        try {
-//            pStm = conn.prepareStatement("delete from sanh_cuoi where MaSC = '?'");
-//            pStm.setString(1, dong);
-//            pStm.executeUpdate();
-//        } catch (Exception e) {
-//            pStm.close();
-//        }
-//    }
-//    public void showSC(ResultSet rs) throws SQLException{
-//        while(rs.next()){
-//            System.out.printf("%d\n%s\n%s\n%s\n%s\n%d\n_________________", 
-//                rs.getInt("MaHoaDon"),
-//                rs.getString("ThoiDiem"),
-//                rs.getString("NgayThue"),
-//                rs.getString("TenBuoiTiec"),
-//                rs.getString("MaSC"),
-//                rs.getInt("TongTien")
-//                );
-//        }
-//    }
     }
 }

@@ -26,7 +26,9 @@ public class Menu {
         this.dsAn = dsA;
         this.dsUong = dsU;
     }
-    
+    public int tinhGiaDs(){
+        return ( this.dsAn.tinhGiaDs() + this.dsUong.tinhGiaDs() )*this.slMenu ;
+    }
     public void nhap(Scanner scanner) throws SQLException {
         this.dsAn.themTuSql(scanner);
         this.dsUong.themTuSql(scanner);

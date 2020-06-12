@@ -37,7 +37,13 @@ public class DanhSachThucUong extends ThucUongApi{
         }
         return kq.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+    public int tinhGiaDs(){
+        int kq= 0;
+        for (int i=0; i< this.dsThucUong.size() ; i++){
+            kq += this.dsThucUong.get(i).gia * this.slThucUong[i];
+        }
+        return kq;
+    }
     public void xuat(){
         for(ThucUong ta: dsThucUong){
             System.out.println(ta);

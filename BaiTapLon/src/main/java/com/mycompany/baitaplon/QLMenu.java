@@ -15,35 +15,49 @@ import java.util.Scanner;
  * @author Admin
  */
 public class QLMenu {
+
     private List<Menu> ql = new ArrayList<>();
-    
-    public void chon(Scanner scanner) throws SQLException{
+
+    public void chon(Scanner scanner) throws SQLException {
         System.out.println("===============Them DS Menu===============");
         int dem = 0;
-        while(true){
+        while (true) {
             this.them(new Menu());
             System.out.println("=========Them Menu============");
             this.ql.get(dem++).nhap(scanner);
             System.out.print("Ban co muon them menu (1 them; -1 thoat):");
             int input = Integer.parseInt(scanner.nextLine());
-            if(input == -1 ) return;
-        }   
+            if (input == -1) {
+                return;
+            }
+        }
     }
-    
-    public void them (Menu m) {
+
+    public int tinhGiaDs() {
+        int kq = 0;
+        for (Menu c : this.ql) {
+            kq += c.tinhGiaDs();
+        }
+        return kq;
+    }
+
+    public void them(Menu m) {
         this.ql.add(m);
     }
+
     public void xuat() {
         System.out.println("=========Xuat DS Menu===========");
         int dem = 1;
-        for (int i =0; i<ql.size(); i++){
+        for (int i = 0; i < ql.size(); i++) {
             System.out.printf("------------Menu %d-----------\n", dem++);
             System.out.println(ql.get(i).toString());
         }
     }
+
     public void capNhat(Menu n) {
         //Scanner s = new Scanner(System.in);
     }
+
     public void xoa(Menu m) {
         this.ql.remove(m);
     }
