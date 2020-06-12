@@ -27,10 +27,10 @@ public class HoaDonThue {
     private Date ngayThue;
     
     private QLSanhCuoi qlSanh = new QLSanhCuoi();
-    private GiaThue giaThueSanh;
+    private GiaThue giaThueSanh = new GiaThue();
     private SanhCuoi sanhCuoi;
-    private QLMenu DSmenu;
-    private QLDV dichVu;
+    private QLMenu DSmenu = new QLMenu();
+    private QLDV dichVu = new QLDV();
     
     private int giaSanh;
     private int giaMenu;
@@ -41,7 +41,6 @@ public class HoaDonThue {
     
     {
         this.maHD = ++dem;
-        this.giaHoaDon = giaThueSanh.getGiaThue();
     }
     
     public HoaDonThue(){}
@@ -122,7 +121,7 @@ public class HoaDonThue {
     public void xuat() {
         System.out.printf("Ma hoa don: %d\n Ten bua tiec: \nSo ban thue:", this.maHD, this.tenBuoiTiec, this.soBanThue);
         this.sanhCuoi.xuat();
-        this.menu.xuat();
+        this.DSmenu.xuat();
         this.dichVu.xuat();
         System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", 
                 this.giaSanh, this.giaMenu, this.giaDichVu, this.giaHoaDon);

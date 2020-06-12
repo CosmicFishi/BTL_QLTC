@@ -14,15 +14,20 @@ import java.util.Scanner;
  * @author Admin
  */
 public class GiaThue {
-    private int giaThue =0;
+
+    private int giaThue = 0;
     private ThoiDiem thoiDiem;
     private NgayThue Ngay;
     private boolean isDipLe;
-    
+
+    public GiaThue() {
+    }
+
     public GiaThue(ThoiDiem thoiDiem, Date ngayThue) {
         this.thoiDiem = ThoiDiem.SANG;
         this.isDipLe = false;
     }
+
     /**
      * @param thoiDiem : thời điểm thuê (Sáng, trưa, chiều, tối)
      * @param ngayThue : Ngày thuê trong tuần
@@ -34,13 +39,11 @@ public class GiaThue {
         this.isDipLe = isDip;
         tinhTien();
     }
-    
+
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao thoi diem thue: (Sang, chieu, toi) ");
-        if(null == scanner.nextLine())
-            this.thoiDiem = null;
-        else
-            switch (scanner.nextLine()) {
+
+        switch (scanner.nextLine()) {
             case "1":
                 this.thoiDiem = ThoiDiem.SANG;
                 break;
@@ -54,27 +57,29 @@ public class GiaThue {
                 break;
         }
         System.out.println("Nhap vao ngay thue(1 | 2): Ngay thuong hay thu Bay + Chu nhat ");
-        if(scanner.nextInt() == 1)
+        if (scanner.nextInt() == 1) {
             this.Ngay = NgayThue.NgayThuong;
-        else
+        } else {
             this.Ngay = NgayThue.Bay_ChuNhat;
+        }
         System.out.println("Dip le ? (0 | 1)");
         this.isDipLe = scanner.nextInt() == 1;
+        scanner.nextLine();
         tinhTien();
     }
-    
-    private void tinhTien()  {
-        this.giaThue  = Ngay.layTien() +  thoiDiem.layTien();
-        if  (this.isDipLe == true) 
+
+    private void tinhTien() {
+        this.giaThue = Ngay.layTien() + thoiDiem.layTien();
+        if (this.isDipLe == true) {
             this.giaThue += 10000;
+        }
     }
 
     @Override
     public String toString() {
         return String.format("%-14d|%-19s|%-15s|%-10b",
-                this.giaThue,this.thoiDiem,this.Ngay,this.isDipLe);
+                this.giaThue, this.thoiDiem, this.Ngay, this.isDipLe);
     }
-    
 
     /**
      * @return the giaThue
@@ -131,6 +136,5 @@ public class GiaThue {
     public void setIsDipLe(boolean isDipLe) {
         this.isDipLe = isDipLe;
     }
-    
-    
+
 }

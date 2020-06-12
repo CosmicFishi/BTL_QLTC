@@ -20,16 +20,16 @@ import java.util.Scanner;
  * @author Admin
  */
 public class Tester {
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
-        try {
-            HoaDonThue hd1 = new HoaDonThue();
-            hd1.nhap(scanner);
-        } catch (Exception e) {
-        }
+
+        HoaDonThue hd1 = new HoaDonThue();
+        hd1.nhap(scanner);
+        hd1.xuat();
         Api.disconnectSql();
 //Thử dịch vụ của Dũng 
 //        DichVu d1 = new DvKaraoke(1, "idk", 10, "10 tieng");
