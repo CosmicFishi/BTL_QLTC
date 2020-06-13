@@ -41,27 +41,6 @@ public class GiaThue {
     }
 
     public void nhap(Scanner scanner) {
-        System.out.println("Nhap vao thoi diem thue: (Sang, chieu, toi) ");
-
-        switch (scanner.nextLine()) {
-            case "1":
-                this.thoiDiem = ThoiDiem.SANG;
-                break;
-            case "2":
-                this.thoiDiem = ThoiDiem.CHIEU;
-                break;
-            case "3":
-                this.thoiDiem = ThoiDiem.TOI;
-                break;
-            default:
-                break;
-        }
-        System.out.println("Nhap vao ngay thue(1 | 2): Ngay thuong hay thu Bay + Chu nhat ");
-        if (scanner.nextInt() == 1) {
-            this.Ngay = NgayThue.NgayThuong;
-        } else {
-            this.Ngay = NgayThue.Bay_ChuNhat;
-        }
         System.out.println("Dip le ? (0 | 1)");
         this.isDipLe = scanner.nextInt() == 1;
         scanner.nextLine();
