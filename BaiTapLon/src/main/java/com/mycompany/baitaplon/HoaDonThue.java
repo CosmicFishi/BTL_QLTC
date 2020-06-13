@@ -5,6 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
+import com.mycompany.baitaplon.api.Api;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,15 +15,18 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public class HoaDonThue {
+public class HoaDonThue extends Api implements TuongTacSQL{
     private static int dem =0;//
     private int maHD;//
     private String tenBuoiTiec;
+    private ThoiDiem thoiDiemThue;
     private int soBanThue;
     private Date ngayThue;
     
@@ -38,6 +42,7 @@ public class HoaDonThue {
     private int giaHoaDon; 
     
     private List<Integer> luaChonDv = new ArrayList<>();
+    SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
     
     {
         this.maHD = ++dem;
@@ -86,11 +91,25 @@ public class HoaDonThue {
     public void nhap(Scanner s) {
         System.out.print("Nhap ten buoi tiec: ");
         this.tenBuoiTiec = s.nextLine();
+        System.out.println("Nhap vao thoi diem thue: (Sang, chieu, toi) (1 | 2 | 3) ");
+        switch (s.nextLine()) {
+            case "1":
+                this.thoiDiemThue = ThoiDiem.SANG;
+                break;
+            case "2":
+                this.thoiDiemThue = ThoiDiem.CHIEU;
+                break;
+            case "3":
+                this.thoiDiemThue = ThoiDiem.TOI;
+                break;
+            default:
+                break;
+        }
         System.out.print("Nhap so ban thue: ");
         this.soBanThue = Integer.parseInt(s.nextLine());
         System.out.print("Nhap thoi diem thue: ");
         this.giaThueSanh.nhap(s);
-        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        
         System.out.println("Nhap vao ngay thang nam: ");
         String date = s.nextLine();
         try {
@@ -127,11 +146,48 @@ public class HoaDonThue {
                 this.giaSanh, this.giaMenu, this.giaDichVu, this.giaHoaDon);
         
     }
-    public void xuatSQL() {
-        this.dichVu.xuatLuaChonTuSQL(this.maHD);
+
+    @Override
+    public void readSQLShow() {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
-    public void capNhat() {};
-    public void xoa() {
-        this.dichVu.xoaLuaChonSQL(this.maHD);
-    };
+
+    //Còn thiếu phần nhập danh sách thức ăn vào bảng thức ăn và thức uống
+    @Override
+    public void addSQL() {
+        try {
+            String sql = String.format("%d ,\'%s\' ,\'%s\' ,\'%s\' ,\'%s\' ,%d",
+                    this.maHD, this.thoiDiemThue.layTD(),String.format("%s", f.format(this.ngayThue)), this.tenBuoiTiec,
+                    this.sanhCuoi.getMaSC(),this.giaHoaDon );
+            sql = "insert into hoa_don values (" + sql +  ")";
+            super.read(sql);
+            //Phần nhập lựa chọn của dv vào bảng hoa_don_dv
+            if(!(luaChonDv.isEmpty()))
+                this.dichVu.nhapLuaChonSQL(maHD, luaChonDv);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    //Thiếu phần xóa danh sách thức ăn theo mã hóa đơn
+    @Override
+    public void deleteSQL() {
+        try {
+            String sql = "Delete * from hoa_don where MaHD = " + this.maHD + ";";
+            super.writeOrDelete(sql, "delete");
+            this.dichVu.xoaLuaChonSQL(maHD);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void editSQL(Scanner scanner) {
+        
+    }
+
+    @Override
+    public void showSQL() {
+        this.dichVu.xuatLuaChonTuSQL(maHD);
+    }
 }

@@ -104,7 +104,31 @@ public class QLDV extends Api{
             System.err.println(ex.getMessage());
         }
     }
-    //thiếu hàm xóa dựa vào mã dịch vụ
+    /**
+     * Xóa dựa vào mã dịch vụ
+     * @param MaDv 
+     */
+    public void xoaSQL(int MaDv) {
+        if(isTonTaiDV(MaDv)) {
+            try {
+            String sql = "delete from dv_karaoke where MaDv =  " + MaDv+";";
+            super.writeOrDelete(sql, "delete");
+            sql = "delete from dv_ca_si where MaDv =  " + MaDv+";";
+            super.writeOrDelete(sql, "delete");
+            sql = "delete from dv where MaDv =  " + MaDv +";";
+            super.writeOrDelete(sql, "delete");
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        } else {
+            System.out.println("Ma dich vu khong ton tai!!!");
+        }
+        
+    }
+    /**
+     * Xóa dựa vào đối tượng dịch vụ
+     * @param d 
+     */
     public void xoaSQL(DichVu d) {
         d.deleteSQL();
     }
@@ -225,8 +249,8 @@ public class QLDV extends Api{
      * @param dA: Api của dịch vụ đó
      * @throws SQLException 
      */
-    public void them(DichVu d, DVApi dA) throws SQLException {
-        //this.ql.add(d);
+    public void them(DichVu d) throws SQLException {
+        this.ql.add(d);
         //dA.addDV(d);
     }
     /**
