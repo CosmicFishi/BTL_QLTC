@@ -150,16 +150,16 @@ public class HoaDonThue extends Api{
         tinhTien();
     } 
     /**
-     * (admin)
+     * (admin) + (user)
      * Phần xuất của riêng admin
      */
-    public void xuat() {
+    public void xuatSQL() {
         System.out.printf("Ma hoa don: %d\n Ten bua tiec: %s\nSo ban thue: %d\n", this.getMaHD(), this.tenBuoiTiec, this.soBanThue);
         this.getSanhCuoi().xuat();
         this.getDSmenu().xuat();
-        this.getDichVu().xuat();
-        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
-        
+        this.getDichVu().xuatLuaChonTuSQL(this.maHD);
+        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", 
+                this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
     }
 
 //    @Override
