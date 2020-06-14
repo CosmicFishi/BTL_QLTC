@@ -133,7 +133,6 @@ public class ThucAnApi extends Api {
             ThucAnApi.setSelected(rs.getInt("MaThucAn"));
             if(nhap) break;
         }
-
     }
 
     public static int getSelected() {

@@ -25,7 +25,7 @@ public class Menu {
     public Menu(DanhSachThucAn dsA, DanhSachThucUong dsU) {
         this.dsAn = dsA;
         this.dsUong = dsU;
-    }
+    }    
     public int tinhGiaDs(){
         return ( this.getDsAn().tinhGiaDs() + this.getDsUong().tinhGiaDs() )*this.slMenu ;
     }

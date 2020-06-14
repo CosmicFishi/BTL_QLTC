@@ -5,16 +5,20 @@
  */
 package com.mycompany.baitaplon;
 
+import com.mycompany.baitaplon.api.Api;
+import com.mycompany.baitaplon.api.ThucAnApi;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public class QLMenu {
+public class QLMenu extends Api {
 
     private List<Menu> ql = new ArrayList<>();
 
@@ -30,6 +34,47 @@ public class QLMenu {
             if (input == -1) {
                 return;
             }
+        }
+    }
+
+    public void layDsMon(int maHD) {
+        try {
+            cStm = conn.prepareCall("{call getThucAnTheoHoaDon(?)}");
+            cStm.setInt(1, maHD);
+            rs = cStm.executeQuery();
+            showThucAnDaLuu();
+
+            cStm = conn.prepareCall("{call getThucUongTheoHoaDon(?)}");
+            cStm.setInt(1, maHD);
+            rs = cStm.executeQuery();
+            showThucUongDaLuu();
+        } catch (SQLException ex) {
+            Logger.getLogger(QLMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    protected void showThucAnDaLuu() throws SQLException {
+        System.out.format("  So Luong | Ten Thuc An                                 |  Gia         | isChay\n");
+        System.out.format("+----------+---------------------------------------------+--------------+-------%n");
+        while (rs.next()) {
+            System.out.printf("| %-9d|  %-43s| %-13d| %-6s\n",
+                    rs.getInt("SoLuong"),
+                    rs.getString("TenThucAn"),
+                    rs.getInt("Gia"),
+                    rs.getBoolean("isChay"));
+        }
+    }
+
+    protected void showThucUongDaLuu() throws SQLException {
+        System.out.format(" So Luong | Ten Thuc Uong                               |  Gia         | Hang SX     \n");
+        System.out.format("+---------+---------------------------------------------+--------------+-------------%n");
+        while (rs.next()) {
+            System.out.printf("| %-9d|  %-43s| %-13d| %-12s\n",
+                    rs.getInt("SoLuong"),
+                    rs.getString("TenThucUong"),
+                    rs.getInt("Gia"),
+                    rs.getString("HangSX"));
         }
     }
 
@@ -70,6 +115,7 @@ public class QLMenu {
 //        }
 //        return kq;
 //    }
+
     public List<Menu> getQl() {
         return ql;
     }
