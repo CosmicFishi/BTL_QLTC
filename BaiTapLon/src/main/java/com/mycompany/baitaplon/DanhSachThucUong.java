@@ -17,8 +17,8 @@ import java.util.Scanner;
  * @author Admin
  */
 public class DanhSachThucUong extends ThucUongApi{
-    protected List<ThucUong> dsThucUong = new ArrayList<>();
-    protected int[] slThucUong = new int[50];
+    private List<ThucUong> dsThucUong = new ArrayList<>();
+    private int[] slThucUong = new int[50];
     private int[] maThucUongSql = new int[50];
     
     public DanhSachThucUong(){}
@@ -31,27 +31,27 @@ public class DanhSachThucUong extends ThucUongApi{
     @Override
     public String toString() {
         StringBuilder kq = new StringBuilder();
-        for(int i =0; i<this.dsThucUong.size(); i++){
-            kq.append(dsThucUong.get(i).xuat()).append(" ,so luong: ")
-                    .append(slThucUong[i]).append("\n");
+        for(int i =0; i<this.getDsThucUong().size(); i++){
+            kq.append(getDsThucUong().get(i).xuat()).append(" ,so luong: ")
+                    .append(getSlThucUong()[i]).append("\n");
         }
         return kq.toString(); //To change body of generated methods, choose Tools | Templates.
     }
     public int tinhGiaDs(){
         int kq= 0;
-        for (int i=0; i< this.dsThucUong.size() ; i++){
-            kq += this.dsThucUong.get(i).gia * this.slThucUong[i];
+        for (int i=0; i< this.getDsThucUong().size() ; i++){
+            kq += this.getDsThucUong().get(i).gia * this.getSlThucUong()[i];
         }
         return kq;
     }
     public void xuat(){
-        for(ThucUong ta: dsThucUong){
+        for(ThucUong ta: getDsThucUong()){
             System.out.println(ta);
         }
     }
     public void them(ThucUong e, int sl){
-        dsThucUong.add(e);
-        slThucUong[dsThucUong.size()-1] = sl;
+        getDsThucUong().add(e);
+        slThucUong[getDsThucUong().size()-1] = sl;
     }
     public void them(Scanner scanner){
         ThucUong ta = new ThucUong();
@@ -68,11 +68,11 @@ public class DanhSachThucUong extends ThucUongApi{
             int ma = scanner.nextInt();
             scanner.nextLine();
             if(ma == -1) break;
-            dsThucUong.add(getThucUong(ma));
-            this.maThucUongSql[dsThucUong.size() - 1]=ma;
+            getDsThucUong().add(getThucUong(ma));
+            this.maThucUongSql[getDsThucUong().size() - 1]=ma;
             System.out.print("Nhap vao so luong thuc uong: ");
             int sl = scanner.nextInt();
-            slThucUong[dsThucUong.size() - 1] = sl;
+            slThucUong[getDsThucUong().size() - 1] = sl;
         }
     }
     public void xuatThucUong() throws SQLException{
@@ -121,5 +121,13 @@ public class DanhSachThucUong extends ThucUongApi{
 
     public int[] getMaThucUongSql() {
         return maThucUongSql;
+    }
+
+    public List<ThucUong> getDsThucUong() {
+        return dsThucUong;
+    }
+
+    public int[] getSlThucUong() {
+        return slThucUong;
     }
 }

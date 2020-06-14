@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: quanlytieccuoi
+-- Host: localhost    Database: quanlytieccuoi
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS `hoa_don_thuc_an`;
 CREATE TABLE `hoa_don_thuc_an` (
   `MaHD` int NOT NULL,
   `MaThucAn` int NOT NULL,
-  `GiaDv` int NOT NULL,
   `SoLuong` int NOT NULL,
   PRIMARY KEY (`MaHD`,`MaThucAn`),
   KEY `fk_hoadonthucan_thuc_an_idx` (`MaThucAn`),
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-06 10:30:20
+-- Dump completed on 2020-06-13 23:55:35

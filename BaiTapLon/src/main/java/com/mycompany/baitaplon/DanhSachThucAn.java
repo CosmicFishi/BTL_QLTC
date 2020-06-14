@@ -29,8 +29,8 @@ public class DanhSachThucAn extends ThucAnApi {
     }
     public int tinhGiaDs(){
         int kq= 0;
-        for (int i=0; i< this.dsThucAn.size() ; i++){
-            kq += this.dsThucAn.get(i).gia * this.slThucAn[i];
+        for (int i=0; i< this.getDsThucAn().size() ; i++){
+            kq += this.getDsThucAn().get(i).gia * this.getSlThucAn()[i];
         }
         return kq;
     }
@@ -38,15 +38,15 @@ public class DanhSachThucAn extends ThucAnApi {
      *xuất thức ăn và số lượng thức ăn trong danh sách List<ThucAN>
      */
     public void xuat(){
-        dsThucAn.forEach((ta) -> {
+        getDsThucAn().forEach((ta) -> {
             System.out.println(ta);
         });
     }
     @Override
     public String toString() {
         StringBuilder kq = new StringBuilder();
-        for(int i =0; i<this.dsThucAn.size(); i++){
-            kq.append(dsThucAn.get(i).xuat()).append(" ,so luong: ").append(slThucAn[i]).append("\n");
+        for(int i =0; i<this.getDsThucAn().size(); i++){
+            kq.append(getDsThucAn().get(i).xuat()).append(" ,so luong: ").append(getSlThucAn()[i]).append("\n");
         }
         return kq.toString(); //To change body of generated methods, choose Tools | Templates.
     }
@@ -57,8 +57,8 @@ public class DanhSachThucAn extends ThucAnApi {
      * @param sl Truyền vào số lượng thức ăn đó
      */
     public void them(ThucAn e, int sl){
-        dsThucAn.add(e);
-        slThucAn[dsThucAn.size()-1] = sl;
+        getDsThucAn().add(e);
+        getSlThucAn()[getDsThucAn().size()-1] = sl;
     }
 
     /**
@@ -86,10 +86,10 @@ public class DanhSachThucAn extends ThucAnApi {
             int ma = scanner.nextInt();
             scanner.nextLine();
             if(ma == -1) break;
-            dsThucAn.add(get1ThucAn(ma));
+                getDsThucAn().add(get1ThucAn(ma));
             System.out.print("Nhap vao so luong thuc an: ");
             int sl = scanner.nextInt();
-            slThucAn[dsThucAn.size() - 1] = sl;
+                getSlThucAn()[getDsThucAn().size() - 1] = sl;
         }
         } catch (SQLException ex) {
             Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,5 +176,17 @@ public class DanhSachThucAn extends ThucAnApi {
         } else {
             System.out.println("Da huy bo cap nhat.");
         }
+    }
+
+    public List<ThucAn> getDsThucAn() {
+        return dsThucAn;
+    }
+
+    public int[] getSlThucAn() {
+        return slThucAn;
+    }
+
+    public void setSlThucAn(int[] slThucAn) {
+        this.slThucAn = slThucAn;
     }
 }

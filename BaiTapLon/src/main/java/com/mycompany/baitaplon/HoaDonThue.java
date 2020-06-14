@@ -26,9 +26,9 @@ public class HoaDonThue extends Api implements TuongTacSQL{
     private static int dem =0;//
     private int maHD;//
     private String tenBuoiTiec;
-    private ThoiDiem thoiDiemThue;
+    private ThoiDiem thoiDiemThue;//
     private int soBanThue;
-    private Date ngayThue;
+    private Date ngayThue;//
     
     private QLSanhCuoi qlSanh = new QLSanhCuoi();
     private GiaThue giaThueSanh = new GiaThue();
@@ -74,15 +74,16 @@ public class HoaDonThue extends Api implements TuongTacSQL{
         this.giaDichVu = 0;
     }
     
-//    @Override
-//    public String toString() {
-//        return String.format("Ma hoa don: %s\nTen bua tiec: %s\nTen sanh: %s\nGia thue: %d\nThoi diem: %s\nNgay: %s\n", args);
-//    }
+    @Override
+    public String toString() {
+        return String.format("%d, '%s', '%s', '%s' '%s' %d", this.getMaHD(), this.thoiDiemThue.toString(), this.ngayThue, 
+                this.tenBuoiTiec, this.getSanhCuoi().getMaSC(), this.getGiaHoaDon());
+    }
     public void tinhTien(){
-        this.giaMenu = this.DSmenu.tinhGiaDs();
-        this.giaSanh = this.sanhCuoi.getGiaThue() + this.giaThueSanh.getGiaThue();
-        this.giaDichVu = this.dichVu.layTongTienDVSQL(this.maHD);
-        this.giaHoaDon = this.giaMenu+ this.giaDichVu + this.giaSanh;
+        this.giaMenu = this.getDSmenu().tinhGiaDs();
+        this.giaSanh = this.getSanhCuoi().getGiaThue() + this.giaThueSanh.getGiaThue();
+        this.giaDichVu = this.getDichVu().layTongTienDVSQL(this.getMaHD());
+        this.giaHoaDon = this.getGiaMenu()+ this.getGiaDichVu() + this.getGiaSanh();
     }
     /**
      * phần nhập của người dùng
@@ -91,7 +92,8 @@ public class HoaDonThue extends Api implements TuongTacSQL{
     public void nhap(Scanner s) {
         System.out.print("Nhap ten buoi tiec: ");
         this.tenBuoiTiec = s.nextLine();
-        System.out.println("Nhap vao thoi diem thue: (Sang, chieu, toi) (1 | 2 | 3) ");
+        
+        System.out.print("Nhap vao thoi diem thue: (Sang, chieu, toi) (1 | 2 | 3) ");
         switch (s.nextLine()) {
             case "1":
                 this.thoiDiemThue = ThoiDiem.SANG;
@@ -105,32 +107,46 @@ public class HoaDonThue extends Api implements TuongTacSQL{
             default:
                 break;
         }
-        System.out.print("Nhap so ban thue: ");
-        this.soBanThue = Integer.parseInt(s.nextLine());
-        System.out.print("Nhap thoi diem thue: ");
-        this.giaThueSanh.nhap(s);
         
-        System.out.println("Nhap vao ngay thang nam: ");
+        System.out.println("Nhap vao ngay thang nam (1/1/2020): ");
         String date = s.nextLine();
         try {
             this.ngayThue = f.parse(date);
         } catch (ParseException ex) {
             System.err.println("Error at ngay thue");
         }
+        
+        System.out.print("Nhap so ban thue: ");
+        this.soBanThue = Integer.parseInt(s.nextLine());
+        
+        //Khởi tạo giá thuê
+        this.giaThueSanh.setThoiDiem(thoiDiemThue);
+        if ( this.ngayThue.getDay() == 0 )
+            this.giaThueSanh.setNgay(NgayThue.Bay_ChuNhat);
+        else 
+            this.giaThueSanh.setNgay(NgayThue.NgayThuong);
+        this.giaThueSanh.nhap(s);
+        
+        
+        //Chọn dịch vụ
         System.out.println("Ban co muon them dich vu khong? (Y | N)");
         if("y".equals(s.nextLine().toLowerCase())) {
             System.out.println("Danh sach cac dich vu: ");
-                this.dichVu.xuatDsSQL();
-                luaChonDv = this.dichVu.nhapLuaChon(s, maHD);
+            this.getDichVu().xuatDsSQL();
+                luaChonDv = this.getDichVu().nhapLuaChon(s, getMaHD());
         } else {
             System.out.println("ok then");
         }
+        
+        //Chọn ds thức ăn từ SQL
         try {
             this.DSmenu.chon(s);
         } catch (SQLException ex) {
             System.err.println("Loi nhap menu.");
         }
-        this.sanhCuoi=qlSanh.taoScFromSQL(s);
+        
+        //Chọn sảnh cưới từ sql
+        this.sanhCuoi = qlSanh.taoScFromSQL(s);
         tinhTien();
     } 
     /**
@@ -138,12 +154,11 @@ public class HoaDonThue extends Api implements TuongTacSQL{
      * Phần xuất của riêng admin
      */
     public void xuat() {
-        System.out.printf("Ma hoa don: %d\n Ten bua tiec: %s\nSo ban thue: %d\n", this.maHD, this.tenBuoiTiec, this.soBanThue);
-        this.sanhCuoi.xuat();
-        this.DSmenu.xuat();
-        this.dichVu.xuat();
-        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", 
-                this.giaSanh, this.giaMenu, this.giaDichVu, this.giaHoaDon);
+        System.out.printf("Ma hoa don: %d\n Ten bua tiec: %s\nSo ban thue: %d\n", this.getMaHD(), this.tenBuoiTiec, this.soBanThue);
+        this.getSanhCuoi().xuat();
+        this.getDSmenu().xuat();
+        this.getDichVu().xuat();
+        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
         
     }
 
@@ -156,14 +171,13 @@ public class HoaDonThue extends Api implements TuongTacSQL{
     @Override
     public void addSQL() {
         try {
-            String sql = String.format("%d ,\'%s\' ,\'%s\' ,\'%s\' ,\'%s\' ,%d",
-                    this.maHD, this.thoiDiemThue.layTD(),String.format("%s", f.format(this.ngayThue)), this.tenBuoiTiec,
-                    this.sanhCuoi.getMaSC(),this.giaHoaDon );
+            String sql = String.format("%d ,\'%s\' ,\'%s\' ,\'%s\' ,\'%s\' ,%d", this.getMaHD(), this.thoiDiemThue.layTD(),String.format("%s", f.format(this.ngayThue)), this.tenBuoiTiec,
+                    this.getSanhCuoi().getMaSC(), this.getGiaHoaDon());
             sql = "insert into hoa_don values (" + sql +  ")";
             super.read(sql);
             //Phần nhập lựa chọn của dv vào bảng hoa_don_dv
             if(!(luaChonDv.isEmpty()))
-                this.dichVu.nhapLuaChonSQL(maHD, luaChonDv);
+                this.getDichVu().nhapLuaChonSQL(getMaHD(), getLuaChonDv());
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -173,9 +187,9 @@ public class HoaDonThue extends Api implements TuongTacSQL{
     @Override
     public void deleteSQL() {
         try {
-            String sql = "Delete * from hoa_don where MaHD = " + this.maHD + ";";
+            String sql = "Delete * from hoa_don where MaHD = " + this.getMaHD() + ";";
             super.writeOrDelete(sql, "delete");
-            this.dichVu.xoaLuaChonSQL(maHD);
+            this.getDichVu().xoaLuaChonSQL(getMaHD());
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -188,6 +202,46 @@ public class HoaDonThue extends Api implements TuongTacSQL{
 
     @Override
     public void showSQL() {
-        this.dichVu.xuatLuaChonTuSQL(maHD);
+        this.getDichVu().xuatLuaChonTuSQL(getMaHD());
+    }
+
+    public SanhCuoi getSanhCuoi() {
+        return sanhCuoi;
+    }
+
+    public void setSanhCuoi(SanhCuoi sanhCuoi) {
+        this.sanhCuoi = sanhCuoi;
+    }
+
+    public QLMenu getDSmenu() {
+        return DSmenu;
+    }
+
+    public QLDV getDichVu() {
+        return dichVu;
+    }
+
+    public int getGiaSanh() {
+        return giaSanh;
+    }
+
+    public int getGiaMenu() {
+        return giaMenu;
+    }
+
+    public int getGiaDichVu() {
+        return giaDichVu;
+    }
+
+    public int getGiaHoaDon() {
+        return giaHoaDon;
+    }
+
+    public int getMaHD() {
+        return maHD;
+    }
+
+    public List<Integer> getLuaChonDv() {
+        return luaChonDv;
     }
 }

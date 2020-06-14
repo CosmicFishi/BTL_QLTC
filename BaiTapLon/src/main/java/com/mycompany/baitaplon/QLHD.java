@@ -8,32 +8,95 @@ package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.Api;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  *
  * @author Admin
  */
-public class QLHD extends Api{
-    //(Admin)
-    List<HoaDonThue> ql = new ArrayList<>();
-    public void themHD(HoaDonThue h1) {
-        this.ql.add(h1);
-    };
-    public void xoaHD(HoaDonThue h1) {
-        this.ql.remove(h1);
-    };
-    public void capNhatHD(HoaDonThue h1) {
-        Scanner s = new Scanner(System.in);
-        h1.nhap(s);
-    };
-    public void xuatDS() {
-        this.ql.forEach((HoaDonThue h) -> h.xuat());
-    };
-     
-    //(Người dùng)
-    public void nhapSQL() {};
-    public void xoaSQL() {};
-    public void capNhatSQL() {};
-    public void xuatDSSQL(){};
+public class QLHD extends Api {
+    List<HoaDonThue> ds = new ArrayList<>();
+    
+    public void nhapHoaDon(Scanner scanner){
+        int dem =0;
+        while(true){
+            ds.add(new HoaDonThue());
+            System.out.println("==================================Nhâp hóa đơn: ");
+            ds.get(dem).nhap(scanner);
+            ds.get(dem).xuat();
+            this.luuHoaDon( ds.get(dem) );
+            
+            System.out.println("Nhap 1 để thêm hóa đơn -1 để thoát");
+            if (Integer.parseInt( scanner.nextLine() ) == -1) break;
+            dem++;
+        }
+    }
+    
+    public Map demMonAnTrongQlMenu(QLMenu ql) {
+        Map<Integer, Integer> m = new HashMap<>();
+        int index = 0;
+        for (Menu menu : ql.getQl()) {
+            for (ThucAn h : menu.getDsAn().getDsThucAn()) {
+                int n = h.getMa();
+                if (m.get(n) == null) {
+                    m.put(n, menu.getDsAn().getSlThucAn()[index]);
+                } else {
+                    m.put(n, m.get(n) + menu.getDsAn().getSlThucAn()[index]);
+                }
+                index++;
+            }
+            for (Map.Entry<Integer, Integer> hm : m.entrySet()) {
+                m.put(hm.getKey(), hm.getValue()* menu.getSlMenu());
+            }
+        }
+        return m;
+    }
+    public Map demThucUongTrongQlMenu(QLMenu ql) {
+        Map<Integer, Integer> m = new HashMap<>();
+        int index = 0;
+        for (Menu menu : ql.getQl()) {
+            for (ThucUong h : menu.getDsUong().getDsThucUong()) {
+                int n = h.getMa();
+                if (m.get(n) == null) {
+                    m.put(n, menu.getDsUong().getSlThucUong()[index]);
+                } else {
+                    m.put(n, m.get(n) + menu.getDsUong().getSlThucUong()[index]);
+                }
+                index++;
+            }
+            for (Map.Entry<Integer, Integer> hm : m.entrySet()) {
+                m.put(hm.getKey(), hm.getValue()* menu.getSlMenu());
+            }
+        }
+        return m;
+    }
+    public void luuHoaDon(HoaDonThue hoaDon) {
+        try {
+            //Thay đổi dòng dưới vì nhập lựa chọn vào trong mysql đã có trong QLDV
+            hoaDon.getDichVu().nhapLuaChonSQL(hoaDon.getMaHD(), hoaDon.getLuaChonDv());
+            
+            String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
+            super.writeOrDelete(sqlHoaDon, " luu hoa don.");
+            
+            Map<Integer, Integer> mAn = this.demMonAnTrongQlMenu(hoaDon.getDSmenu());
+            for (Map.Entry<Integer, Integer> k : mAn.entrySet()) {
+                String sqlMenu = "insert into hoa_don_thuc_an values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
+                super.writeOrDelete(sqlMenu, " ds thuc an");
+            }
+            
+            Map<Integer, Integer> mUong = this.demThucUongTrongQlMenu(hoaDon.getDSmenu());
+            for (Map.Entry<Integer, Integer> k : mUong.entrySet()) {
+                String sqlMenu = "insert into hoa_don_thuc_uong values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
+                super.writeOrDelete(sqlMenu, " ds thuc an");
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+    }
 }
