@@ -28,8 +28,8 @@ public class QLHD extends Api {
             ds.add(new HoaDonThue());
             System.out.println("==================================Nhâp hóa đơn: ");
             ds.get(dem).nhap(scanner);
-            ds.get(dem).xuat();
-            this.luuHoaDon( ds.get(dem) );
+            ds.get(dem).xuat(); // cần sửa lại
+            this.luuHoaDonSQL( ds.get(dem) );
             
             System.out.println("Nhap 1 để thêm hóa đơn -1 để thoát");
             if (Integer.parseInt( scanner.nextLine() ) == -1) break;
@@ -37,7 +37,7 @@ public class QLHD extends Api {
         }
     }
     
-    public Map demMonAnTrongQlMenu(QLMenu ql) {
+    private Map demMonAnTrongQlMenu(QLMenu ql) {
         Map<Integer, Integer> m = new HashMap<>();
         int index = 0;
         for (Menu menu : ql.getQl()) {
@@ -56,7 +56,7 @@ public class QLHD extends Api {
         }
         return m;
     }
-    public Map demThucUongTrongQlMenu(QLMenu ql) {
+    private Map demThucUongTrongQlMenu(QLMenu ql) {
         Map<Integer, Integer> m = new HashMap<>();
         int index = 0;
         for (Menu menu : ql.getQl()) {
@@ -75,9 +75,9 @@ public class QLHD extends Api {
         }
         return m;
     }
-    public void luuHoaDon(HoaDonThue hoaDon) {
+    public void luuHoaDonSQL(HoaDonThue hoaDon) {
         try {
-            //Thay đổi dòng dưới vì nhập lựa chọn vào trong mysql đã có trong QLDV
+            //Đã tồn tại hàm bên trong QLDV nên tao thay
             hoaDon.getDichVu().nhapLuaChonSQL(hoaDon.getMaHD(), hoaDon.getLuaChonDv());
             
             String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
@@ -98,5 +98,8 @@ public class QLHD extends Api {
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+    }
+    public void layHoaDonSQL() {
+        
     }
 }
