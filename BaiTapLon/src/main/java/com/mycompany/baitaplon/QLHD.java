@@ -46,46 +46,10 @@ public class QLHD extends Api {
         }
     }
     
-    //cần để lại đúng lớp
-    private Map demMonAnTrongQlMenu(QLMenu ql) {
-        Map<Integer, Integer> m = new HashMap<>();
-        int index = 0;
-        for (Menu menu : ql.getQl()) {
-            for (ThucAn h : menu.getDsAn().getDsThucAn()) {
-                int n = h.getMa();
-                if (m.get(n) == null) {
-                    m.put(n, menu.getDsAn().getSlThucAn()[index]);
-                } else {
-                    m.put(n, m.get(n) + menu.getDsAn().getSlThucAn()[index]);
-                }
-                index++;
-            }
-            for (Map.Entry<Integer, Integer> hm : m.entrySet()) {
-                m.put(hm.getKey(), hm.getValue()* menu.getSlMenu());
-            }
-        }
-        return m;
-    }
-    //cần để lại đúng lớp
-    private Map demThucUongTrongQlMenu(QLMenu ql) {
-        Map<Integer, Integer> m = new HashMap<>();
-        int index = 0;
-        for (Menu menu : ql.getQl()) {
-            for (ThucUong h : menu.getDsUong().getDsThucUong()) {
-                int n = h.getMa();
-                if (m.get(n) == null) {
-                    m.put(n, menu.getDsUong().getSlThucUong()[index]);
-                } else {
-                    m.put(n, m.get(n) + menu.getDsUong().getSlThucUong()[index]);
-                }
-                index++;
-            }
-            for (Map.Entry<Integer, Integer> hm : m.entrySet()) {
-                m.put(hm.getKey(), hm.getValue()* menu.getSlMenu());
-            }
-        }
-        return m;
-    }
+    /**
+     *Dùng để lưu hóa đơn vào sql 
+     * @param hoaDon truyền vào kiểu HoaDon
+     */
     public void luuHoaDonSQL(HoaDonThue hoaDon) {
         try {
             //Đã tồn tại hàm bên trong QLDV nên tao thay
@@ -94,13 +58,13 @@ public class QLHD extends Api {
             String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
             super.writeOrDelete(sqlHoaDon, " luu hoa don.");
             
-            Map<Integer, Integer> mAn = this.demMonAnTrongQlMenu(hoaDon.getDSmenu());
+            Map<Integer, Integer> mAn = hoaDon.getDSmenu().demMonAnTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : mAn.entrySet()) {
                 String sqlMenu = "insert into hoa_don_thuc_an values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
                 super.writeOrDelete(sqlMenu, " ds thuc an");
             }
             
-            Map<Integer, Integer> mUong = this.demThucUongTrongQlMenu(hoaDon.getDSmenu());
+            Map<Integer, Integer> mUong = hoaDon.getDSmenu().demThucUongTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : mUong.entrySet()) {
                 String sqlMenu = "insert into hoa_don_thuc_uong values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
                 super.writeOrDelete(sqlMenu, " ds thuc an");
@@ -110,7 +74,8 @@ public class QLHD extends Api {
             System.err.println(ex.getMessage());
         }
     }
-    public void xuatHoaDonSQL() {
+    
+    public void xuatHoaDon() {
         this.ds.forEach((HoaDonThue h) -> h.xuatSQL());
     }
     public void xuatHoaDonSQL(Scanner scanner) throws ParseException {

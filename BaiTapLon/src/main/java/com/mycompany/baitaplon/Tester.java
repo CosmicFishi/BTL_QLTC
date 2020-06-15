@@ -27,9 +27,8 @@ public class Tester {
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
         QLMenu a = new QLMenu();
-        a.layDsMon(1);
-        
-        
+        a.layDsMonSQL(1);
+     
 //        HoaDonThue hd1 = new HoaDonThue();
 //        hd1.nhap(scanner);
 //        hd1.xuat();
