@@ -40,7 +40,7 @@ public class QLHD extends Api {
             this.luuHoaDonSQL( ds.get(dem) );
             ds.get(dem).xuatSQL();
             
-            System.out.println("Nhap 1 để thêm hóa đơn -1 để thoát");
+            System.out.println("Nhap 1 để thêm hóa đơn, nhap -1 để thoát");
             if (Integer.parseInt( scanner.nextLine() ) == -1) break;
             dem++;
         }
@@ -75,9 +75,17 @@ public class QLHD extends Api {
         }
     }
     
-    public void xuatHoaDon() {
+    /**
+     * Xuất toàn bộ hóa đơn trong sql
+     */
+    public void xuatHoaDonSQL() {
         this.ds.forEach((HoaDonThue h) -> h.xuatSQL());
     }
+    /**
+     * xuất một hóa đơn trong mysql
+     * @param scanner
+     * @throws ParseException 
+     */
     public void xuatHoaDonSQL(Scanner scanner) throws ParseException {
         System.out.println("Nhap vao ma hoa don can xuat: ");
         String ma = scanner.nextLine();

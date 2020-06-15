@@ -5,7 +5,10 @@ delete from dv where MaDv = 1;
 delete from dv where MaDv = 2;
 truncate hoa_don;
 truncate sanh_cuoi;
+truncate hoa_don_thuc_an;
 truncate thuc_an;
+truncate thuc_uong;
+truncate thuc_an_chay;
 
 select  * from dv;
 select *  from dv_karaoke;
