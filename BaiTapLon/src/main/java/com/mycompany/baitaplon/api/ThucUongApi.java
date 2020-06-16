@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.baitaplon.api;
 
 import com.mycompany.baitaplon.DoAnUong;
@@ -7,6 +12,10 @@ import com.mycompany.baitaplon.ThucUong;
 import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
 
+/**
+ *
+ * @author Admin
+ */
 public class ThucUongApi extends Api {
 
     protected static int selected;
@@ -76,20 +85,31 @@ public class ThucUongApi extends Api {
 
     }
 
-    protected void showThucUong(boolean nhap) throws SQLException {
-        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
-        System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
-        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+    protected void showThucUong() throws SQLException {
+        //this.setSelected(rs.getString("MaSC"));
+        System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
+        System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
         while (rs.next()) {
             System.out.printf("| %-11d|  %-43s| %,-13d| %-12s |\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
-            this.setSelected(rs.getInt("MaThucUong"));
-            if(nhap) break;
         }
-        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+
+    }
+
+    protected void showThucUong(int limit) throws SQLException {
+        if (rs.next()) {
+            System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
+            System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
+            System.out.printf("| %-11d|  %-43s| %-13d| %-12s\n",
+                    rs.getInt("MaThucUong"),
+                    rs.getString("TenThucUong"),
+                    rs.getInt("Gia"),
+                    rs.getString("HangSX"));
+        }
+        this.setSelected(rs.getInt("MaThucUong"));
     }
 
     public static int getSelected() {

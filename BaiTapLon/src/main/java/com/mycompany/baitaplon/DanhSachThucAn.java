@@ -96,13 +96,11 @@ public class DanhSachThucAn extends ThucAnApi {
     public void themTuSql(Scanner scanner) {
         try {
             xuatThucAnSql();
-            while (true) {
-                System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
-                int ma = scanner.nextInt();
-                scanner.nextLine();
-                if (ma == -1) {
-                    break;
-                }
+            while(true){
+            System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
+            int ma = scanner.nextInt();
+            scanner.nextLine();
+            if(ma == -1) break;
                 getDsThucAn().add(get1ThucAn(ma));
                 System.out.print("Nhap vao so luong thuc an: ");
                 int sl = scanner.nextInt();
@@ -112,8 +110,7 @@ public class DanhSachThucAn extends ThucAnApi {
             Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void timThucAn(Scanner scanner) {
+    public void timThucAnSql(Scanner scanner){
         try {
             xuatThucAnSql();
             System.out.print("Nhap vao ten hoac ma Thuc An can tim: ");

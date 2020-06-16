@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.mycompany.baitaplon.api;
 
 import com.mycompany.baitaplon.ThucAn;
@@ -117,9 +122,8 @@ public class ThucAnApi extends Api {
     }
 
     protected void showThucAn(boolean nhap) throws SQLException {
-        System.out.println("+------------+---------------------------------------------+--------------+--------+");
-        System.out.println("| Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay |");
-        System.out.println("+------------+---------------------------------------------+--------------+--------+");
+        System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
+        System.out.format("+------------+---------------------------------------------+--------------+-------%n");
         while (rs.next()) {
             System.out.printf("| %-11d|  %-43s| %,-13d| %-6s |\n",
                     rs.getInt("MaThucAn"),
@@ -129,7 +133,6 @@ public class ThucAnApi extends Api {
             ThucAnApi.setSelected(rs.getInt("MaThucAn"));
             if(nhap) break;
         }
-        System.out.println("+------------+---------------------------------------------+--------------+--------+");
     }
 
     public static int getSelected() {

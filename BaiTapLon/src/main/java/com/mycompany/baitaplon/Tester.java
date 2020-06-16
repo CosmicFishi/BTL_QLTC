@@ -23,11 +23,11 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class Tester {
-
+    
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
-        
         Scanner scanner = new Scanner(System.in);
         
         String nhap="";
@@ -62,10 +62,12 @@ public class Tester {
                 case -1:
                     break;
                 case 1: {
+                    QLSanhCuoi qls = new QLSanhCuoi();
                     qls.xuatSC();
                     break;
                 }
                 case 2: {
+                    QLDV qldv = new QLDV();
                     qldv.xuatDsSQL();
                     break;
                 }
@@ -85,7 +87,6 @@ public class Tester {
                 }
                 case 5: {
                     qlhd.xuatHoaDonSQL();
-                    break;
                 }
                 case 6: {
                     System.out.print("Nhap ma hoa don can xuat: ");
@@ -102,15 +103,13 @@ public class Tester {
                 }
 
                 case 8: {
-                    System.out.print("Nhap vao thang: ");
+                    System.out.println("Nhap vao thang: ");
                     int thang = scanner.nextInt();
                     scanner.nextLine();
                     if (thang > 0 && thang <= 12) {
                         qlhd.xuatDoanhThuThang(thang);
                     } else {
                         System.out.println("Thang khong ton tai");
-                    }
-                    break;
                 }
                 case 9: {
                     System.out.print("Nhap vao quy: ");
@@ -119,13 +118,11 @@ public class Tester {
                         qlhd.xuatDoanhThuQuy(quy);
                     } else {
                         System.out.println("Quy khong ton tai");
-                    }
-                    break;
                 }
-                default:
+                default: 
                     System.out.println("Lua chon khong ton tai");
             }
-        } while (luaChon != -1);
+        } while(luaChon != -1);
         Api.disconnectSql();
     }
 }
