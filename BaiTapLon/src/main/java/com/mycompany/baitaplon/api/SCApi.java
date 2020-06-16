@@ -130,10 +130,11 @@ public class SCApi extends Api {
      * @throws SQLException
      */
     protected void showSC(boolean isOne) throws SQLException {
-        System.out.format(" MaSC  |  Ten sanh          | vi tri |suc chua | gia thue    \n");
-        System.out.format("-------+-------------------+--------+---------+-------------+%n");
+        System.out.format("\n+-------+-------------------+--------+---------+-------------+\n");
+        System.out.format("|  MaSC |  Ten sanh         | vi tri |suc chua | gia thue    |\n");
+        System.out.format("+-------+-------------------+--------+---------+-------------+\n");
         while (rs.next()) {
-            System.out.printf("%-7s| %-18s|  %-6d| %-8d| %-12d|\n",
+            System.out.printf("|%-7s| %-18s|  %-6d| %-8d| %,-12d|\n",
                     rs.getString("MaSC"),
                     rs.getString("TenSC"),
                     rs.getInt("ViTriSC"),
@@ -144,6 +145,7 @@ public class SCApi extends Api {
                 break;
             }
         }
+        System.out.format("+-------+-------------------+--------+---------+-------------+\n");
     }
 
     public static String getSelected() {

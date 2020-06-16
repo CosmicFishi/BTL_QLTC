@@ -37,6 +37,11 @@ public class DanhSachThucUong extends ThucUongApi{
         }
         return kq.toString(); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     *Tính tổng số tiền của danh sách các thức uống (đã lấy sl thức uống * giá)
+     * @return
+     */
     public int tinhGiaDs(){
         int kq= 0;
         for (int i=0; i< this.getDsThucUong().size() ; i++){
@@ -44,15 +49,27 @@ public class DanhSachThucUong extends ThucUongApi{
         }
         return kq;
     }
+    
     public void xuat(){
         for(ThucUong ta: getDsThucUong()){
             System.out.println(ta);
         }
     }
+
+    /**
+     *Thêm thức uống và sl có sẵn vào ds
+     * @param e
+     * @param sl
+     */
     public void them(ThucUong e, int sl){
         getDsThucUong().add(e);
         slThucUong[getDsThucUong().size()-1] = sl;
     }
+
+    /**
+     *Thêm thức uống và số lượng mỗi loại vào danh sách
+     * @param scanner
+     */
     public void them(Scanner scanner){
         ThucUong ta = new ThucUong();
         ta.nhap(scanner);
@@ -61,8 +78,14 @@ public class DanhSachThucUong extends ThucUongApi{
         them(ta, sl);
         scanner.nextLine();
     }
+
+    /**
+     *Thêm thức uống vào danh sách bằng cách chọn thức uống có sẵn trong sql
+     * @param scanner
+     * @throws SQLException
+     */
     public void themTuSql(Scanner scanner) throws SQLException{
-        xuatThucUong();
+        xuatThucUongSql();
         while(true){
             System.out.print("Nhap ma thuc uong muon them(-1 to exit): ");
             int ma = scanner.nextInt();
@@ -75,23 +98,47 @@ public class DanhSachThucUong extends ThucUongApi{
             slThucUong[getDsThucUong().size() - 1] = sl;
         }
     }
-    public void xuatThucUong() throws SQLException{
+
+    /**
+     *Xuất toàn bộ thức uống có sẵn trong sql ra console
+     * @throws SQLException
+     */
+    public void xuatThucUongSql() throws SQLException{
         super.readShow("thuc_uong");
     }
-    public void themThucUong(ThucUong ta) throws SQLException{
+
+    /**
+     *Thêm 1 đối tượng ThucUong đã tạo vào sql
+     * @param ta
+     * @throws SQLException
+     */
+    public void themThucUongSql(ThucUong ta) throws SQLException{
         super.addThucUong(ta, "thuc_uong");
     }
-    public void themThucUong(Scanner scanner) throws SQLException{
+
+    /**
+     *Thêm 1 ThucUong vào sql bằng cách nhập bằng tay trong console
+     * @param scanner
+     * @throws SQLException
+     */
+    public void themThucUongSql(Scanner scanner) throws SQLException{
         ThucUong ta = new ThucUong();
         ta.nhap(scanner);
         super.addThucUong(ta, "thuc_uong");
     }
-    public void xoaThucUong(Scanner scanner) throws SQLException{
+
+    /**
+     *(ADMIN) xóa thức uống trong sql (in ra ds thức uống 
+     * cho admin chọn mã hoặc tên cần xóa)
+     * @param scanner
+     * @throws SQLException
+     */
+    public void xoaThucUongSql(Scanner scanner) throws SQLException{
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucUong(tenHoacMa) == false)
             return;
-        super.showThucUong(1);
+        super.showThucUong(true);
         System.out.println("Ban muon xoa sanh tren: (y,n): ");
         if (scanner.nextLine().equals("y")) {
             System.out.println(selected);
@@ -100,11 +147,17 @@ public class DanhSachThucUong extends ThucUongApi{
             System.out.println("Da huy xoa.");
         }
     }
-    public void updateThucUong(Scanner scanner) throws SQLException{
+
+    /**
+     *Cập nhật Thức uống trong sql (bắt nhập tên hoặc mã thức uống cần sửa)
+     * @param scanner
+     * @throws SQLException
+     */
+    public void updateThucUongSql(Scanner scanner) throws SQLException{
         System.out.println("Nhap ten hoac ma ThucUong can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucUong(tenHoacMa)==false) return;
-        super.showThucUong(1);
+        super.showThucUong(true);
         System.out.println("Ban muon cap nhat ThucUong tren(y/n): ");
         if (scanner.nextLine().equals("y")) {
             ThucUong ta = new ThucUong();

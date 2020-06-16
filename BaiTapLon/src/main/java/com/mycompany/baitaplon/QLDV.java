@@ -68,10 +68,11 @@ public class QLDV extends Api{
             "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n" +
             "	left join dv_karaoke kara on dv.MaDv = kara.MaDv;";
             super.read(sql);
-            System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
-            System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+            System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
+            System.out.println("| Ma dich vu      | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue |");
+            System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
             while(rs.next()) {
-                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                System.out.printf("|%-17d| %-25s| %,-12d|%-20s|%-17d|%-19s|\n",
                         rs.getInt("MaDv"),
                         rs.getString("TenDv"),
                         rs.getInt("giaDichVu"),
@@ -79,6 +80,7 @@ public class QLDV extends Api{
                         rs.getInt("SoLuongBaiHat"),
                         rs.getString("KhoangThoiGianThue"));
             }
+            System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
@@ -92,7 +94,7 @@ public class QLDV extends Api{
             "   where dv.MaDv = " + maDv + ";";
             super.read(sql);
             while(rs.next()) {
-                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                System.out.printf("|%-17d| %-25s| %,-12d|%-20s|%-17d|%-19s|\n",
                         rs.getInt("MaDv"),
                         rs.getString("TenDv"),
                         rs.getInt("giaDichVu"),
@@ -194,9 +196,11 @@ public class QLDV extends Api{
             System.err.println(ex.getMessage());
         }
         //từ mảng xuất ra từng dịch vụ
-        System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
-        System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+        System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
+        System.out.println("|  Ma dich vu     | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue |");
+        System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
         luachon.forEach(i -> xuatDsSQL(i));
+        System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
     }
     /**
      * Xóa các lựa chọn của 1 hóa đơn

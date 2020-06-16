@@ -25,12 +25,18 @@ import java.util.logging.Logger;
 public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
+        
         Scanner scanner = new Scanner(System.in);
         int luaChon;
+        
         QLHD qlhd = new QLHD();
+        QLSanhCuoi qls = new QLSanhCuoi();
+        QLDV qldv = new QLDV();
+        DanhSachThucAn dsAn = new DanhSachThucAn();
+        DanhSachThucUong dsUong = new DanhSachThucUong();
+        
         //User interface in console
         do {
             System.out.println("Chao mung!! Hay chon cac lua chon sau: ");
@@ -48,20 +54,16 @@ public class Tester {
             scanner.nextLine();
             switch (luaChon) {
                 case 1: {
-                    QLSanhCuoi qls = new QLSanhCuoi();
                     qls.xuatSC();
                     break;
                 }
                 case 2: {
-                    QLDV qldv = new QLDV();
                     qldv.xuatDsSQL();
                     break;
                 }
                 case 3: {
-                    DanhSachThucAn dsAn = new DanhSachThucAn();
-                    DanhSachThucUong dsUong = new DanhSachThucUong();
                     dsAn.xuatThucAn();
-                    dsUong.xuatThucUong();
+                    dsUong.xuatThucUongSql();
                     break;
                 }
                 case 4: {

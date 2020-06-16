@@ -88,7 +88,7 @@ public class QLHD extends Api {
     }
 
     /**
-     *Xuất tất cả hóa đơn trong MySQL
+     * Xuất tất cả hóa đơn trong MySQL
      */
     public void xuatHoaDonSQL() {
         String sql = "select * from hoa_don;";
@@ -101,14 +101,17 @@ public class QLHD extends Api {
             QLMenu menuTemp = new QLMenu();
             if (rs.isBeforeFirst() == true) {
                 while (rs.next()) {
-                    System.out.println("===============================================================================================================================");
-                    System.out.println("Ma hoa don     |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien      ");
-                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%-15d\n",
+                    System.out.println("==================================XUAT HOA DON=================================================================================");
+                    System.out.println("+--------------+---------------+---------------+--------------------+--------------+");
+                    System.out.println("| Ma hoa don   |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien     |");
+                    System.out.println("+--------------+---------------+---------------+--------------------+--------------|");
+                    System.out.printf("|%-14d|%-15s|%-15s|%-20s|%,-14d| \n",
                             rs.getInt("MaHoaDon"),
                             rs.getString("ThoiDiem"),
                             chuyenNgay(rs.getDate("NgayThue")),
                             rs.getString("TenBuoiTiec"),
                             rs.getInt("TongTien"));
+                    System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
                     maSC = rs.getString("MaSC");
                     maHD = rs.getInt("MaHoaDon");
                     DvTemp.xuatLuaChonTuSQL(maHD);
@@ -123,6 +126,7 @@ public class QLHD extends Api {
 
     /**
      * Xuất một hóa đơn trong mysql
+     *
      * @param maHD truyền vào mã hóa đơn kiểu Int
      * @throws ParseException
      */
@@ -132,9 +136,12 @@ public class QLHD extends Api {
             String maSC = "";
             super.read(sql);
             if (rs.isBeforeFirst() == true) {
-                System.out.println("Ma hoa don     |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien      ");
+                System.out.println("==================================XUAT HOA DON=================================================================================");
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------+");
+                System.out.println("| Ma hoa don   |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien     |");
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------|");
                 while (rs.next()) {
-                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%-15d\n",
+                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%,-15d\n",
                             rs.getInt("MaHoaDon"),
                             rs.getString("ThoiDiem"),
                             chuyenNgay(rs.getDate("NgayThue")),
@@ -142,6 +149,7 @@ public class QLHD extends Api {
                             rs.getInt("TongTien"));
                     maSC = rs.getString("MaSC");
                 }
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
                 QLDV DvTemp = new QLDV();
                 DvTemp.xuatLuaChonTuSQL(maHD);
                 QLSanhCuoi SCTemp = new QLSanhCuoi();
@@ -156,7 +164,8 @@ public class QLHD extends Api {
     }
 
     /**
-     *Xóa hóa đơn theo mã hóa đơn trong Sql
+     * Xóa hóa đơn theo mã hóa đơn trong Sql
+     *
      * @param maHD kiểu Int
      * @throws ParseException
      */
@@ -165,10 +174,11 @@ public class QLHD extends Api {
             cStm = conn.prepareCall("{call xoaHoaDonTheoMa(?)}");
             cStm.setInt(1, maHD);
             int kq = cStm.executeUpdate();
-            if(kq==1){
+            if (kq == 1) {
                 System.out.println("xoa thanh cong");
-            } else
+            } else {
                 System.out.println("xoa that bai.");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(QLHD.class.getName()).log(Level.SEVERE, null, ex);
         }

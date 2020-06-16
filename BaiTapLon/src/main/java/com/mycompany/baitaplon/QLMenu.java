@@ -67,15 +67,17 @@ public class QLMenu extends Api {
      * @throws SQLException
      */
     public void showThucAnDaLuu() throws SQLException {
-        System.out.format("  So Luong | Ten Thuc An                                 |  Gia         | isChay\n");
-        System.out.format("+----------+---------------------------------------------+--------------+-------%n");
+        System.out.format("\n+-----------+---------------------------------------------+--------------+-------|\n");
+        System.out.format("| So Luong  | Ten Thuc An                                 |  Gia         | isChay|\n");
+        System.out.format("+-----------+---------------------------------------------+--------------+-------|\n");
         while (rs.next()) {
-            System.out.printf("| %-9d|  %-43s| %-13d| %-6s\n",
+            System.out.printf("| %-10d|  %-43s| %,-13d| %-6s|\n",
                     rs.getInt("SoLuong"),
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"),
                     rs.getBoolean("isChay"));
         }
+        System.out.format("+-----------+---------------------------------------------+--------------+-------+\n");
     }
 
     /**
@@ -83,15 +85,17 @@ public class QLMenu extends Api {
      * @throws SQLException
      */
     public void showThucUongDaLuu() throws SQLException {
-        System.out.format(" So Luong | Ten Thuc Uong                               |  Gia         | Hang SX     \n");
-        System.out.format("+---------+---------------------------------------------+--------------+-------------%n");
+        System.out.format("\n+----------+---------------------------------------------+--------------+-------------+\n");
+        System.out.format("| So Luong | Ten Thuc Uong                               |  Gia         | Hang SX     |\n");
+        System.out.format("+----------+---------------------------------------------+--------------+-------------|\n");
         while (rs.next()) {
-            System.out.printf("| %-9d|  %-43s| %-13d| %-12s\n",
+            System.out.printf("| %-9d|  %-43s| %,-13d| %-12s|\n",
                     rs.getInt("SoLuong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
         }
+        System.out.format("+----------+---------------------------------------------+--------------+-------------+\n");
     }
 
     /**

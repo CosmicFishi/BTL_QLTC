@@ -38,7 +38,7 @@ public class ThucUongApi extends Api {
     public void readShow(String tenBang) throws SQLException {
         String sql = "select * from " + tenBang + ";";
         super.read(sql);
-        showThucUong();
+        showThucUong(false);
     }//ok
 
     public void addThucUong(DoAnUong s, String tenBang) throws SQLException {
@@ -88,31 +88,20 @@ public class ThucUongApi extends Api {
 
     }
 
-    protected void showThucUong() throws SQLException {
-        //this.setSelected(rs.getString("MaSC"));
-        System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
-        System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
+    protected void showThucUong(boolean nhap) throws SQLException {
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+        System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d| %-12s\n",
+            System.out.printf("| %-11d|  %-43s| %-13d| %-12s |\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
+            this.setSelected(rs.getInt("MaThucUong"));
+            if(nhap) break;
         }
-
-    }
-
-    protected void showThucUong(int limit) throws SQLException {
-        if (rs.next()) {
-            System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
-            System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
-            System.out.printf("| %-11d|  %-43s| %-13d| %-12s\n",
-                    rs.getInt("MaThucUong"),
-                    rs.getString("TenThucUong"),
-                    rs.getInt("Gia"),
-                    rs.getString("HangSX"));
-        }
-        this.setSelected(rs.getInt("MaThucUong"));
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
     }
 
     public static int getSelected() {
