@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class Tester {
-    
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
@@ -83,31 +83,39 @@ public class Tester {
                     break;
                 }
                 case 7: {
-                    //Thiếu xóa hóa đơn
+                    try {
+                        System.out.print("Nhap ma hoa don muon xoa: ");
+                        qlhd.xoaHoaDonSQL(scanner.nextInt());
+                        scanner.nextLine();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     break;
                 }
                 case 8: {
                     System.out.print("Nhap vao thang: ");
                     int thang = scanner.nextInt();
-                    if(thang > 0 || thang <=12)
+                    if (thang > 0 || thang <= 12) {
                         qlhd.xuatDoanhThuThang(thang);
-                    else
+                    } else {
                         System.out.println("Thang khong ton tai");
+                    }
                     break;
                 }
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
-                    if(quy > 0 || quy <=4)
+                    if (quy > 0 || quy <= 4) {
                         qlhd.xuatDoanhThuQuy(quy);
-                    else
+                    } else {
                         System.out.println("Quy khong ton tai");
+                    }
                     break;
                 }
-                default: 
+                default:
                     System.out.println("Lua chon khong ton tai");
             }
-        } while(luaChon != -1);
+        } while (luaChon != -1);
         Api.disconnectSql();
     }
 }

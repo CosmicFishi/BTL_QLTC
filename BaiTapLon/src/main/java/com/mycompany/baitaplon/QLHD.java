@@ -87,6 +87,9 @@ public class QLHD extends Api {
         this.ds.forEach((HoaDonThue h) -> h.xuatSQL());
     }
 
+    /**
+     *Xuất tất cả hóa đơn trong MySQL
+     */
     public void xuatHoaDonSQL() {
         String sql = "select * from hoa_don;";
         try {
@@ -108,7 +111,6 @@ public class QLHD extends Api {
                             rs.getInt("TongTien"));
                     maSC = rs.getString("MaSC");
                     maHD = rs.getInt("MaHoaDon");
-                    System.out.println(maHD);
                     DvTemp.xuatLuaChonTuSQL(maHD);
                     SCTemp.findSCShow(maSC);
                     menuTemp.layDsMonSQL(maHD);
@@ -120,9 +122,8 @@ public class QLHD extends Api {
     }
 
     /**
-     * xuất một hóa đơn trong mysql
-     *
-     * @param scanner
+     * Xuất một hóa đơn trong mysql
+     * @param maHD truyền vào mã hóa đơn kiểu Int
      * @throws ParseException
      */
     public void xuatHoaDonSQL(int maHD) throws ParseException {
@@ -151,6 +152,25 @@ public class QLHD extends Api {
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+        }
+    }
+
+    /**
+     *Xóa hóa đơn theo mã hóa đơn trong Sql
+     * @param maHD kiểu Int
+     * @throws ParseException
+     */
+    public void xoaHoaDonSQL(int maHD) throws ParseException {
+        try {
+            cStm = conn.prepareCall("{call xoaHoaDonTheoMa(?)}");
+            cStm.setInt(1, maHD);
+            int kq = cStm.executeUpdate();
+            if(kq==1){
+                System.out.println("xoa thanh cong");
+            } else
+                System.out.println("xoa that bai.");
+        } catch (SQLException ex) {
+            Logger.getLogger(QLHD.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
