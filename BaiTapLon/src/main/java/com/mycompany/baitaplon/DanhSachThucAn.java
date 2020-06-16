@@ -80,7 +80,7 @@ public class DanhSachThucAn extends ThucAnApi {
      */
     public void themTuSql(Scanner scanner){
         try {
-            xuatThucAn();
+            xuatThucAnSql();
             while(true){
             System.out.print("Nhap ma thuc an muon them(-1 to exit): ");
             int ma = scanner.nextInt();
@@ -95,9 +95,9 @@ public class DanhSachThucAn extends ThucAnApi {
             Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void timThucAn(Scanner scanner){
+    public void timThucAnSql(Scanner scanner){
         try {
-            xuatThucAn();
+            xuatThucAnSql();
             System.out.print("Nhap vao ten hoac ma Thuc An can tim: ");
             super.findThucAn(scanner.nextLine());
             super.showThucAn(false);
@@ -109,7 +109,7 @@ public class DanhSachThucAn extends ThucAnApi {
      *(ADMIN)Dùng để xuất tất cả ThucAn trong Mysql
      * @throws SQLException
      */
-    public void xuatThucAn() throws SQLException{
+    public void xuatThucAnSql() throws SQLException{
         super.readShow();
     }
     
@@ -127,7 +127,7 @@ public class DanhSachThucAn extends ThucAnApi {
      * @param scanner
      * @throws SQLException
      */
-    public void themThucAn(Scanner scanner) throws SQLException{
+    public void themThucAnSql(Scanner scanner) throws SQLException{
         ThucAn ta = new ThucAn();
         ta.nhap(scanner);
         super.addThucAn(ta);
@@ -138,8 +138,8 @@ public class DanhSachThucAn extends ThucAnApi {
      * @param scanner
      * @throws SQLException
      */
-    public void xoaThucAn(Scanner scanner) throws SQLException{
-        xuatThucAn();
+    public void xoaThucAnSql(Scanner scanner) throws SQLException{
+        xuatThucAnSql();
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa) == false)
@@ -158,8 +158,8 @@ public class DanhSachThucAn extends ThucAnApi {
      * @param scanner
      * @throws SQLException
      */
-    public void updateThucAn(Scanner scanner) throws SQLException{
-        xuatThucAn();
+    public void updateThucAnSql(Scanner scanner) throws SQLException{
+        xuatThucAnSql();
         System.out.println("Nhap ten hoac ma ThucAn can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa)==false) return;
