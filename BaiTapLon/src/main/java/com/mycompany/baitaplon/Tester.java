@@ -31,8 +31,6 @@ public class Tester {
         Scanner scanner = new Scanner(System.in);
         int luaChon;
         QLHD qlhd = new QLHD();
-//        QLMenu a = new QLMenu();
-//        a.layDsMonSQL(1);
         //User interface in console
         do {
             System.out.println("Chao mung!! Hay chon cac lua chon sau: ");
@@ -44,9 +42,10 @@ public class Tester {
             System.out.println("6. Xuat mot hoa don");
             System.out.println("7. Xoa hoa don"); //thiếu hàm xóa
             System.out.println("8. Xuat doanh thu theo thang");
-            System.out.println("9. Xuat doanh thu theo thang");
-            System.out.println("Nhap vao -1 de thoat");
+            System.out.println("9. Xuat doanh thu theo quy");
+            System.out.print("Nhap vao -1 de thoat: ");
             luaChon = scanner.nextInt();
+            scanner.nextLine();
             switch (luaChon) {
                 case 1: {
                     QLSanhCuoi qls = new QLSanhCuoi();
@@ -59,8 +58,10 @@ public class Tester {
                     break;
                 }
                 case 3: {
-                    QLMenu qlmenu = new QLMenu();
-                    //thiếu phần của Hậu
+                    DanhSachThucAn dsAn = new DanhSachThucAn();
+                    DanhSachThucUong dsUong = new DanhSachThucUong();
+                    dsAn.xuatThucAn();
+                    dsUong.xuatThucUong();
                     break;
                 }
                 case 4: {
@@ -69,32 +70,39 @@ public class Tester {
                 }
                 case 5: {
                     qlhd.xuatHoaDonSQL();
+                    break;
                 }
                 case 6: {
+                    System.out.print("Nhap ma hoa don can xuat: ");
                     try {
-                        qlhd.xuatHoaDonSQL(scanner);
+                        qlhd.xuatHoaDonSQL(scanner.nextInt());
+                        scanner.nextLine();
                     } catch (ParseException ex) {
                         System.err.println("Loi khi xuat hoa don");
                     }
+                    break;
                 }
                 case 7: {
                     //Thiếu xóa hóa đơn
+                    break;
                 }
                 case 8: {
-                    System.out.println("Nhap vao thang: ");
+                    System.out.print("Nhap vao thang: ");
                     int thang = scanner.nextInt();
                     if(thang > 0 || thang <=12)
-                        qlhd.xuatDoanhThuThang(scanner.nextInt());
+                        qlhd.xuatDoanhThuThang(thang);
                     else
                         System.out.println("Thang khong ton tai");
+                    break;
                 }
                 case 9: {
-                    System.out.println("Nhap vao quy: ");
-                    int thang = scanner.nextInt();
-                    if(thang > 0 || thang <=4)
-                        qlhd.xuatDoanhThuQuy(scanner.nextInt());
+                    System.out.print("Nhap vao quy: ");
+                    int quy = scanner.nextInt();
+                    if(quy > 0 || quy <=4)
+                        qlhd.xuatDoanhThuQuy(quy);
                     else
                         System.out.println("Quy khong ton tai");
+                    break;
                 }
                 default: 
                     System.out.println("Lua chon khong ton tai");

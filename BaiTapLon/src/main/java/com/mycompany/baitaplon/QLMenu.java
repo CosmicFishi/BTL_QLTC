@@ -80,7 +80,6 @@ public class QLMenu extends Api {
 
     /**
      * Dùng để show những thức uóng đã luu trong qlmenu
-     *
      * @throws SQLException
      */
     public void showThucUongDaLuu() throws SQLException {
