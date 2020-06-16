@@ -64,11 +64,11 @@ public class SCApi extends Api {
      *
      * @param nhap
      */
-    public void findSCShow(int nhap) {
+    public void findSCShow(int so) {
         try {
-            String sql = "select * from sanh_cuoi where SucChua > " + nhap + " ;";
-            if (nhap < 10) {
-                sql = "select * from sanh_cuoi where ViTriSC= " + nhap + " ;";
+            String sql = "select * from sanh_cuoi where SucChua > " + so + " ;";
+            if (so < 10) {
+                sql = "select * from sanh_cuoi where ViTriSC= " + so + " ;";
             }
             super.read(sql);
             showSC(false);
