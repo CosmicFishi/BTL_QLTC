@@ -22,36 +22,39 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class HoaDonThue extends Api{
-    private static int dem =0;//
+public class HoaDonThue extends Api {
+
+    private static int dem = 0;//
     private int maHD;//
     private String tenBuoiTiec;
     private ThoiDiem thoiDiemThue;//
     private int soBanThue;
     private Date ngayThue;//
-    
+
     private QLSanhCuoi qlSanh = new QLSanhCuoi();
     private GiaThue giaThueSanh = new GiaThue();
     private SanhCuoi sanhCuoi;
     private QLMenu DSmenu = new QLMenu();
     private QLDV dichVu = new QLDV();
-    
+
     private int giaSanh;
     private int giaMenu;
     private int giaDichVu;
-    private int giaHoaDon; 
-    
+    private int giaHoaDon;
+
     private List<Integer> luaChonDv = new ArrayList<>();
     SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     {
         this.maHD = ++dem;
     }
-    
-    public HoaDonThue(){}
-    
+
+    public HoaDonThue() {
+    }
+
     /**
      * Của Admin sài
+     *
      * @param maHD
      * @param tenBT
      * @param sanhCuoi
@@ -59,9 +62,9 @@ public class HoaDonThue extends Api{
      * @param giaThue
      * @param ngay
      * @param menu
-     * @param dv 
+     * @param dv
      */
-    public HoaDonThue(int maHD, String tenBT, SanhCuoi sanhCuoi, int soBanThue, GiaThue giaThue, Date ngay, QLMenu menu, QLDV dv ) {
+    public HoaDonThue(int maHD, String tenBT, SanhCuoi sanhCuoi, int soBanThue, GiaThue giaThue, Date ngay, QLMenu menu, QLDV dv) {
         this.maHD = maHD;
         this.tenBuoiTiec = tenBT;
         this.sanhCuoi = sanhCuoi;
@@ -73,92 +76,103 @@ public class HoaDonThue extends Api{
         this.giaMenu = 0; // cần thêm câu query
         this.giaDichVu = 0;
     }
-    
+
     @Override
     public String toString() {
-        return String.format("%d, '%s', '%s', '%s' '%s' %d", this.getMaHD(), this.thoiDiemThue.toString(), this.ngayThue, 
+        return String.format("%d, '%s', '%s', '%s' '%s' %d", this.getMaHD(), this.thoiDiemThue.toString(), this.ngayThue,
                 this.tenBuoiTiec, this.getSanhCuoi().getMaSC(), this.getGiaHoaDon());
     }
-    public void tinhTien(){
+
+    public void tinhTien() {
         this.giaMenu = this.getDSmenu().tinhGiaDs();
         this.giaSanh = this.getSanhCuoi().getGiaThue() + this.giaThueSanh.getGiaThue();
         this.giaDichVu = this.getDichVu().layTongTienDVSQL(this.getMaHD());
-        this.giaHoaDon = this.getGiaMenu()+ this.getGiaDichVu() + this.getGiaSanh();
+        this.giaHoaDon = this.getGiaMenu() + this.getGiaDichVu() + this.getGiaSanh();
     }
+
     /**
      * phần nhập của người dùng
-     * @param s 
+     *
+     * @param s
      */
     public void nhap(Scanner s) {
         System.out.print("Nhap ten buoi tiec: ");
         this.tenBuoiTiec = s.nextLine();
-        
-        System.out.print("Nhap vao thoi diem thue: (Sang, chieu, toi) (1 | 2 | 3) ");
-        switch (s.nextLine()) {
-            case "1":
-                this.thoiDiemThue = ThoiDiem.SANG;
-                break;
-            case "2":
-                this.thoiDiemThue = ThoiDiem.CHIEU;
-                break;
-            case "3":
-                this.thoiDiemThue = ThoiDiem.TOI;
-                break;
-            default:
-                break;
-        }
-        
-        System.out.println("Nhap vao ngay thang nam (1/1/2020): ");
-        String date = s.nextLine();
         try {
+            System.out.print("Nhap vao thoi diem thue: (Sang, chieu, toi)(1 | 2 | 3): ");
+            switch (s.nextLine()) {
+                case "1":
+                    this.thoiDiemThue = ThoiDiem.SANG;
+                    break;
+                case "2":
+                    this.thoiDiemThue = ThoiDiem.CHIEU;
+                    break;
+                case "3":
+                    this.thoiDiemThue = ThoiDiem.TOI;
+                    break;
+                default:
+                    System.err.println("Loi nhap thoi diem");
+                    break;
+            }
+        } catch (Exception e) {
+            throw new Error("Loi nhap sai Thoi Diem.");
+        }
+
+        try {
+            System.out.print("Nhap vao ngay thang nam (1/1/2020): ");
+            String date = s.nextLine();
             this.ngayThue = f.parse(date);
         } catch (ParseException ex) {
-            System.err.println("Error at ngay thue");
+            throw new Error("Error at ngay thue");
+        }
+        try {
+            System.out.print("Nhap so ban thue: ");
+            this.soBanThue = Integer.parseInt(s.nextLine());
+        } catch (Exception e) {
+            throw new Error("Error nhap sai kieu du lieu.");
         }
         
-        System.out.print("Nhap so ban thue: ");
-        this.soBanThue = Integer.parseInt(s.nextLine());
-        
+
         //Khởi tạo giá thuê
         this.giaThueSanh.setThoiDiem(thoiDiemThue);
-        if ( this.ngayThue.getDay() == 0 )
+        if (this.ngayThue.getDay() == 0) {
             this.giaThueSanh.setNgay(NgayThue.Bay_ChuNhat);
-        else 
+        } else {
             this.giaThueSanh.setNgay(NgayThue.NgayThuong);
+        }
         this.giaThueSanh.nhap(s);
-        
-        
+
         //Chọn dịch vụ
-        System.out.println("Ban co muon them dich vu khong? (Y | N)");
-        if("y".equals(s.nextLine().toLowerCase())) {
+        System.out.print("Ban co muon them dich vu khong? (y|n): ");
+        if ("y".equals(s.nextLine().toLowerCase())) {
             System.out.println("Danh sach cac dich vu: ");
             this.getDichVu().xuatDsSQL();
-                luaChonDv = this.getDichVu().nhapLuaChon(s, getMaHD());
+            luaChonDv = this.getDichVu().nhapLuaChon(s, getMaHD());
         } else {
             System.out.println("ok then");
         }
-        
+
         //Chọn ds thức ăn từ SQL
         try {
             this.DSmenu.chon(s);
         } catch (SQLException ex) {
             System.err.println("Loi nhap menu.");
         }
-        
+
         //Chọn sảnh cưới từ sql
         this.sanhCuoi = qlSanh.taoScFromSQL(s);
         tinhTien();
-    } 
+    }
+
     /**
-     * (admin) + (user)
-     * Phần xuất của riêng admin
+     * (admin) + (user) Phần xuất của riêng admin
      */
     public void xuatSQL() {
         System.out.printf("Ma hoa don: %d\n Ten bua tiec: %s\nSo ban thue: %d\n", this.getMaHD(), this.tenBuoiTiec, this.soBanThue);
         this.getSanhCuoi().xuat();
         this.getDSmenu().xuat();
         this.getDichVu().xuatLuaChonTuSQL(this.maHD);
-        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n", 
+        System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n",
                 this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
     }
 
@@ -199,12 +213,10 @@ public class HoaDonThue extends Api{
 //    public void editSQL(Scanner scanner) {
 //        
 //    }
-
 //    @Override
 //    public void showSQL() {
 //        this.getDichVu().xuatLuaChonTuSQL(getMaHD());
 //    }
-
     public SanhCuoi getSanhCuoi() {
         return sanhCuoi;
     }

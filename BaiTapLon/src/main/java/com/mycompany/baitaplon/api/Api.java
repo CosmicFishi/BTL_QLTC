@@ -47,16 +47,16 @@ public class Api {
         System.out.println("Disconnected to mysql database.");
     }
 
-    protected void read(String sql) throws SQLException {
+    protected void read(String sql){
         try {
             this.stm = conn.createStatement();
             this.rs = stm.executeQuery(sql);
-        } catch (Exception e) {
-            throw new Error("can't read query");
+        } catch (SQLException e) {
+            throw new Error("can't read query; error Api.java/read(String sql) ");
         }
     }
 
-    protected void writeOrDelete(String sql, String action) throws SQLException {
+    protected void writeOrDelete(String sql, String action){
         try {
             stm = conn.createStatement();
             int kq = stm.executeUpdate(sql);
@@ -65,8 +65,8 @@ public class Api {
             } else {
                 System.out.println(action + " khong co.");
             }
-        } catch (Exception e) {
-            throw new Error("can't update or delete");
+        } catch (SQLException e) {
+            throw new Error("can't update or delete/ error Api/writeOrDelete(String sql)");
         }
     }
 }

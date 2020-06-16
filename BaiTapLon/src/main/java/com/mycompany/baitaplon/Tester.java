@@ -29,11 +29,13 @@ public class Tester {
         Api.connectSql();
         
         Scanner scanner = new Scanner(System.in);
-        int luaChon;
+        
+        String nhap="";
+        int luaChon = 0;
         
         QLHD qlhd = new QLHD();
-        QLSanhCuoi qls = new QLSanhCuoi();
         QLDV qldv = new QLDV();
+        QLSanhCuoi qls = new QLSanhCuoi();
         DanhSachThucAn dsAn = new DanhSachThucAn();
         DanhSachThucUong dsUong = new DanhSachThucUong();
         
@@ -46,13 +48,19 @@ public class Tester {
             System.out.println("4. Nhap hoa don");
             System.out.println("5. Xuat toan bo hoa don");
             System.out.println("6. Xuat mot hoa don");
-            System.out.println("7. Xoa hoa don"); //thiếu hàm xóa
+            System.out.println("7. Xoa hoa don");
             System.out.println("8. Xuat doanh thu theo thang");
             System.out.println("9. Xuat doanh thu theo quy");
             System.out.print("Nhap vao -1 de thoat: ");
-            luaChon = scanner.nextInt();
-            scanner.nextLine();
+            nhap = scanner.nextLine();
+            try {
+                luaChon = Integer.parseInt(nhap);
+            } catch (NumberFormatException e) {
+                luaChon = 0;
+            }
             switch (luaChon) {
+                case -1:
+                    break;
                 case 1: {
                     qls.xuatSC();
                     break;
@@ -62,12 +70,17 @@ public class Tester {
                     break;
                 }
                 case 3: {
-                    dsAn.xuatThucAn();
+                    dsAn.xuatThucAnSql();
                     dsUong.xuatThucUongSql();
                     break;
                 }
                 case 4: {
-                    qlhd.nhapHoaDon(scanner);
+                    try {
+                        qlhd.nhapHoaDon(scanner);
+                        break;
+                    } catch (Exception e) {
+                        System.err.println("Nhap hoa don khong thanh cong");
+                    }
                     break;
                 }
                 case 5: {
@@ -76,28 +89,23 @@ public class Tester {
                 }
                 case 6: {
                     System.out.print("Nhap ma hoa don can xuat: ");
-                    try {
-                        qlhd.xuatHoaDonSQL(scanner.nextInt());
-                        scanner.nextLine();
-                    } catch (ParseException ex) {
-                        System.err.println("Loi khi xuat hoa don");
-                    }
+                    qlhd.xuatHoaDonSQL(scanner.nextInt());
+                    scanner.nextLine();
                     break;
                 }
+
                 case 7: {
-                    try {
-                        System.out.print("Nhap ma hoa don muon xoa: ");
-                        qlhd.xoaHoaDonSQL(scanner.nextInt());
-                        scanner.nextLine();
-                    } catch (ParseException ex) {
-                        Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    System.out.print("Nhap ma hoa don muon xoa: ");
+                    qlhd.xoaHoaDonSQL(scanner.nextInt());
+                    scanner.nextLine();
                     break;
                 }
+
                 case 8: {
                     System.out.print("Nhap vao thang: ");
                     int thang = scanner.nextInt();
-                    if (thang > 0 || thang <= 12) {
+                    scanner.nextLine();
+                    if (thang > 0 && thang <= 12) {
                         qlhd.xuatDoanhThuThang(thang);
                     } else {
                         System.out.println("Thang khong ton tai");
@@ -107,7 +115,7 @@ public class Tester {
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
-                    if (quy > 0 || quy <= 4) {
+                    if (quy > 0 && quy <= 4) {
                         qlhd.xuatDoanhThuQuy(quy);
                     } else {
                         System.out.println("Quy khong ton tai");

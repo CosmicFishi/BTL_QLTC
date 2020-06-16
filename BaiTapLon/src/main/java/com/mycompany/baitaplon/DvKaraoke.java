@@ -57,8 +57,8 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
         super.showSQL();
         String sql = "select * from dv_karaoke where MaDv = "+ this.getMaDV() + ";" ; 
         try {
-            super.read(sql);
-        } catch (SQLException ex) {
+        super.read(sql);
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         showSQL();
@@ -70,7 +70,7 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
         sql = "insert into dv_karaoke values (" + sql + ");";
         try {
             super.writeOrDelete(sql, "add");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -80,7 +80,7 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
         String sql = "delete from dv_karaoke where MaDv =  " + this.getMaDV()+";";
         try {
             super.writeOrDelete(sql, "delete");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         super.deleteSQL();

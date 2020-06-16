@@ -19,24 +19,28 @@ public class SCApi extends Api {
         showSC(false);
     }
 
-    public void addSC(SanhCuoi s) throws SQLException {
-        String sql = s.toString();
-        sql = "insert into sanh_cuoi values (" + sql + ");";
+    public void addSC(SanhCuoi s) {
+//        String sql = s.toString();
+//        sql = "insert into sanh_cuoi values (" + sql + ");";
+        String sql = String.format("insert into sanh_cuoi values (%s);", s);
         super.writeOrDelete(sql, "add");
     }
 
-    public SanhCuoi get1SC(String ma) throws SQLException {
+    public SanhCuoi get1SC(String ma) {
         String sql = "select * "
                 + "from sanh_cuoi "
                 + "where MaSC = '" + ma + "';";
         super.read(sql);
-        if (rs.next()) {
-            SanhCuoi sc = new SanhCuoi(rs.getString("MaSC"),
-                    rs.getString("TenSC"),
-                    rs.getInt("ViTriSC"),
-                    rs.getInt("SucChua"),
-                    rs.getInt("GiaThue"));
-            return sc;
+        try {
+            if (rs.next()) {
+                return new SanhCuoi(rs.getString("MaSC"),
+                        rs.getString("TenSC"),
+                        rs.getInt("ViTriSC"),
+                        rs.getInt("SucChua"),
+                        rs.getInt("GiaThue"));
+            }
+        } catch (SQLException ex) {
+            throw new Error("Error when create a new SanhCuoi() from sql; SCApi/get1SC(String ma)");
         }
         return new SanhCuoi();
     }
@@ -46,17 +50,19 @@ public class SCApi extends Api {
         super.writeOrDelete(sql, "delete");
     }
 
-    public void findSC(String tenHoacMa) throws SQLException {
-        cStm = conn.prepareCall("{call findScByName(?)}");
-        cStm.setString(1, "%" + tenHoacMa + "%"); //% là để sài cho hàm tìm kiếm từ khóa chứa ký tự 
-        rs = cStm.executeQuery();
-    }
-    
-    public void findSCShow(String tenHoacMa) throws SQLException {
-        cStm = conn.prepareCall("{call findScByName(?)}");
-        cStm.setString(1, "%" + tenHoacMa + "%"); //% là để sài cho hàm tìm kiếm từ khóa chứa ký tự 
-        rs = cStm.executeQuery();
-        showSC(false);
+    public boolean findSC(String tenHoacMa) {
+        try {
+            cStm = conn.prepareCall("{call findScByName(?)}");
+            cStm.setString(1, "%" + tenHoacMa + "%"); //% là để sài cho hàm tìm kiếm từ khóa chứa ký tự 
+            rs = cStm.executeQuery();
+            if (rs.isBeforeFirst() == false) {
+                System.out.println("Khong tim thay SC nhu yeu cau.");
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            throw new Error("Loi find SC");
+        }
     }
 
     /**
@@ -79,19 +85,20 @@ public class SCApi extends Api {
     }
 
     /**
-     *Kiểm tra Rs có null hay không
+     * Kiểm tra Rs có null hay không
+     *
      * @return
      * @throws SQLException
      */
-    protected boolean isNullRs() throws SQLException {
-        if (rs.isBeforeFirst() == false) {
-            System.out.println("Khong tim thay SC nhu yeu cau.");
-            return true;
-        }
-        return false;
-    }
+//    protected boolean isNullRs() throws SQLException {
+//        if (rs.isBeforeFirst() == false) {
+//            System.out.println("Khong tim thay SC nhu yeu cau.");
+//            return true;
+//        }
+//        return false;
+//    }
 
-    protected void edit(SanhCuoi sc) throws SQLException{
+    protected void edit(SanhCuoi sc) throws SQLException {
         try {
             pStm = conn.prepareStatement("update sanh_cuoi set "
                     + "TenSC = ?,"
@@ -129,7 +136,7 @@ public class SCApi extends Api {
      * @param isOne
      * @throws SQLException
      */
-    protected void showSC(boolean isOne) throws SQLException {
+    public void showSC(boolean isOne) throws SQLException {
         System.out.format("\n+-------+-------------------+--------+---------+-------------+\n");
         System.out.format("|  MaSC |  Ten sanh         | vi tri |suc chua | gia thue    |\n");
         System.out.format("+-------+-------------------+--------+---------+-------------+\n");

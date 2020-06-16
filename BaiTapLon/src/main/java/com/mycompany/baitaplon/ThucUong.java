@@ -39,7 +39,7 @@ public class ThucUong extends DoAnUong {
         String kq = super.toString();
         return String.format(kq + ", %s", this.getHangSX());
     }
-///////////////////////////////////////////////////////////////////
+    
     public String getHangSX() {
         return hangSX;
     }

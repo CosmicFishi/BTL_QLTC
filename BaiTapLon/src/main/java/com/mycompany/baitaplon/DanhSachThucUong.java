@@ -11,18 +11,22 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Admin
  */
-public class DanhSachThucUong extends ThucUongApi{
+public class DanhSachThucUong extends ThucUongApi {
+
     private List<ThucUong> dsThucUong = new ArrayList<>();
     private int[] slThucUong = new int[50];
     private int[] maThucUongSql = new int[50];
-    
-    public DanhSachThucUong(){}
-    
+
+    public DanhSachThucUong() {
+    }
+
     public DanhSachThucUong(List<ThucUong> dsThucUong, int[] slUong) {
         this.dsThucUong = dsThucUong;
         this.slThucUong = slUong;
@@ -31,113 +35,144 @@ public class DanhSachThucUong extends ThucUongApi{
     @Override
     public String toString() {
         StringBuilder kq = new StringBuilder();
-        for(int i =0; i<this.getDsThucUong().size(); i++){
+        for (int i = 0; i < this.getDsThucUong().size(); i++) {
             kq.append(getDsThucUong().get(i).xuat()).append(" ,so luong: ")
                     .append(getSlThucUong()[i]).append("\n");
         }
         return kq.toString(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /**
-     *Tính tổng số tiền của danh sách các thức uống (đã lấy sl thức uống * giá)
+     * Tính tổng số tiền của danh sách các thức uống (đã lấy sl thức uống * giá)
+     *
      * @return
      */
-    public int tinhGiaDs(){
-        int kq= 0;
-        for (int i=0; i< this.getDsThucUong().size() ; i++){
+    public int tinhGiaDs() {
+        int kq = 0;
+        for (int i = 0; i < this.getDsThucUong().size(); i++) {
             kq += this.getDsThucUong().get(i).gia * this.getSlThucUong()[i];
         }
         return kq;
     }
-    
-    public void xuat(){
-        for(ThucUong ta: getDsThucUong()){
+
+    /**
+     * Xuất thức uống có trong List<ThucUong>
+     */
+    public void xuat() {
+        for (ThucUong ta : getDsThucUong()) {
             System.out.println(ta);
         }
     }
 
     /**
-     *Thêm thức uống và sl có sẵn vào ds
+     * Thêm thức uống và sl có sẵn vào ds
+     *
      * @param e
      * @param sl
      */
-    public void them(ThucUong e, int sl){
+    public void them(ThucUong e, int sl) {
         getDsThucUong().add(e);
-        slThucUong[getDsThucUong().size()-1] = sl;
+        slThucUong[getDsThucUong().size() - 1] = sl;
     }
 
     /**
-     *Thêm thức uống và số lượng mỗi loại vào danh sách
+     * (ADMIN)Thêm thức uống và số lượng mỗi loại vào danh sách
+     *
      * @param scanner
      */
-    public void them(Scanner scanner){
+    public void themSql(Scanner scanner) {
         ThucUong ta = new ThucUong();
         ta.nhap(scanner);
-        System.out.print("Nhap vao so luong ThucUong: ");
+        System.out.print("Nhap vao so luong Thuc Uong: ");
         int sl = scanner.nextInt();
         them(ta, sl);
         scanner.nextLine();
     }
 
     /**
-     *Thêm thức uống vào danh sách bằng cách chọn thức uống có sẵn trong sql
+     * (USER)Thêm thức uống vào danh sách bằng cách chọn thức uống có sẵn trong
+     * sql
+     *
      * @param scanner
      * @throws SQLException
      */
-    public void themTuSql(Scanner scanner) throws SQLException{
-        xuatThucUongSql();
-        while(true){
-            System.out.print("Nhap ma thuc uong muon them(-1 to exit): ");
-            int ma = scanner.nextInt();
-            scanner.nextLine();
-            if(ma == -1) break;
-            getDsThucUong().add(getThucUong(ma));
-            this.maThucUongSql[getDsThucUong().size() - 1]=ma;
-            System.out.print("Nhap vao so luong thuc uong: ");
-            int sl = scanner.nextInt();
-            slThucUong[getDsThucUong().size() - 1] = sl;
+    public void themTuSql(Scanner scanner) {
+        try {
+            xuatThucUongSql();
+            while (true) {
+                System.out.print("Nhap ma thuc uong muon them(-1 to exit): ");
+                int ma = scanner.nextInt();
+                scanner.nextLine();
+                if (ma == -1) {
+                    break;
+                }
+                getDsThucUong().add(get1ThucUong(ma));
+                this.maThucUongSql[getDsThucUong().size() - 1] = ma;
+                System.out.print("Nhap vao so luong thuc uong: ");
+                int sl = scanner.nextInt();
+                slThucUong[getDsThucUong().size() - 1] = sl;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhSachThucUong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void timThucUong(Scanner scanner) {
+        try {
+            xuatThucUongSql();
+            System.out.print("Nhap vao ten hoac ma Thuc Uong can tim: ");
+            super.findThucUong(scanner.nextLine());
+            super.showThucUong(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(DanhSachThucAn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
      *Xuất toàn bộ thức uống có sẵn trong sql ra console
+     *
      * @throws SQLException
      */
-    public void xuatThucUongSql() throws SQLException{
+    public void xuatThucUongSql() throws SQLException {
         super.readShow("thuc_uong");
     }
 
     /**
-     *Thêm 1 đối tượng ThucUong đã tạo vào sql
+     *(ADMIN) Thêm 1 đối tượng ThucUong đã tạo vào sql
+     *
      * @param ta
      * @throws SQLException
      */
-    public void themThucUongSql(ThucUong ta) throws SQLException{
+    public void themThucUongSql(ThucUong ta) throws SQLException {
         super.addThucUong(ta, "thuc_uong");
     }
 
     /**
-     *Thêm 1 ThucUong vào sql bằng cách nhập bằng tay trong console
+     * Thêm 1 ThucUong vào sql bằng cách nhập bằng tay trong console
+     *
      * @param scanner
      * @throws SQLException
      */
-    public void themThucUongSql(Scanner scanner) throws SQLException{
+    public void themThucUongSql(Scanner scanner) throws SQLException {
         ThucUong ta = new ThucUong();
         ta.nhap(scanner);
         super.addThucUong(ta, "thuc_uong");
     }
 
     /**
-     *(ADMIN) xóa thức uống trong sql (in ra ds thức uống 
-     * cho admin chọn mã hoặc tên cần xóa)
+     * (ADMIN) xóa thức uống trong sql (in ra ds thức uống cho admin chọn mã
+     * hoặc tên cần xóa)
+     *
      * @param scanner
      * @throws SQLException
      */
-    public void xoaThucUongSql(Scanner scanner) throws SQLException{
+    public void xoaThucUongSql(Scanner scanner) throws SQLException {
         System.out.println("Nhap ma Thuc An hoac Ten can xoa: ");
         String tenHoacMa = scanner.nextLine();
-        if (findThucUong(tenHoacMa) == false)
+        if (findThucUong(tenHoacMa) == false) {
             return;
+        }
         super.showThucUong(true);
         System.out.println("Ban muon xoa sanh tren: (y,n): ");
         if (scanner.nextLine().equals("y")) {
@@ -149,14 +184,17 @@ public class DanhSachThucUong extends ThucUongApi{
     }
 
     /**
-     *Cập nhật Thức uống trong sql (bắt nhập tên hoặc mã thức uống cần sửa)
+     * Cập nhật Thức uống trong sql (bắt nhập tên hoặc mã thức uống cần sửa)
+     *
      * @param scanner
      * @throws SQLException
      */
-    public void updateThucUongSql(Scanner scanner) throws SQLException{
+    public void updateThucUongSql(Scanner scanner) throws SQLException {
         System.out.println("Nhap ten hoac ma ThucUong can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
-        if (findThucUong(tenHoacMa)==false) return;
+        if (findThucUong(tenHoacMa) == false) {
+            return;
+        }
         super.showThucUong(true);
         System.out.println("Ban muon cap nhat ThucUong tren(y/n): ");
         if (scanner.nextLine().equals("y")) {

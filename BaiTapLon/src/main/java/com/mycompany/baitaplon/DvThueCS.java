@@ -66,8 +66,8 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
         super.showSQL();
         String sql = "select * from dv_ca_si where MaDv = " + this.getMaDV() + ";";
         try {
-            super.read(sql);
-        } catch (SQLException ex) {
+        super.read(sql);
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         showSQL();
@@ -80,7 +80,7 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
         sql = "insert into dv_ca_si values (" + sql + ");";
         try {
             super.writeOrDelete(sql, "add");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -89,7 +89,7 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
         String sql = "delete from dv_ca_si where MaDv =  " + this.getMaDV()+";";
         try {
             super.writeOrDelete(sql, "delete");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         super.deleteSQL();

@@ -41,7 +41,7 @@ public class GiaThue {
     }
 
     public void nhap(Scanner scanner) {
-        System.out.println("Dip le ? (0 | 1)");
+        System.out.print("Dip le ? (0 | 1): ");
         this.isDipLe = scanner.nextInt() == 1;
         scanner.nextLine();
         tinhTien();

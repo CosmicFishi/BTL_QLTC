@@ -11,17 +11,13 @@ public class ThucUongApi extends Api {
 
     protected static int selected;
 
-    public ThucUong getThucUong(int ma) throws SQLException {
-        String sql = "select * "
-                + "from thuc_uong "
-                + "where MaThucUong = " + ma + ";";
+    public ThucUong get1ThucUong(int ma) throws SQLException {
+        String sql = "select * from thuc_uong where MaThucUong = " + ma + ";";
         super.read(sql);
         if(rs.next()){
-            String ten = rs.getString("TenThucUong");
-            int gia = rs.getInt("Gia");
-            String nhaSX = rs.getString("HangSX");
-            ThucUong tu = new ThucUong(ten, gia, nhaSX);
-            return tu;
+            return new ThucUong(rs.getString("TenThucUong")
+                    , rs.getInt("Gia")
+                    , rs.getString("HangSX"));
         }
         return new ThucUong();
     }
@@ -30,12 +26,13 @@ public class ThucUongApi extends Api {
         String sql = "select * from " + tenBang + ";";
         super.read(sql);
         showThucUong(false);
-    }//ok
+    }
 
     public void addThucUong(DoAnUong s, String tenBang) throws SQLException {
-        String sql = s.toString();
-        sql = "insert into " + tenBang + " values (" + sql + ");";
-        super.writeOrDelete(sql, "add");
+//        String sql = s.toString();
+//        sql = "insert into " + tenBang + " values (" + sql + ");";
+        String sql = String.format("insert into %s values (%s);", tenBang, s.toString());
+        super.writeOrDelete(sql, "add thuc uong");
     }
 
     public void deleteThucUong() throws SQLException {
@@ -84,7 +81,7 @@ public class ThucUongApi extends Api {
         System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
         System.out.println("+------------+---------------------------------------------+--------------+--------------+");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d| %-12s |\n",
+            System.out.printf("| %-11d|  %-43s| %,-13d| %-12s |\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),

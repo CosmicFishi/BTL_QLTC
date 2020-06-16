@@ -55,9 +55,9 @@ public abstract class DichVu extends Api implements TuongTacSQL{
         String sql = "select * from dv where MaDv =" + this.maDV + ";";
         try {
             super.read(sql);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
-        }
+    }
         //this.showSQL();
         
     }
@@ -67,7 +67,7 @@ public abstract class DichVu extends Api implements TuongTacSQL{
         sql = "insert into dv values (" + sql + ");";
         try {
             super.writeOrDelete(sql, "add");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
@@ -77,7 +77,7 @@ public abstract class DichVu extends Api implements TuongTacSQL{
         String sql = "delete from dv where MaDv =  " + this.maDV +";";
         try {
             super.writeOrDelete(sql, "delete");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }

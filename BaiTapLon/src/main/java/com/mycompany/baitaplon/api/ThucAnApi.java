@@ -14,20 +14,20 @@ public class ThucAnApi extends Api {
 
     protected static int selected;
 
-    // unusesual
-    public List<ThucAn> getList() throws SQLException {
-        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
-                + "from thuc_an ta"
-                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";
-        super.read(sql);
-
-        List<ThucAn> kq = new ArrayList<>();
-        while (rs.next()) {
-            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
-                    rs.getInt("Gia"), rs.getBoolean("isChay"));
-        }
-        return kq;
-    }
+//    // unusesual
+//    public List<ThucAn> getList() throws SQLException {
+//        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
+//                + "from thuc_an ta"
+//                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";
+//        super.read(sql);
+//
+//        List<ThucAn> kq = new ArrayList<>();
+//        while (rs.next()) {
+//            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
+//                    rs.getInt("Gia"), rs.getBoolean("isChay"));
+//        }
+//        return kq;
+//    }
 
     /**
      * Lấy một dòng trong csdl trả về lưu dưới dạng new ThucAn()
@@ -121,7 +121,7 @@ public class ThucAnApi extends Api {
         System.out.println("| Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay |");
         System.out.println("+------------+---------------------------------------------+--------------+--------+");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d| %-6s |\n",
+            System.out.printf("| %-11d|  %-43s| %,-13d| %-6s |\n",
                     rs.getInt("MaThucAn"),
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"),

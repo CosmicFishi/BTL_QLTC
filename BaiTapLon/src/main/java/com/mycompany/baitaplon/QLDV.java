@@ -12,10 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 
 
 /**
@@ -119,7 +115,7 @@ public class QLDV extends Api{
             super.writeOrDelete(sql, "delete");
             sql = "delete from dv where MaDv =  " + MaDv +";";
             super.writeOrDelete(sql, "delete");
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
         } else {
@@ -144,7 +140,7 @@ public class QLDV extends Api{
     public List<Integer> nhapLuaChon(Scanner s, int maHoaDon) {
         List<Integer> luaChon = new ArrayList<>();
         int c = 0;
-        System.out.println("Nhap vao lua chon cua ban (Ma dich vu)\n Nhap vao -1 de hoan tat nhap");
+        System.out.println("Nhap vao lua chon cua ban (Ma dich vu)\n Nhap vao -1 de hoan tat nhap: ");
         while (c != -1) {
             c = s.nextInt();
             if(luaChon.contains(c) == false && isTonTaiDV(c)) {
@@ -164,12 +160,13 @@ public class QLDV extends Api{
      * @param maHoaDon : Mã hóa đơn
      * @param luaChon : Danh sách các lựa chọn
      */
+    ////////////LỖI 
     public void nhapLuaChonSQL(int maHoaDon, List<Integer> luaChon) {
         luaChon.forEach((i) -> {
             try {
                 String sql = "insert into hoa_don_dv values("+  String.format("%d, %d", maHoaDon,i) + ");";
                 super.writeOrDelete(sql, "add");
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
         });
@@ -181,9 +178,9 @@ public class QLDV extends Api{
     public void xuatLuaChonTuSQL(int maHoaDon) {
         //đọc dữ liệu về
         try {
-            String sql = "select * from hoa_don_dv where MaHD = " + maHoaDon +";";
-            super.read(sql);
-        } catch (SQLException ex) {
+        String sql = "select * from hoa_don_dv where MaHD = " + maHoaDon +";";
+        super.read(sql);
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
         //lưu các mã dịch vụ vào một mảng
@@ -210,7 +207,7 @@ public class QLDV extends Api{
         try {
             String sql = "delete from hoa_don_dv where MaHD = " + maHoaDon +  ";";
             super.writeOrDelete(sql, "delete");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
     }
