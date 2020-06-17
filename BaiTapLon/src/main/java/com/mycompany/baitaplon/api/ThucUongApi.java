@@ -99,7 +99,7 @@ public class ThucUongApi extends Api {
 
     }
 
-    protected void showThucUong(int limit) throws SQLException {
+    protected void showThucUong(boolean nhap) throws SQLException {
         if (rs.next()) {
             System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
             System.out.format("+------------+---------------------------------------------+--------------+-------------%n");

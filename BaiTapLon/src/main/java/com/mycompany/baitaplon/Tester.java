@@ -62,12 +62,10 @@ public class Tester {
                 case -1:
                     break;
                 case 1: {
-                    QLSanhCuoi qls = new QLSanhCuoi();
                     qls.xuatSC();
                     break;
                 }
                 case 2: {
-                    QLDV qldv = new QLDV();
                     qldv.xuatDsSQL();
                     break;
                 }
@@ -111,6 +109,7 @@ public class Tester {
                     } else {
                         System.out.println("Thang khong ton tai");
                 }
+            }    
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
@@ -118,11 +117,12 @@ public class Tester {
                         qlhd.xuatDoanhThuQuy(quy);
                     } else {
                         System.out.println("Quy khong ton tai");
+                    }
                 }
-                default: 
+                    default : 
                     System.out.println("Lua chon khong ton tai");
             }
         } while(luaChon != -1);
         Api.disconnectSql();
-    }
+    } 
 }

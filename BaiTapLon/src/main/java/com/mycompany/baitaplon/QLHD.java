@@ -126,14 +126,14 @@ public class QLHD extends Api {
                     System.out.printf("%-15d|%-15s|%-15s|%-20s|%-15d",
                         rs.getInt("MaHoaDon"),
                         rs.getString("ThoiDiem"),
-                        chuyenFormatNgay(rs.getDate("NgayThue")),
+                        chuyenNgay(rs.getDate("NgayThue")),
                         rs.getString("TenBuoiTiec"),
                         rs.getInt("TongTien"));
                 }
                 QLDV DvTemp = new QLDV();
                 DvTemp.xuatLuaChonTuSQL(rs.getInt("MaHoaDon"));
                 QLSanhCuoi SCTemp = new QLSanhCuoi();
-                if (SCTemp.findSC(maSC) ) SCTemp.showSC(true);
+                if (SCTemp.findSC(rs.getString("maSC"))) SCTemp.showSC(true);
                 QLMenu menuTemp = new QLMenu();
                 menuTemp.layDsMonSQL(maHD);
                 //thiếu phần của Hậu
