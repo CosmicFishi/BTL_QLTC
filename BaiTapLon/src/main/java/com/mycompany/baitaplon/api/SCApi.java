@@ -70,11 +70,11 @@ public class SCApi extends Api {
      *
      * @param nhap
      */
-    public void findSCShow(int so) {
+    public void findSCShow(int nhap) {
         try {
-            String sql = "select * from sanh_cuoi where SucChua > " + so + " ;";
-            if (so < 10) {
-                sql = "select * from sanh_cuoi where ViTriSC= " + so + " ;";
+            String sql = "select * from sanh_cuoi where SucChua > " + nhap + " ;";
+            if (nhap < 10) {
+                sql = "select * from sanh_cuoi where ViTriSC= " + nhap + " ;";
             }
             super.read(sql);
             showSC(false);
@@ -141,7 +141,7 @@ public class SCApi extends Api {
         System.out.format("|  MaSC |  Ten sanh         | vi tri |suc chua | gia thue    |\n");
         System.out.format("+-------+-------------------+--------+---------+-------------+\n");
         while (rs.next()) {
-            System.out.printf("%-7s| %-18s|  %-6d| %-8d| %-12d|\n",
+            System.out.printf("|%-7s| %-18s|  %-6d| %-8d| %,-12d|\n",
                     rs.getString("MaSC"),
                     rs.getString("TenSC"),
                     rs.getInt("ViTriSC"),
@@ -152,6 +152,7 @@ public class SCApi extends Api {
                 break;
             }
         }
+        System.out.format("+-------+-------------------+--------+---------+-------------+\n");
     }
 
     public static String getSelected() {

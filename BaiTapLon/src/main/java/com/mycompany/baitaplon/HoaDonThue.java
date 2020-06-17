@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -23,8 +21,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class HoaDonThue extends Api {
-
-    private static int dem = 0;//
+    private static int dem = 5;//
     private int maHD;//
     private String tenBuoiTiec;
     private ThoiDiem thoiDiemThue;//
@@ -128,7 +125,7 @@ public class HoaDonThue extends Api {
         try {
             System.out.print("Nhap so ban thue: ");
             this.soBanThue = Integer.parseInt(s.nextLine());
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new Error("Error nhap sai kieu du lieu.");
         }
         

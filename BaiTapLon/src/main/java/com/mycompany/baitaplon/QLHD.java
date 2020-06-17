@@ -39,7 +39,6 @@ public class QLHD extends Api {
             System.out.println("===============NHAP HOA DON =============== ");
             ds.get(dem).nhap(scanner);
             this.luuHoaDonSQL( ds.get(dem) );
-            ds.get(dem).xuatSQL();
             
             System.out.println("Nhap 1 để thêm hóa đơn, nhap -1 để thoát");
             if (Integer.parseInt( scanner.nextLine() ) == -1) break;
@@ -59,15 +58,19 @@ public class QLHD extends Api {
             String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
             super.writeOrDelete(sqlHoaDon, " luu hoa don.");
             
-            Map<Integer, Integer> mAn = hoaDon.getDSmenu().demMonAnTrongQlMenu();
-            for (Map.Entry<Integer, Integer> k : mAn.entrySet()) {
-                String sqlMenu = "insert into hoa_don_thuc_an values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
+            
+            Map<Integer, Integer> Map;
+            Map = hoaDon.getDSmenu().demMonAnTrongQlMenu();
+            for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
+                String sqlMenu = String.format("insert into hoa_don_thuc_an values (%d, %d, %d)", 
+                        hoaDon.getMaHD(), k.getKey(), k.getValue());
                 super.writeOrDelete(sqlMenu, " ds thuc an");
             }
             
-            Map<Integer, Integer> mUong = hoaDon.getDSmenu().demThucUongTrongQlMenu();
-            for (Map.Entry<Integer, Integer> k : mUong.entrySet()) {
-                String sqlMenu = "insert into hoa_don_thuc_uong values (" + hoaDon.getMaHD() + ", "+ k.getKey()+ ", "+k.getValue()+" )";
+            Map = hoaDon.getDSmenu().demThucUongTrongQlMenu();
+            for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
+                String sqlMenu = String.format("insert into hoa_don_thuc_uong values (%d, %d, %d)", 
+                        hoaDon.getMaHD(), k.getKey(), k.getValue());
                 super.writeOrDelete(sqlMenu, " ds thuc an");
             }
         } catch (Exception ex) {
@@ -120,23 +123,30 @@ public class QLHD extends Api {
         String sql = "select * from hoa_don where hoa_don.MaHoaDon = " + maHD + ";";
         try {
             super.read(sql);
-            if(rs.isBeforeFirst() == true) {
-                System.out.println("Ma hoa don     |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien      ");
-                while(rs.next()) {
-                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%-15d",
-                        rs.getInt("MaHoaDon"),
-                        rs.getString("ThoiDiem"),
-                        chuyenNgay(rs.getDate("NgayThue")),
-                        rs.getString("TenBuoiTiec"),
-                        rs.getInt("TongTien"));
+            String maSC = "";
+            if (rs.isBeforeFirst() == true) {
+                System.out.println("==================================XUAT HOA DON=================================================================================");
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------+");
+                System.out.println("| Ma hoa don   |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien     |");
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------|");
+                while (rs.next()) {
+                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%,-15d\n",
+                            rs.getInt("MaHoaDon"),
+                            rs.getString("ThoiDiem"),
+                            chuyenNgay(rs.getDate("NgayThue")),
+                            rs.getString("TenBuoiTiec"),
+                            rs.getInt("TongTien"));
+                    maSC = rs.getString("MaSC");
                 }
+                System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
+                
                 QLDV DvTemp = new QLDV();
-                DvTemp.xuatLuaChonTuSQL(rs.getInt("MaHoaDon"));
-                QLSanhCuoi SCTemp = new QLSanhCuoi();
-                if (SCTemp.findSC(rs.getString("maSC"))) SCTemp.showSC(true);
                 QLMenu menuTemp = new QLMenu();
+                QLSanhCuoi SCTemp = new QLSanhCuoi();
+                
+                DvTemp.xuatLuaChonTuSQL(maHD);
+                if (SCTemp.findSC(rs.getString("maSC"))) SCTemp.showSC(true);
                 menuTemp.layDsMonSQL(maHD);
-                //thiếu phần của Hậu
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());

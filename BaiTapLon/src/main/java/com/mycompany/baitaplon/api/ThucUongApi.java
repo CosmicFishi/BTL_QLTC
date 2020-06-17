@@ -6,8 +6,6 @@
 package com.mycompany.baitaplon.api;
 
 import com.mycompany.baitaplon.DoAnUong;
-import com.mycompany.baitaplon.SanhCuoi;
-import com.mycompany.baitaplon.ThucAn;
 import com.mycompany.baitaplon.ThucUong;
 import static com.mycompany.baitaplon.api.Api.conn;
 import java.sql.SQLException;
@@ -23,10 +21,10 @@ public class ThucUongApi extends Api {
     public ThucUong get1ThucUong(int ma) throws SQLException {
         String sql = "select * from thuc_uong where MaThucUong = " + ma + ";";
         super.read(sql);
-        if(rs.next()){
-            return new ThucUong(rs.getString("TenThucUong")
-                    , rs.getInt("Gia")
-                    , rs.getString("HangSX"));
+        if (rs.next()) {
+            return new ThucUong(rs.getString("TenThucUong"),
+                     rs.getInt("Gia"),
+                     rs.getString("HangSX"));
         }
         return new ThucUong();
     }
@@ -70,7 +68,7 @@ public class ThucUongApi extends Api {
             pStm.setString(1, tu.getTen());
             pStm.setInt(2, tu.getGia());
             pStm.setString(3, tu.getHangSX());
-            pStm.setInt(4, this.selected);
+            pStm.setInt(4, ThucUongApi.selected);
             int kq = pStm.executeUpdate();
             if (kq == 1) {
                 System.out.println("Edit success");
@@ -85,31 +83,19 @@ public class ThucUongApi extends Api {
 
     }
 
-    protected void showThucUong() throws SQLException {
-        //this.setSelected(rs.getString("MaSC"));
-        System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
-        System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
-        while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %,-13d| %-12s |\n",
-                    rs.getInt("MaThucUong"),
-                    rs.getString("TenThucUong"),
-                    rs.getInt("Gia"),
-                    rs.getString("HangSX"));
-        }
-
-    }
-
     protected void showThucUong(boolean nhap) throws SQLException {
-        if (rs.next()) {
-            System.out.format(" Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX     \n");
-            System.out.format("+------------+---------------------------------------------+--------------+-------------%n");
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+        System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+        while (rs.next()) {
             System.out.printf("| %-11d|  %-43s| %-13d| %-12s\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
+            ThucUongApi.setSelected(rs.getInt("MaThucUong"));
+            if (nhap) break;
         }
-        this.setSelected(rs.getInt("MaThucUong"));
     }
 
     public static int getSelected() {

@@ -19,21 +19,6 @@ public class ThucAnApi extends Api {
 
     protected static int selected;
 
-//    // unusesual
-//    public List<ThucAn> getList() throws SQLException {
-//        String sql = "select ta.*, if (MaThucAnChay is not null, true, false) as 'isChay'"
-//                + "from thuc_an ta"
-//                + "left join thuc_an_chay tac on ta.MaThucAn = tac.MaThucAnChay;";
-//        super.read(sql);
-//
-//        List<ThucAn> kq = new ArrayList<>();
-//        while (rs.next()) {
-//            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
-//                    rs.getInt("Gia"), rs.getBoolean("isChay"));
-//        }
-//        return kq;
-//    }
-
     /**
      * Lấy một dòng trong csdl trả về lưu dưới dạng new ThucAn()
      * 
@@ -122,8 +107,9 @@ public class ThucAnApi extends Api {
     }
 
     protected void showThucAn(boolean nhap) throws SQLException {
-        System.out.format("  Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay\n");
-        System.out.format("+------------+---------------------------------------------+--------------+-------%n");
+        System.out.println("+------------+---------------------------------------------+--------------+--------+");
+        System.out.println("| Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay |");
+        System.out.println("+------------+---------------------------------------------+--------------+--------+");
         while (rs.next()) {
             System.out.printf("| %-11d|  %-43s| %,-13d| %-6s |\n",
                     rs.getInt("MaThucAn"),
@@ -133,6 +119,7 @@ public class ThucAnApi extends Api {
             ThucAnApi.setSelected(rs.getInt("MaThucAn"));
             if(nhap) break;
         }
+        System.out.println("+------------+---------------------------------------------+--------------+--------+");
     }
 
     public static int getSelected() {

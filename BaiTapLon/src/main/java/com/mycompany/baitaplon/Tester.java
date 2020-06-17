@@ -23,22 +23,22 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class Tester {
-    
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
         Api api = new Api();
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
-        
-        String nhap="";
+
+        String nhap = "";
         int luaChon = 0;
-        
+
         QLHD qlhd = new QLHD();
         QLDV qldv = new QLDV();
         QLSanhCuoi qls = new QLSanhCuoi();
         DanhSachThucAn dsAn = new DanhSachThucAn();
         DanhSachThucUong dsUong = new DanhSachThucUong();
-        
+
         //User interface in console
         do {
             System.out.println("Chao mung!! Hay chon cac lua chon sau: ");
@@ -101,28 +101,28 @@ public class Tester {
                 }
 
                 case 8: {
-                    System.out.println("Nhap vao thang: ");
+                    System.out.print("Nhap vao thang: ");
                     int thang = scanner.nextInt();
                     scanner.nextLine();
-                    if (thang > 0 && thang <= 12) {
+                    if (thang > 0 && thang <= 12)
                         qlhd.xuatDoanhThuThang(thang);
-                    } else {
+                    else 
                         System.out.println("Thang khong ton tai");
+                    break;
                 }
-            }    
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
-                    if (quy > 0 && quy <= 4) {
+                    if (quy > 0 && quy <= 4) 
                         qlhd.xuatDoanhThuQuy(quy);
-                    } else {
+                    else 
                         System.out.println("Quy khong ton tai");
-                    }
+                    break;
                 }
-                    default : 
+                default:
                     System.out.println("Lua chon khong ton tai");
             }
-        } while(luaChon != -1);
+        } while (luaChon != -1);
         Api.disconnectSql();
-    } 
+    }
 }
