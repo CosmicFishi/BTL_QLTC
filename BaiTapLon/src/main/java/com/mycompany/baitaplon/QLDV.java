@@ -156,20 +156,22 @@ public class QLDV extends Api{
         return luaChon;
     };
     /**
-     * Các lựa chọn sẽ được nhập vào trong mysql || CẦN PHẢI THÊM LUACHON VAO TRONG HOADONTHUE
+     * Các lựa chọn sẽ được nhập vào trong mysql
      * @param maHoaDon : Mã hóa đơn
      * @param luaChon : Danh sách các lựa chọn
      */
-    ////////////LỖI 
+    //////////// test thử coi còn lỗi hay không?
     public void nhapLuaChonSQL(int maHoaDon, List<Integer> luaChon) {
-        luaChon.forEach((i) -> {
-            try {
-                String sql = "insert into hoa_don_dv values("+  String.format("%d, %d", maHoaDon,i) + ");";
-                super.writeOrDelete(sql, "add");
-            } catch (Exception ex) {
-                System.err.println(ex.getMessage());
-            }
-        });
+        if(!(luaChon.isEmpty())) {
+            luaChon.forEach((i) -> {
+                try {
+                    String sql = "insert into hoa_don_dv values("+  String.format("%d, %d", maHoaDon,i) + ");";
+                    super.writeOrDelete(sql, "add");
+                } catch (Exception ex) {
+                    System.err.println(ex.getMessage());
+                }
+            });
+        };
     }
     /**
      * xuất ra các lựa chọn của 1 hóa đơn

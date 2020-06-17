@@ -57,7 +57,7 @@ public class QLSanhCuoi extends SCApi {
 
     public void timSCViChua(Scanner scanner) {
         try {
-            System.out.print("Nhap vi tri hoawc suc chua can tim: ");
+            System.out.print("Nhap vi tri hoac suc chua can tim: ");
             findSCShow(Integer.parseInt(scanner.nextLine()));
         } catch (NumberFormatException e) {
             System.err.println(e.getMessage());

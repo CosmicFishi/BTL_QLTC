@@ -49,13 +49,11 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
     
     @Override
     public String toString() {
-//        return super.toString();
         return String.format("%sTen ca si: %s\nSo luong bai hat: %d\n",
                 super.toString(),this.tenCS,this.soLuongBH);
     }
     @Override
     public String xuat() {
-//        System.out.printf("\'%s\',\'%s\',%d", this.getMaDV(),this.getTenDV(),this.getGiaDV());
         return String.format("%d,\'%s\', %d",this.getMaDV(), this.tenCS,this.soLuongBH);
     }
     
