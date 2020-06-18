@@ -177,48 +177,7 @@ public class HoaDonThue extends Api {
         System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n",
                 this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
     }
-
-//    @Override
-//    public void readSQLShow() {
-//        throw new UnsupportedOperationException("Not supported yet."); 
-//    }
-//
-//    //Còn thiếu phần nhập danh sách thức ăn vào bảng thức ăn và thức uống
-//    @Override
-//    public void addSQL() {
-//        try {
-//            String sql = String.format("%d ,\'%s\' ,\'%s\' ,\'%s\' ,\'%s\' ,%d", this.getMaHD(), this.thoiDiemThue.layTD(),String.format("%s", f.format(this.ngayThue)), this.tenBuoiTiec,
-//                    this.getSanhCuoi().getMaSC(), this.getGiaHoaDon());
-//            sql = "insert into hoa_don values (" + sql +  ")";
-//            super.read(sql);
-//            //Phần nhập lựa chọn của dv vào bảng hoa_don_dv
-//            if(!(luaChonDv.isEmpty()))
-//                this.getDichVu().nhapLuaChonSQL(getMaHD(), getLuaChonDv());
-//        } catch (SQLException ex) {
-//            System.err.println(ex.getMessage());
-//        }
-//    }
-//
-//    //Thiếu phần xóa danh sách thức ăn theo mã hóa đơn
-//    @Override
-//    public void deleteSQL() {
-//        try {
-//            String sql = "Delete * from hoa_don where MaHD = " + this.getMaHD() + ";";
-//            super.writeOrDelete(sql, "delete");
-//            this.getDichVu().xoaLuaChonSQL(getMaHD());
-//        } catch (SQLException ex) {
-//            System.err.println(ex.getMessage());
-//        }
-//    }
-//
-//    @Override
-//    public void editSQL(Scanner scanner) {
-//        
-//    }
-//    @Override
-//    public void showSQL() {
-//        this.getDichVu().xuatLuaChonTuSQL(getMaHD());
-//    }
+    
     public SanhCuoi getSanhCuoi() {
         return sanhCuoi;
     }
