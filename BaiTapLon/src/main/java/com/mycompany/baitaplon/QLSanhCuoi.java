@@ -29,6 +29,20 @@ public class QLSanhCuoi extends SCApi {
         }
         return new SanhCuoi();
     }
+    
+    private int getMaxMaSCSQL() throws SQLException, Exception {
+        try {
+            String sql = "select max(MaSC) as 'Max' from sanh_cuoi;";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("Max");
+            }else
+                throw new Exception("Loi khong lay dc id SC max.");
+        } catch (SQLException ex) {
+            throw new Exception("Loi khong lay dc id SC max.");
+        }
+    }
 
     /**
      * (ADMIN) thêm sảnh cưới mới vào SQL
@@ -37,7 +51,7 @@ public class QLSanhCuoi extends SCApi {
      */
     public void themSC(Scanner scanner) {
         try {
-            SanhCuoi sc = new SanhCuoi();
+            SanhCuoi sc = new SanhCuoi(getMaxMaSCSQL());
             sc.nhap(scanner);
             super.addSC(sc);
         } catch (Exception ex) {
@@ -49,7 +63,7 @@ public class QLSanhCuoi extends SCApi {
         try {
             System.out.print("Nhap ten hoac ma can tim: ");
             if (findSC(scanner.nextLine()))
-                showSC(true);
+                showSC(false);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -109,7 +123,7 @@ public class QLSanhCuoi extends SCApi {
     public void xoaSC(Scanner scanner) {
         try {
             System.out.print("Nhap ma SC hoac tenSC can xoa: ");
-            if (findSC(scanner.nextLine())) {
+            if (findSC(scanner.nextLine()) == false) {
                 return;
             }
             super.showSC(true);

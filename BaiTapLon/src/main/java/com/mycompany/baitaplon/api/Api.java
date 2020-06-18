@@ -41,7 +41,7 @@ public class Api {
         System.out.println("===================================================");
     }
 
-    public static void disconnectSql() throws SQLException {;
+    public static void disconnectSql() throws SQLException {
         System.out.println("===================================================");
         conn.close();
         System.out.println("Disconnected to mysql database.");
@@ -67,6 +67,17 @@ public class Api {
             }
         } catch (SQLException e) {
             throw new Error("can't update or delete/ error Api/writeOrDelete(String sql)");
+        } finally{
+            this.closeStm();
+        }
+    }
+    
+    protected void closeStm() {
+        try {
+            stm.close();
+            rs.close();
+            pStm.close();
+        } catch (Exception e) {
         }
     }
 }

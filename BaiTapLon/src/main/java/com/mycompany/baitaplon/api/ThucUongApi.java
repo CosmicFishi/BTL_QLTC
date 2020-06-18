@@ -22,29 +22,42 @@ public class ThucUongApi extends Api {
         String sql = "select * from thuc_uong where MaThucUong = " + ma + ";";
         super.read(sql);
         if (rs.next()) {
-            return new ThucUong(rs.getInt("MaThucUong"),rs.getString("TenThucUong"),
-                     rs.getInt("Gia"),
-                     rs.getString("HangSX"));
+            return new ThucUong(rs.getInt("MaThucUong"), rs.getString("TenThucUong"),
+                    rs.getInt("Gia"),
+                    rs.getString("HangSX"));
         }
         return new ThucUong();
     }
-
+    public int getMaxMaThucUongSQL() throws SQLException, Exception {
+        try {
+            String sql = "select max(MaThucUong) as 'Max' from thuc_uong;";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("Max");
+            }else
+                throw new Exception("Loi khong lay dc id thuc uong max.");
+        } catch (SQLException ex) {
+            throw new Exception("Loi khong lay dc id thuc uong max.");
+        }
+    }
     public void readShow(String tenBang) throws SQLException {
         String sql = "select * from " + tenBang + ";";
         super.read(sql);
         showThucUong(false);
+        closeStm();
     }
 
-    public void addThucUong(DoAnUong s, String tenBang) throws SQLException {
-//        String sql = s.toString();
-//        sql = "insert into " + tenBang + " values (" + sql + ");";
-        String sql = String.format("insert into %s values (%s);", tenBang, s.toString());
-        super.writeOrDelete(sql, "add thuc uong");
+    public void addThucUong(DoAnUong s) throws SQLException {
+        String sql = String.format("insert into thuc_uong values (%s);", s.toString());
+        super.writeOrDelete(sql, "Luu thuc uong ");
+        closeStm();
     }
 
     public void deleteThucUong() throws SQLException {
-        String sql = "delete from sanh_cuoi where MaThucUong ='" + selected + "';";
+        String sql = "delete from thuc_uong where MaThucUong =" + selected + ";";
         super.writeOrDelete(sql, "delete");
+        closeStm();
     }
 
     public boolean findThucUong(String tenHoacMa) throws SQLException {
@@ -63,7 +76,7 @@ public class ThucUongApi extends Api {
             pStm = conn.prepareStatement("update thuc_uong set "
                     + "TenThucUong=?,"
                     + "Gia = ?,"
-                    + "HangSX = ?,"
+                    + "HangSX = ?"
                     + " where MaThucUong = ?;");
             pStm.setString(1, tu.getTen());
             pStm.setInt(2, tu.getGia());
@@ -78,7 +91,7 @@ public class ThucUongApi extends Api {
         } catch (SQLException e) {
             System.err.println("Edit fail.");
         } finally {
-            pStm.close();
+            closeStm();
         }
 
     }
@@ -94,10 +107,15 @@ public class ThucUongApi extends Api {
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
             ThucUongApi.setSelected(rs.getInt("MaThucUong"));
-            if (nhap) break;
+            if (nhap) {
+                break;
+            }
         }
         System.out.println("+------------+---------------------------------------------+--------------+--------------+");
+        closeStm();
     }
+
+    
 
     public static int getSelected() {
         return selected;

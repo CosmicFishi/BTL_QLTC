@@ -146,12 +146,12 @@ public class DanhSachThucAn extends ThucAnApi {
      * @param scanner
      * @throws SQLException
      */
-    public void themThucAnSql(Scanner scanner) throws SQLException {
-        ThucAn ta = new ThucAn();
+    public void themThucAnSql(Scanner scanner) throws SQLException, Exception {
+        ThucAn ta = new ThucAn(getMaxMaThucAnSQL() +1);
         ta.nhap(scanner);
         super.addThucAn(ta);
     }
-
+    
     /**
      * (ADMIN)Nhập vào mã thức ăn cần xóa trong mysql.
      *
@@ -166,7 +166,7 @@ public class DanhSachThucAn extends ThucAnApi {
             return;
         }
         super.showThucAn(true);
-        System.out.println("Ban muon xoa sanh tren: (y,n): ");
+        System.out.println("Ban muon xoa Thuc An tren: (y,n): ");
         if (scanner.nextLine().equals("y")) {
             super.deleteThucAn();
         } else {
@@ -182,15 +182,15 @@ public class DanhSachThucAn extends ThucAnApi {
      */
     public void updateThucAnSql(Scanner scanner) throws SQLException {
         xuatThucAnSql();
-        System.out.println("Nhap ten hoac ma ThucAn can cap nhat: ");
+        System.out.print("Nhap ten hoac ma ThucAn can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucAn(tenHoacMa) == false) {
             return;
         }
         super.showThucAn(true);
-        System.out.println("Ban muon cap nhat ThucAn tren(y/n): ");
+        System.out.print("Ban muon cap nhat ThucAn tren(y/n): ");
         if (scanner.nextLine().equals("y")) {
-            ThucAn ta = new ThucAn();
+            ThucAn ta = new ThucAn(ThucAnApi.selected);
             try {
                 ta.nhap(scanner);
                 super.edit(ta);

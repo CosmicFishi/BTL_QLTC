@@ -231,7 +231,6 @@ public class QLDV extends Api{
     public int layTongTienDVSQL(int maHoaDon) {
         int kq = 0;
         try {
-            
             String sql = "select dv.GiaDichVu\n"
                     + "from dv\n"
                     + "left join hoa_don_dv hddv on hddv.MaDv = dv.MaDv\n"

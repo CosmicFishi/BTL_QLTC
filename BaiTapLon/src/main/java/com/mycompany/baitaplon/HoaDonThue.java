@@ -154,6 +154,7 @@ public class HoaDonThue extends Api {
         //Chọn ds thức ăn từ SQL
         try {
             this.DSmenu.chon(s);
+            System.out.println();
         } catch (SQLException ex) {
             System.err.println("Loi nhap menu.");
         }
@@ -174,7 +175,7 @@ public class HoaDonThue extends Api {
         System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n",
                 this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
     }
-
+// <editor-fold defaultstate="collapsed" desc="GET SET">
     public SanhCuoi getSanhCuoi() {
         return sanhCuoi;
     }
@@ -214,4 +215,5 @@ public class HoaDonThue extends Api {
     public List<Integer> getLuaChonDv() {
         return luaChonDv;
     }
+// </editor-fold>
 }

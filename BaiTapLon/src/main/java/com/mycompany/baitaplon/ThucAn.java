@@ -15,6 +15,9 @@ public class ThucAn extends DoAnUong{
     private boolean isAnChay;
     private static int dem = 12;
    
+    public ThucAn(int ma){
+        this.ma = ma;
+    }
     public ThucAn() {
         super();
         this.ma = ++dem;

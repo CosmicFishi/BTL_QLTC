@@ -24,7 +24,9 @@ public class SanhCuoi {
     /**
      * Khởi tạo SanhCuoi rỗng
      */
-    
+    public SanhCuoi(int id){
+        this.maSC = String.format("S%03d", id);
+    }
     public SanhCuoi() {
         this.maSC = String.format("S%03d", dem);
         this.tenSanh = "TenRong";

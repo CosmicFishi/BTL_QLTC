@@ -15,8 +15,12 @@ public class ThucUong extends DoAnUong {
     private static int dem = 0;
     private String hangSX;
     
+    public ThucUong(int ma){
+        this.ma = ma;
+    }
     public ThucUong() {
         super();
+        this.ma = 0;
     }
     public ThucUong(String ten, int gia, String nhaSX) {
         super(++dem, ten, gia);
@@ -42,7 +46,7 @@ public class ThucUong extends DoAnUong {
     @Override
     public String toString() {
         String kq = super.toString();
-        return String.format(kq + ", %s", this.getHangSX());
+        return String.format(kq + ", '%s'", this.getHangSX());
     }
     
     public String getHangSX() {

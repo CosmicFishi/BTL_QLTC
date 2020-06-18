@@ -50,7 +50,19 @@ public class ThucAnApi extends Api {
         rs = cStm.executeQuery();
         showThucAn(false);
     }
-
+    public int getMaxMaThucAnSQL() throws SQLException, Exception {
+        try {
+            String sql = "select max(MaThucAn) as 'Max' from thuc_an;";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("Max");
+            }else
+                throw new Exception("Loi khong lay dc id thuc an max.");
+        } catch (SQLException ex) {
+            throw new Exception("Loi khong lay dc id thuc an max.");
+        }
+    }
     public void addThucAn(ThucAn s) throws SQLException {
         try {
             cStm = conn.prepareCall("{call addThucAn(?,?,?,?)}");
@@ -59,10 +71,10 @@ public class ThucAnApi extends Api {
             cStm.setInt(3, s.getGia());
             cStm.setBoolean(4, s.isIsAnChay());
             cStm.execute();
+            System.out.println("Add Thuc An thanh cong.");
         } catch (SQLException e) {
             System.err.println("Add Thuc An that bai");
         } finally {
-            System.out.println("Add Thuc An thanh cong");
             cStm.close();
         }
     }
@@ -93,11 +105,8 @@ public class ThucAnApi extends Api {
             cStm.setString(2, an.getTen());
             cStm.setInt(3, an.getGia());
             cStm.setBoolean(4, an.isIsAnChay());
-            if (cStm.executeUpdate() == 1) {
-                System.out.println("Update thanh cong.");
-            } else {
-                System.out.println("Update that bai");
-            }
+            cStm.execute();
+            System.out.println("Them thuc an thanh cong.");
         } catch (SQLException e) {
             System.err.println("Edit err fail.");
         } finally {

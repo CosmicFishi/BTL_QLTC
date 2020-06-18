@@ -72,7 +72,7 @@ public class SCApi extends Api {
      */
     public void findSCShow(int nhap) {
         try {
-            String sql = "select * from sanh_cuoi where SucChua > " + nhap + " ;";
+            String sql = "select * from sanh_cuoi where SucChua >= " + nhap + " ;";
             if (nhap < 10) {
                 sql = "select * from sanh_cuoi where ViTriSC= " + nhap + " ;";
             }

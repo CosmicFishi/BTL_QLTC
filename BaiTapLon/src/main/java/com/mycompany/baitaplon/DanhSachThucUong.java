@@ -118,7 +118,7 @@ public class DanhSachThucUong extends ThucUongApi {
 
     }
 
-    public void timThucUong(Scanner scanner) {
+    public void timThucUongSql(Scanner scanner) {
         try {
             xuatThucUongSql();
             System.out.print("Nhap vao ten hoac ma Thuc Uong can tim: ");
@@ -130,7 +130,7 @@ public class DanhSachThucUong extends ThucUongApi {
     }
 
     /**
-     *Xuất toàn bộ thức uống có sẵn trong sql ra console
+     * Xuất toàn bộ thức uống có sẵn trong sql ra console
      *
      * @throws SQLException
      */
@@ -139,13 +139,13 @@ public class DanhSachThucUong extends ThucUongApi {
     }
 
     /**
-     *(ADMIN) Thêm 1 đối tượng ThucUong đã tạo vào sql
+     * (ADMIN) Thêm 1 đối tượng ThucUong đã tạo vào sql
      *
      * @param ta
      * @throws SQLException
      */
     public void themThucUongSql(ThucUong ta) throws SQLException {
-        super.addThucUong(ta, "thuc_uong");
+        super.addThucUong(ta);
     }
 
     /**
@@ -155,9 +155,15 @@ public class DanhSachThucUong extends ThucUongApi {
      * @throws SQLException
      */
     public void themThucUongSql(Scanner scanner) throws SQLException {
-        ThucUong ta = new ThucUong();
-        ta.nhap(scanner);
-        super.addThucUong(ta, "thuc_uong");
+        ThucUong ta;
+        try {
+            ta = new ThucUong(getMaxMaThucUongSQL() +1);
+            ta.nhap(scanner);
+            super.addThucUong(ta);
+        } catch (Exception ex) {
+            Logger.getLogger(DanhSachThucUong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -189,7 +195,8 @@ public class DanhSachThucUong extends ThucUongApi {
      * @param scanner
      * @throws SQLException
      */
-    public void updateThucUongSql(Scanner scanner) throws SQLException {
+    public void updateThucUongSql(Scanner scanner) throws SQLException, Exception {
+        xuatThucUongSql();
         System.out.println("Nhap ten hoac ma ThucUong can cap nhat: ");
         String tenHoacMa = scanner.nextLine();
         if (findThucUong(tenHoacMa) == false) {

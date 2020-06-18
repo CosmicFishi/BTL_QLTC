@@ -20,10 +20,12 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class QLMenu extends Api {
+
     private final List<Menu> ql = new ArrayList<>();
 
     /**
-     *Dùng để cho người dùng tạo ds menu, ds thức ăn thức uống
+     * Dùng để cho người dùng tạo ds menu, ds thức ăn thức uống
+     *
      * @param scanner
      * @throws SQLException
      */
@@ -37,11 +39,12 @@ public class QLMenu extends Api {
             System.out.print("Ban co muon them menu (1 them; -1 thoat):");
             int input = Integer.parseInt(scanner.nextLine());
             if (input == -1) {
+
                 return;
             }
         }
     }
-    
+
     /**
      *
      * @param maHD
@@ -52,7 +55,7 @@ public class QLMenu extends Api {
             cStm.setInt(1, maHD);
             rs = cStm.executeQuery();
             showThucAnDaLuu();
-            
+
             cStm = conn.prepareCall("{call getThucUongTheoHoaDon(?)}");
             cStm.setInt(1, maHD);
             rs = cStm.executeQuery();
@@ -65,9 +68,11 @@ public class QLMenu extends Api {
 
     /**
      * Dùng để show những thức ăn đã luu trong qlmenu
+     *
      * @throws SQLException
      */
     public void showThucAnDaLuu() throws SQLException {
+        int tongTien = 0;
         System.out.format("\n+-----------+---------------------------------------------+--------------+-------|\n");
         System.out.format("| So Luong  | Ten Thuc An                                 |  Gia         | isChay|\n");
         System.out.format("+-----------+---------------------------------------------+--------------+-------|\n");
@@ -77,7 +82,9 @@ public class QLMenu extends Api {
                     rs.getString("TenThucAn"),
                     rs.getInt("Gia"),
                     rs.getBoolean("isChay"));
+            tongTien += rs.getInt("SoLuong") * rs.getInt("Gia");
         }
+        System.out.printf(" Tong don gia thuc an: %,d\n", tongTien);
         System.out.format("+-----------+---------------------------------------------+--------------+-------+\n");
     }
 
@@ -87,6 +94,7 @@ public class QLMenu extends Api {
      * @throws SQLException
      */
     public void showThucUongDaLuu() throws SQLException {
+        int tongTien = 0;
         System.out.format("\n+----------+---------------------------------------------+--------------+-------------+\n");
         System.out.format("| So Luong | Ten Thuc Uong                               |  Gia         | Hang SX     |\n");
         System.out.format("+----------+---------------------------------------------+--------------+-------------|\n");
@@ -96,7 +104,9 @@ public class QLMenu extends Api {
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
                     rs.getString("HangSX"));
+            tongTien += rs.getInt("SoLuong") * rs.getInt("Gia");
         }
+        System.out.printf(" Tong don gia thuc uong: %,d\n", tongTien);
         System.out.format("+----------+---------------------------------------------+--------------+-------------+\n");
     }
 
@@ -108,20 +118,21 @@ public class QLMenu extends Api {
      */
     public Map demMonAnTrongQlMenu() {
         Map<Integer, Integer> m = new HashMap<>();
-        int index = 0;
+        
         for (Menu menu : this.ql) {
+            int index = 0;
             for (ThucAn h : menu.getDsAn().getDsThucAn()) {
                 int n = h.getMa();
                 if (m.get(n) == null) {
-                    m.put(n, menu.getDsAn().getSlThucAn()[index]);
+                    m.put(n, menu.getDsAn().getSlThucAn()[index] * menu.getSlMenu());
                 } else {
-                    m.put(n, m.get(n) + menu.getDsAn().getSlThucAn()[index]);
+                    m.put(n, m.get(n) + menu.getDsAn().getSlThucAn()[index] * menu.getSlMenu());
                 }
                 index++;
             }
-            m.entrySet().forEach((hm) -> {
-                m.put(hm.getKey(), hm.getValue() * menu.getSlMenu());
-            });
+//            m.entrySet().forEach((hm) -> {
+//                m.put(hm.getKey(), hm.getValue() * menu.getSlMenu());
+//            });
         }
         return m;
     }
@@ -134,26 +145,30 @@ public class QLMenu extends Api {
      */
     public Map demThucUongTrongQlMenu() {
         Map<Integer, Integer> m = new HashMap<>();
-        int index = 0;
         for (Menu menu : this.ql) {
+            int index = 0;
             for (ThucUong h : menu.getDsUong().getDsThucUong()) {
                 int n = h.getMa();
                 if (m.get(n) == null) {
-                    m.put(n, menu.getDsUong().getSlThucUong()[index]);
+                    m.put(n, menu.getDsUong().getSlThucUong()[index] * menu.getSlMenu());
                 } else {
-                    m.put(n, m.get(n) + menu.getDsUong().getSlThucUong()[index]);
+                    m.put(n, m.get(n) + menu.getDsUong().getSlThucUong()[index] * menu.getSlMenu());
                 }
                 index++;
             }
-            m.entrySet().forEach((hm) -> {
-                m.put(hm.getKey(), hm.getValue() * menu.getSlMenu());
-            });
+//            for (Map.Entry<Integer, Integer> k : m.entrySet()) {
+//                m.put(k.getKey(), k.getValue() * this.ql);
+//            }
+//            m.entrySet().forEach((hm) -> {
+//                m.put(hm.getKey(), hm.getValue() * menu.getSlMenu());
+//            });
         }
         return m;
     }
 
     /**
-     *Dùng để tính tổng tiền các thức ăn thức uống đã chọn
+     * Dùng để tính tổng tiền các thức ăn thức uống đã chọn
+     *
      * @return int tổng giá của các menu
      */
     public int tinhGiaDs() {

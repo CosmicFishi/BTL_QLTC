@@ -73,14 +73,14 @@ public class QLHD extends Api {
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
                 String sqlMenu = String.format("insert into hoa_don_thuc_an values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
-                super.writeOrDelete(sqlMenu, "Luu thuc an");
+                super.writeOrDelete(sqlMenu, "Luu thuc an ");
             }
 
             Map = hoaDon.getDSmenu().demThucUongTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
                 String sqlMenu = String.format("insert into hoa_don_thuc_uong values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
-                super.writeOrDelete(sqlMenu, "Luu thuc uong");
+                super.writeOrDelete(sqlMenu, "Luu thuc uong ");
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -144,7 +144,7 @@ public class QLHD extends Api {
                 System.out.println("| Ma hoa don   |Thoi diem      |Ngay thue      |Ten buoi tiec       |Tong tien     |");
                 System.out.println("+--------------+---------------+---------------+--------------------+--------------|");
                 while (rs.next()) {
-                    System.out.printf("%-15d|%-15s|%-15s|%-20s|%,-15d\n",
+                    System.out.printf("|%-14d|%-15s|%-15s|%-20s|%,-13d|\n",
                             rs.getInt("MaHoaDon"),
                             rs.getString("ThoiDiem"),
                             chuyenNgay(rs.getDate("NgayThue")),
@@ -202,7 +202,7 @@ public class QLHD extends Api {
                     + " where month(NgayThue)=" + thang + ";";
             super.read(sql);
             while (rs.next()) {
-                System.out.printf("Tong tien: %d\n", rs.getInt("TongTien"));
+                System.out.printf("Tong tien: %,d\n", rs.getInt("TongTien"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -215,7 +215,7 @@ public class QLHD extends Api {
                     + "where (" + quy + "*3-2) <= month(NgayThue) && month(NgayThue) <= " + quy + "*3;";
             super.read(sql);
             while (rs.next()) {
-                System.out.printf("Tong tien: %d\n", rs.getInt("TongTien"));
+                System.out.printf("Tong tien: %,d\n", rs.getInt("TongTien"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
