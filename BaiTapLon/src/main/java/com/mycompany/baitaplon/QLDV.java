@@ -5,7 +5,8 @@
  */
 package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.Api;
-import com.mycompany.baitaplon.api.DVApi;
+//import com.mycompany.baitaplon.api.DVApi;
+//import com.mycompany.baitaplon.api.DVCaSiApi;
 //import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -159,7 +160,6 @@ public class QLDV extends Api{
      * @param maHoaDon : Mã hóa đơn
      * @param luaChon : Danh sách các lựa chọn
      */
-    //////////// test thử coi còn lỗi hay không?
     public void nhapLuaChonSQL(int maHoaDon, List<Integer> luaChon) {
         if(!(luaChon.isEmpty())) {
             luaChon.forEach((i) -> {
@@ -248,7 +248,6 @@ public class QLDV extends Api{
     /**
      * thêm vào một dịch vụ
      * @param d: Dịch vụ
-     * @param dA: Api của dịch vụ đó
      * @throws SQLException 
      */
     public void them(DichVu d) throws SQLException {
@@ -258,10 +257,9 @@ public class QLDV extends Api{
     /**
      * Cập nhật dịch vụ 
      * @param d: Dịch vụ
-     * @param dA: Api của dịch vụ đó
      * @throws SQLException 
      */
-    public void capNhat(DichVu d, DVApi dA) throws SQLException {
+    public void capNhat(DichVu d) throws SQLException {
         Scanner scanner = new Scanner(System.in);
         d.nhap(scanner); 
     }
@@ -278,7 +276,6 @@ public class QLDV extends Api{
      * 
      * @param kw: Tên dịch vụ
      * @return 
-     * @throws java.sql.SQLException 
      */
     public ArrayList<DichVu> traCuu(String kw) {
         kw = kw.toLowerCase();

@@ -5,7 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
-import com.mycompany.baitaplon.api.DVKaraokeApi;
+//import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.Scanner;
 /**
@@ -123,20 +123,6 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
             System.err.println(ex.getMessage());
         }
     }
-    @Override
-    public void showDV(int i) throws SQLException {
-        if(rs.next()) {
-            System.out.println("Ma dich vu        | Khoang thoi gian thue    |Gia dich vu \n");
-            System.out.println("+----------------+|+------------------------+|+-----------+\n");
-            System.out.printf("|%-17d| %-25s| %-12d|\n",
-                    rs.getInt("MaDV"),
-                    rs.getString("KhoangThoiGianThue"),
-                    rs.getInt("giaDichVu"));
-            DVKaraokeApi.setSelected(rs.getString("MaHD"));
-        }
-    }
-
-    
     /**
      * @return the KhoangTG
      */
@@ -153,8 +139,4 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
     /**
      * hàm xuất để truy xuất mysql
      */
-    
-    
-    
-    
 }

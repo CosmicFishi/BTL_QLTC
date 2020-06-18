@@ -5,7 +5,7 @@
  */
 package com.mycompany.baitaplon;
 
-import com.mycompany.baitaplon.api.DVCaSiApi;
+//import com.mycompany.baitaplon.api.DVCaSiApi;
 import java.sql.SQLException;
 import java.util.Scanner;
 /**
@@ -131,19 +131,6 @@ public class DvThueCS extends DichVu implements TuongTacSQL{
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
-    }
-    @Override
-    public void showDV(int i) throws SQLException {
-        if(rs.next()) {
-            System.out.println("|Ma dich vu   | Thong tin ca si      | So luong bai hat  |\n");
-            System.out.println("|+-----------+|+---------------------|+-----------------+|\n");
-            System.out.printf("|%-13s| %-23s| %-19d|\n",
-                    rs.getString("MaDV"),
-                    rs.getString("ThongTinCaSi"),
-                    rs.getInt("SoLuongBaiHat"));
-            DVCaSiApi.setSelected(rs.getString("MaDV")) ;
-        }
-        
     }
     
     /**
