@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 //import java.util.logging.Level;
 //import java.util.logging.Logger;
 
@@ -21,6 +23,7 @@ import java.util.Scanner;
  * @author Admin
  */
 public class HoaDonThue extends Api {
+
     private static int dem = 5;//
     private int maHD;//
     private String tenBuoiTiec;
@@ -41,6 +44,7 @@ public class HoaDonThue extends Api {
 
     private List<Integer> luaChonDv = new ArrayList<>();
     SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat ymd = new SimpleDateFormat("yyyy/MM/dd");
 
     {
         this.maHD = ++dem;
@@ -76,7 +80,7 @@ public class HoaDonThue extends Api {
 
     @Override
     public String toString() {
-        return String.format("%d, '%s', '%s', '%s' '%s' %d", this.getMaHD(), this.thoiDiemThue.toString(), this.ngayThue,
+        return String.format("%d, '%s', '%s', '%s', '%s', %d", this.getMaHD(), this.thoiDiemThue.toString(), ymd.format(ngayThue),
                 this.tenBuoiTiec, this.getSanhCuoi().getMaSC(), this.getGiaHoaDon());
     }
 
@@ -92,7 +96,8 @@ public class HoaDonThue extends Api {
      *
      * @param s
      */
-    public void nhap(Scanner s) {
+    public void nhap(Scanner s){
+        System.out.println("Nhap hoa don ma: "+ this.maHD);
         System.out.print("Nhap ten buoi tiec: ");
         this.tenBuoiTiec = s.nextLine();
         try {
@@ -116,19 +121,19 @@ public class HoaDonThue extends Api {
         }
 
         try {
-            System.out.print("Nhap vao ngay thang nam (1/1/2020): ");
+            System.out.print("Nhap vao ngay thang nam (dd/MM/yyyy): ");
             String date = s.nextLine();
-            this.ngayThue = f.parse(date);
-        } catch (ParseException ex) {
+//            this.ngayThue = ymd.parse(ymd.format(d));
+            this.ngayThue = f.parse(date);;  //     2020/1/1
+        } catch (Exception ex) {
             throw new Error("Error at ngay thue");
         }
         try {
             System.out.print("Nhap so ban thue: ");
-            this.soBanThue = Integer.parseInt(s.nextLine());
+            this.soBanThue = CheckValue.checkSoAm( Integer.parseInt(s.nextLine()) );
         } catch (NumberFormatException e) {
             throw new Error("Error nhap sai kieu du lieu.");
         }
-        
 
         //Khởi tạo giá thuê
         this.giaThueSanh.setThoiDiem(thoiDiemThue);

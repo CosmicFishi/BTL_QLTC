@@ -25,7 +25,10 @@ public class ThucAn extends DoAnUong{
         super(++dem, ten, gia);
         this.isAnChay = isAnChay;
     }
-    
+    public ThucAn(int ma, String ten, int gia, boolean isAnChay){
+        super(ma, ten, gia);
+        this.isAnChay = isAnChay;
+    }
     public String xuat(){
         return String.format("Ma: %-3d Ten: %-15s Gia: %-9d Is Chay: %-7b", this.getMa(), this.getTen(), this.getGia(), this.isAnChay);
     }

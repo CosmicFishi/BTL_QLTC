@@ -57,9 +57,9 @@ public class SCApi extends Api {
             rs = cStm.executeQuery();
             if (rs.isBeforeFirst() == false) {
                 System.out.println("Khong tim thay SC nhu yeu cau.");
-                return true;
+                return false;
             }
-            return false;
+            return true;
         } catch (SQLException ex) {
             throw new Error("Loi find SC");
         }

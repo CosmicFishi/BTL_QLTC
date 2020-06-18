@@ -22,6 +22,11 @@ public class ThucUong extends DoAnUong {
         super(++dem, ten, gia);
         this.hangSX = nhaSX;
     }
+    public ThucUong(int ma,String ten, int gia, String nhaSX) {
+        super(ma, ten, gia);
+        this.hangSX = nhaSX;
+    }
+    
     public String xuat(){
         return String.format("Ma: %-3d Ten: %-15s Gia: %-9d Nha sx: %-7s", this.getMa(), this.getTen(), this.getGia(), this.hangSX);
     }

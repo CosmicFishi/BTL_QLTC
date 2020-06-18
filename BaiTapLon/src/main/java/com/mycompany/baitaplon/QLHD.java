@@ -26,11 +26,13 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class QLHD extends Api {
+
     List<HoaDonThue> ds = new ArrayList<>();
+
     /**
-     * (User)
-     * nhập hóa đơn rồi lưu hóa đơn vào sql
-     * @param scanner 
+     * (User) nhập hóa đơn rồi lưu hóa đơn vào sql
+     *
+     * @param scanner
      */
     public void nhapHoaDon(Scanner scanner) {
         int dem = ds.size();
@@ -38,38 +40,39 @@ public class QLHD extends Api {
             ds.add(new HoaDonThue());
             System.out.println("===============NHAP HOA DON =============== ");
             ds.get(dem).nhap(scanner);
-            this.luuHoaDonSQL( ds.get(dem) );
-            
-            System.out.println("Nhap 1 để thêm hóa đơn, nhap -1 để thoát");
-            if (Integer.parseInt( scanner.nextLine() ) == -1) break;
+            this.luuHoaDonSQL(ds.get(dem));
+
+            System.out.print("Nhap 1 de them hoa don, nhap -1 de thoat: ");
             dem++;
+            if (Integer.parseInt(scanner.nextLine()) == -1) {
+                return;
+            }
         }
     }
-    
+
     /**
-     *Dùng để lưu hóa đơn vào sql 
+     * Dùng để lưu hóa đơn vào sql
+     *
      * @param hoaDon truyền vào kiểu HoaDon
      */
     public void luuHoaDonSQL(HoaDonThue hoaDon) {
         try {
-            //Đã tồn tại hàm bên trong QLDV nên tao thay
-            hoaDon.getDichVu().nhapLuaChonSQL(hoaDon.getMaHD(), hoaDon.getLuaChonDv());
-            
             String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
             super.writeOrDelete(sqlHoaDon, " luu hoa don.");
             
+            hoaDon.getDichVu().nhapLuaChonSQL(hoaDon.getMaHD(), hoaDon.getLuaChonDv());
             
             Map<Integer, Integer> Map;
             Map = hoaDon.getDSmenu().demMonAnTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
-                String sqlMenu = String.format("insert into hoa_don_thuc_an values (%d, %d, %d)", 
+                String sqlMenu = String.format("insert into hoa_don_thuc_an values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
                 super.writeOrDelete(sqlMenu, " ds thuc an");
             }
-            
+
             Map = hoaDon.getDSmenu().demThucUongTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
-                String sqlMenu = String.format("insert into hoa_don_thuc_uong values (%d, %d, %d)", 
+                String sqlMenu = String.format("insert into hoa_don_thuc_uong values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
                 super.writeOrDelete(sqlMenu, " ds thuc an");
             }
@@ -77,7 +80,7 @@ public class QLHD extends Api {
             System.err.println(ex.getMessage());
         }
     }
-    
+
     /**
      * Xuất toàn bộ hóa đơn trong sql
      */
@@ -103,10 +106,14 @@ public class QLHD extends Api {
                             rs.getString("TenBuoiTiec"),
                             rs.getInt("TongTien"));
                     System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
+                    
                     maSC = rs.getString("MaSC");
                     maHD = rs.getInt("MaHoaDon");
                     DvTemp.xuatLuaChonTuSQL(maHD);
-                    if (SCTemp.findSC(maSC) ) SCTemp.showSC(true);
+                    
+                    if (SCTemp.findSC(maSC)) {
+                        SCTemp.showSC(true);
+                    }
                     menuTemp.layDsMonSQL(maHD);
                 }
             }
@@ -114,12 +121,13 @@ public class QLHD extends Api {
             System.err.println(ex.getMessage());
         }
     }
+
     /**
      * Xuất một hóa đơn trong mysql
      *
      * @param maHD truyền vào mã hóa đơn kiểu Int
      */
-    public void xuatHoaDonSQL(int maHD){
+    public void xuatHoaDonSQL(int maHD) {
         String sql = "select * from hoa_don where hoa_don.MaHoaDon = " + maHD + ";";
         try {
             super.read(sql);
@@ -139,14 +147,18 @@ public class QLHD extends Api {
                     maSC = rs.getString("MaSC");
                 }
                 System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
-                
+
                 QLDV DvTemp = new QLDV();
                 QLMenu menuTemp = new QLMenu();
                 QLSanhCuoi SCTemp = new QLSanhCuoi();
-                
+
                 DvTemp.xuatLuaChonTuSQL(maHD);
-                if (SCTemp.findSC(rs.getString("maSC"))) SCTemp.showSC(true);
+                if (SCTemp.findSC(maSC)) {
+                    SCTemp.showSC(true);
+                }
                 menuTemp.layDsMonSQL(maHD);
+            } else{
+                System.out.println("Hoa don khong ton tai.");
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
@@ -158,7 +170,7 @@ public class QLHD extends Api {
      *
      * @param maHD kiểu Int
      */
-    public void xoaHoaDonSQL(int maHD){
+    public void xoaHoaDonSQL(int maHD) {
         try {
             cStm = conn.prepareCall("{call xoaHoaDonTheoMa(?)}");
             cStm.setInt(1, maHD);
@@ -177,28 +189,30 @@ public class QLHD extends Api {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(date);
     }
+
     public void xuatDoanhThuThang(int thang) {
         try {
-            String sql = "select sum(TongTien) as 'TongTien' from hoa_don \n" +
-                    " where month(NgayThue)=" + thang + ";";
+            String sql = "select sum(TongTien) as 'TongTien' from hoa_don \n"
+                    + " where month(NgayThue)=" + thang + ";";
             super.read(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 System.out.printf("Tong tien: %d\n", rs.getInt("TongTien"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-        } 
+        }
     }
+
     public void xuatDoanhThuQuy(int quy) {
         try {
-            String sql = "select sum(TongTien) as 'TongTien' from hoa_don \n" +
-                        "where (" + quy + "*3-2) <= month(NgayThue) && month(NgayThue) <= " + quy + "*3;";
+            String sql = "select sum(TongTien) as 'TongTien' from hoa_don \n"
+                    + "where (" + quy + "*3-2) <= month(NgayThue) && month(NgayThue) <= " + quy + "*3;";
             super.read(sql);
-            while(rs.next()) {
+            while (rs.next()) {
                 System.out.printf("Tong tien: %d\n", rs.getInt("TongTien"));
             }
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-        } 
+        }
     }
 }

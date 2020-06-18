@@ -22,7 +22,7 @@ public class ThucUongApi extends Api {
         String sql = "select * from thuc_uong where MaThucUong = " + ma + ";";
         super.read(sql);
         if (rs.next()) {
-            return new ThucUong(rs.getString("TenThucUong"),
+            return new ThucUong(rs.getInt("MaThucUong"),rs.getString("TenThucUong"),
                      rs.getInt("Gia"),
                      rs.getString("HangSX"));
         }
@@ -88,7 +88,7 @@ public class ThucUongApi extends Api {
         System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
         System.out.println("+------------+---------------------------------------------+--------------+--------------+");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d| %-12s\n",
+            System.out.printf("| %-11d|  %-43s| %-13d| %-13s|\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),
@@ -96,6 +96,7 @@ public class ThucUongApi extends Api {
             ThucUongApi.setSelected(rs.getInt("MaThucUong"));
             if (nhap) break;
         }
+        System.out.println("+------------+---------------------------------------------+--------------+--------------+");
     }
 
     public static int getSelected() {

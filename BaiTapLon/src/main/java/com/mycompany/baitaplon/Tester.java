@@ -78,13 +78,14 @@ public class Tester {
                     try {
                         qlhd.nhapHoaDon(scanner);
                         break;
-                    } catch (Exception e) {
-                        System.err.println("Nhap hoa don khong thanh cong");
+                    } catch (Error e) {
+                        System.err.println(e.getMessage());
                     }
                     break;
                 }
                 case 5: {
                     qlhd.xuatHoaDonSQL();
+                    break;
                 }
                 case 6: {
                     System.out.print("Nhap ma hoa don can xuat: ");
@@ -92,7 +93,7 @@ public class Tester {
                     scanner.nextLine();
                     break;
                 }
-
+                
                 case 7: {
                     System.out.print("Nhap ma hoa don muon xoa: ");
                     qlhd.xoaHoaDonSQL(scanner.nextInt());
@@ -113,12 +114,14 @@ public class Tester {
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
+                    scanner.nextLine();
                     if (quy > 0 && quy <= 4) 
                         qlhd.xuatDoanhThuQuy(quy);
                     else 
                         System.out.println("Quy khong ton tai");
                     break;
                 }
+                
                 default:
                     System.out.println("Lua chon khong ton tai");
             }

@@ -52,6 +52,7 @@ public class QLMenu extends Api {
             cStm.setInt(1, maHD);
             rs = cStm.executeQuery();
             showThucAnDaLuu();
+            
             cStm = conn.prepareCall("{call getThucUongTheoHoaDon(?)}");
             cStm.setInt(1, maHD);
             rs = cStm.executeQuery();

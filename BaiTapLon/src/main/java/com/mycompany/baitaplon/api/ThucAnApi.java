@@ -33,7 +33,7 @@ public class ThucAnApi extends Api {
                 + "where ta.MaThucAn = " + ma + ";";
         super.read(sql);
         if (rs.next()) {
-            ThucAn ta = new ThucAn(rs.getString("TenThucAn"),
+            ThucAn ta = new ThucAn(rs.getInt("MaThucAn"),rs.getString("TenThucAn"),
                     rs.getInt("Gia"), rs.getBoolean("isChay"));
             return ta;
         }
