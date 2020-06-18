@@ -80,6 +80,8 @@ public class Tester {
                         break;
                     } catch (Error e) {
                         System.err.println(e.getMessage());
+                    } catch (Exception ex){
+                        System.err.println(ex.getMessage());
                     }
                     break;
                 }
@@ -93,7 +95,7 @@ public class Tester {
                     scanner.nextLine();
                     break;
                 }
-                
+
                 case 7: {
                     System.out.print("Nhap ma hoa don muon xoa: ");
                     qlhd.xoaHoaDonSQL(scanner.nextInt());
@@ -105,23 +107,25 @@ public class Tester {
                     System.out.print("Nhap vao thang: ");
                     int thang = scanner.nextInt();
                     scanner.nextLine();
-                    if (thang > 0 && thang <= 12)
+                    if (thang > 0 && thang <= 12) {
                         qlhd.xuatDoanhThuThang(thang);
-                    else 
+                    } else {
                         System.out.println("Thang khong ton tai");
+                    }
                     break;
                 }
                 case 9: {
                     System.out.print("Nhap vao quy: ");
                     int quy = scanner.nextInt();
                     scanner.nextLine();
-                    if (quy > 0 && quy <= 4) 
+                    if (quy > 0 && quy <= 4) {
                         qlhd.xuatDoanhThuQuy(quy);
-                    else 
+                    } else {
                         System.out.println("Quy khong ton tai");
+                    }
                     break;
                 }
-                
+
                 default:
                     System.out.println("Lua chon khong ton tai");
             }

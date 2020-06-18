@@ -6,7 +6,6 @@
 package com.mycompany.baitaplon;
 import com.mycompany.baitaplon.api.Api;
 import com.mycompany.baitaplon.api.DVApi;
-//import com.mycompany.baitaplon.api.DVCaSiApi;
 //import com.mycompany.baitaplon.api.DVKaraokeApi;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -166,7 +165,7 @@ public class QLDV extends Api{
             luaChon.forEach((i) -> {
                 try {
                     String sql = "insert into hoa_don_dv values("+  String.format("%d, %d", maHoaDon,i) + ");";
-                    super.writeOrDelete(sql, "add");
+                    super.writeOrDelete(sql, "Luu dich vu ");
                 } catch (Exception ex) {
                     System.err.println(ex.getMessage());
                 }

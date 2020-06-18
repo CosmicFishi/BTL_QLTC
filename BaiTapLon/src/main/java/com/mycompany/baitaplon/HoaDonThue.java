@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 //import java.util.logging.Level;
@@ -23,8 +25,7 @@ import java.util.regex.Pattern;
  * @author Admin
  */
 public class HoaDonThue extends Api {
-
-    private static int dem = 5;//
+    private static int dem = 0;//
     private int maHD;//
     private String tenBuoiTiec;
     private ThoiDiem thoiDiemThue;//
@@ -46,11 +47,11 @@ public class HoaDonThue extends Api {
     SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat ymd = new SimpleDateFormat("yyyy/MM/dd");
 
-    {
+    public HoaDonThue() {
         this.maHD = ++dem;
     }
-
-    public HoaDonThue() {
+    public HoaDonThue(int maHD){
+        this.maHD= maHD;
     }
 
     /**
@@ -95,45 +96,41 @@ public class HoaDonThue extends Api {
      * phần nhập của người dùng
      *
      * @param s
+     * @throws java.lang.Exception
      */
-    public void nhap(Scanner s){
-        System.out.println("Nhap hoa don ma: "+ this.maHD);
+    public void nhap(Scanner s) throws Exception {
+        System.out.println("Nhap hoa don ma: " + this.maHD);
+        String input="";
+        
         System.out.print("Nhap ten buoi tiec: ");
-        this.tenBuoiTiec = s.nextLine();
-        try {
-            System.out.print("Nhap vao thoi diem thue: (Sang, chieu, toi)(1 | 2 | 3): ");
-            switch (s.nextLine()) {
-                case "1":
-                    this.thoiDiemThue = ThoiDiem.SANG;
-                    break;
-                case "2":
-                    this.thoiDiemThue = ThoiDiem.CHIEU;
-                    break;
-                case "3":
-                    this.thoiDiemThue = ThoiDiem.TOI;
-                    break;
-                default:
-                    System.err.println("Loi nhap thoi diem");
-                    break;
-            }
-        } catch (Exception e) {
-            throw new Error("Loi nhap sai Thoi Diem.");
+        input = s.nextLine();
+        CheckValue.checkName(input);
+        this.tenBuoiTiec = input;
+
+        System.out.print("Nhap vao thoi diem thue: (Sang, chieu, toi)(1 | 2 | 3): ");
+        switch (s.nextLine()) {
+            case "1":
+                this.thoiDiemThue = ThoiDiem.SANG;
+                break;
+            case "2":
+                this.thoiDiemThue = ThoiDiem.CHIEU;
+                break;
+            case "3":
+                this.thoiDiemThue = ThoiDiem.TOI;
+                break;
+            default:
+                throw new Exception("Ban phai chon so tu 1-3");
         }
 
-        try {
-            System.out.print("Nhap vao ngay thang nam (dd/MM/yyyy): ");
-            String date = s.nextLine();
-//            this.ngayThue = ymd.parse(ymd.format(d));
-            this.ngayThue = f.parse(date);;  //     2020/1/1
-        } catch (Exception ex) {
-            throw new Error("Error at ngay thue");
-        }
-        try {
-            System.out.print("Nhap so ban thue: ");
-            this.soBanThue = CheckValue.checkSoAm( Integer.parseInt(s.nextLine()) );
-        } catch (NumberFormatException e) {
-            throw new Error("Error nhap sai kieu du lieu.");
-        }
+        System.out.print("Nhap vao ngay thang nam (dd/MM/yyyy): ");
+        input = s.nextLine();
+        CheckValue.checkDay(input);
+        this.ngayThue = f.parse(input);
+
+        System.out.print("Nhap so ban thue: ");
+        int soBan = Integer.parseInt(s.nextLine());
+        CheckValue.checkSoAm(soBan);
+        this.soBanThue = soBan;
 
         //Khởi tạo giá thuê
         this.giaThueSanh.setThoiDiem(thoiDiemThue);
@@ -177,7 +174,7 @@ public class HoaDonThue extends Api {
         System.out.printf("Gia thue sanh: %d\nGia menu: %d\nGia dich vu: %d\nTong gia cua hoa don: %d\n",
                 this.getGiaSanh(), this.getGiaMenu(), this.getGiaDichVu(), this.getGiaHoaDon());
     }
-    
+
     public SanhCuoi getSanhCuoi() {
         return sanhCuoi;
     }

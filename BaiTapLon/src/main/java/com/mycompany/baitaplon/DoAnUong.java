@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Admin
  */
-public class DoAnUong {
+public abstract class DoAnUong {
     protected int ma;
     protected String ten;
     protected int gia;

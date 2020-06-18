@@ -18,43 +18,31 @@ public class CheckValue {
 
     public static final Pattern VALID_DATE_REGEX
             = Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$", Pattern.CASE_INSENSITIVE);
-    
-    public static final Pattern VALID_NAME_REGEX
-            = Pattern.compile("/@([A-Za-z0-9_]{1,15})/", Pattern.CASE_INSENSITIVE);
 
-    public static String checkDay(String data) {
+    public static final Pattern VALID_NAME_REGEX
+            = Pattern.compile("[A-Za-z0-9_]{1,45}", Pattern.CASE_INSENSITIVE);
+
+    public static void checkDay(String data) throws Exception {
         Matcher matcher = VALID_DATE_REGEX.matcher(data);
-        try {
-            if(matcher.find()==false)
-                throw new Exception("Nhap sai du lieu ngay thang.");
-            else
-                return data;
-        } catch (Exception ex) {
-            ex.getMessage();
+        if (matcher.find() == false) {
+            throw new Exception("Nhap sai du lieu ngay thang.");
         }
-        return data;
     }
-    public static String checkName(String data) {
+
+    public static void checkName(String data) throws Exception {
         Matcher matcher = VALID_NAME_REGEX.matcher(data);
-        try {
-            if(matcher.find()==false)
-                throw new Exception("Name khong co cac ki tu dac biet.");
-            else
-                return data;
-        } catch (Exception ex) {
-            ex.getMessage();
+        if (matcher.find() == false) {
+            throw new Exception("Name khong co cac ki tu dac biet.");
         }
-        return data;
     }
-    public static int checkSoAm(int so){
-        try {
-            if(so<0)
-                throw new Exception("Nhap so khong duoc am.");
-            else
-                return so;
-        } catch (Exception ex) {
-            ex.getMessage();
+
+    public static void checkSoAm(int so) throws Exception {
+        if (so < 0) {
+            throw new Exception("Nhap so khong duoc am.");
         }
-        return 0;
+    }
+
+    public static boolean firstName(String firstName) {
+        return firstName.matches("[A-Z][a-z]*");
     }
 }

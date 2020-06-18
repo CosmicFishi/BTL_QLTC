@@ -10,7 +10,6 @@ import com.mycompany.baitaplon.api.SCApi;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,20 +32,27 @@ public class QLHD extends Api {
      * (User) nhập hóa đơn rồi lưu hóa đơn vào sql
      *
      * @param scanner
+     * @throws java.lang.Exception
      */
-    public void nhapHoaDon(Scanner scanner) {
+    public void nhapHoaDon(Scanner scanner) throws Exception {
         int dem = ds.size();
-        while (true) {
-            ds.add(new HoaDonThue());
-            System.out.println("===============NHAP HOA DON =============== ");
-            ds.get(dem).nhap(scanner);
-            this.luuHoaDonSQL(ds.get(dem));
+        ds.add(new HoaDonThue(getMaxMaHDSQL() + 1));
+        System.out.println("===============NHAP HOA DON =============== ");
+        ds.get(dem).nhap(scanner);
+        this.luuHoaDonSQL(ds.get(dem));
+    }
 
-            System.out.print("Nhap 1 de them hoa don, nhap -1 de thoat: ");
-            dem++;
-            if (Integer.parseInt(scanner.nextLine()) == -1) {
-                return;
-            }
+    public int getMaxMaHDSQL() throws SQLException, Exception {
+        try {
+            String sql = "select max(MaHoaDon) as 'Max' from hoa_don;";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getInt("Max");
+            }else
+                throw new Exception("Loi khong lay dc id hoa don max.");
+        } catch (SQLException ex) {
+            throw new Exception("Loi khong lay dc id hoa don max.");
         }
     }
 
@@ -58,23 +64,23 @@ public class QLHD extends Api {
     public void luuHoaDonSQL(HoaDonThue hoaDon) {
         try {
             String sqlHoaDon = "insert into hoa_don values (" + hoaDon.toString() + " )";
-            super.writeOrDelete(sqlHoaDon, " luu hoa don.");
-            
+            super.writeOrDelete(sqlHoaDon, "Luu hoa don ");
+
             hoaDon.getDichVu().nhapLuaChonSQL(hoaDon.getMaHD(), hoaDon.getLuaChonDv());
-            
+
             Map<Integer, Integer> Map;
             Map = hoaDon.getDSmenu().demMonAnTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
                 String sqlMenu = String.format("insert into hoa_don_thuc_an values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
-                super.writeOrDelete(sqlMenu, " ds thuc an");
+                super.writeOrDelete(sqlMenu, "Luu thuc an");
             }
 
             Map = hoaDon.getDSmenu().demThucUongTrongQlMenu();
             for (Map.Entry<Integer, Integer> k : Map.entrySet()) {
                 String sqlMenu = String.format("insert into hoa_don_thuc_uong values (%d, %d, %d)",
                         hoaDon.getMaHD(), k.getKey(), k.getValue());
-                super.writeOrDelete(sqlMenu, " ds thuc an");
+                super.writeOrDelete(sqlMenu, "Luu thuc uong");
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -106,11 +112,11 @@ public class QLHD extends Api {
                             rs.getString("TenBuoiTiec"),
                             rs.getInt("TongTien"));
                     System.out.println("+--------------+---------------+---------------+--------------------+--------------+\n");
-                    
+
                     maSC = rs.getString("MaSC");
                     maHD = rs.getInt("MaHoaDon");
                     DvTemp.xuatLuaChonTuSQL(maHD);
-                    
+
                     if (SCTemp.findSC(maSC)) {
                         SCTemp.showSC(true);
                     }
@@ -157,7 +163,7 @@ public class QLHD extends Api {
                     SCTemp.showSC(true);
                 }
                 menuTemp.layDsMonSQL(maHD);
-            } else{
+            } else {
                 System.out.println("Hoa don khong ton tai.");
             }
         } catch (SQLException ex) {
