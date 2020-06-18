@@ -139,8 +139,4 @@ public class DvKaraoke extends DichVu implements TuongTacSQL{
     /**
      * hàm xuất để truy xuất mysql
      */
-    
-    
-    
-    
 }
