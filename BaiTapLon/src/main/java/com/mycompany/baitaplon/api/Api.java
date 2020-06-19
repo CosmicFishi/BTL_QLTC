@@ -27,7 +27,7 @@ public class Api {
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
     private static final String password = "haungo230899";
-
+    //cần thay đổi pass để có thể truy cập vào Mysql đc
     protected Statement stm = null;
     protected PreparedStatement pStm = null;
     protected ResultSet rs = null; //biến  trả về 

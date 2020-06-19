@@ -34,7 +34,7 @@ public class QLDV extends Api{
             "	from dv\n" +
             "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n " +
             "	left join dv_karaoke kara on dv.MaDv = kara.MaDv\n" +
-            "   where dv.TenDv = '%" + kw + "%';";
+            "   where dv.TenDv = '" + kw + "';";
             super.read(sql);
 //            System.out.println(rs.isBeforeFirst());
             if(rs.isBeforeFirst()== true) {
