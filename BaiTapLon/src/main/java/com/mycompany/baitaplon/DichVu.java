@@ -63,7 +63,7 @@ public abstract class DichVu extends Api implements TuongTacSQL{
     }
     @Override
     public void addSQL() {
-        String sql = this.xuat();
+        String sql = String.format("%d,\'%s\', %d", this.maDV, this.tenDV, this.giaDV);
         sql = "insert into dv values (" + sql + ");";
         try {
             super.writeOrDelete(sql, "add");
