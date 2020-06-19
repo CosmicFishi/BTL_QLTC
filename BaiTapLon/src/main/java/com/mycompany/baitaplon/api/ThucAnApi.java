@@ -105,8 +105,8 @@ public class ThucAnApi extends Api {
             cStm.setString(2, an.getTen());
             cStm.setInt(3, an.getGia());
             cStm.setBoolean(4, an.isIsAnChay());
-            cStm.execute();
-            System.out.println("Them thuc an thanh cong.");
+            cStm.executeUpdate();
+            System.out.println("Cap nhat thuc an thanh cong.");
         } catch (SQLException e) {
             System.err.println("Edit err fail.");
         } finally {

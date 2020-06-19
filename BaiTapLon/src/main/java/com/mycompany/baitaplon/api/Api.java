@@ -47,7 +47,7 @@ public class Api {
         System.out.println("Disconnected to mysql database.");
     }
 
-    protected void read(String sql){
+    protected void read(String sql) {
         try {
             this.stm = conn.createStatement();
             this.rs = stm.executeQuery(sql);
@@ -56,7 +56,7 @@ public class Api {
         }
     }
 
-    protected void writeOrDelete(String sql, String action){
+    protected void writeOrDelete(String sql, String action) {
         try {
             stm = conn.createStatement();
             int kq = stm.executeUpdate(sql);
@@ -67,17 +67,23 @@ public class Api {
             }
         } catch (SQLException e) {
             throw new Error("can't update or delete/ error Api/writeOrDelete(String sql)");
-        } finally{
+        } finally {
             this.closeStm();
         }
     }
-    
+
     protected void closeStm() {
         try {
             stm.close();
+        } catch (SQLException e) {
+        }
+        try {
             rs.close();
+        } catch (SQLException e) {
+        }
+        try {
             pStm.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
         }
     }
 }

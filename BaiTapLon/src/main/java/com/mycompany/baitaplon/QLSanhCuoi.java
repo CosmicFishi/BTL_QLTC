@@ -30,13 +30,13 @@ public class QLSanhCuoi extends SCApi {
         return new SanhCuoi();
     }
     
-    private int getMaxMaSCSQL() throws SQLException, Exception {
+    private String getMaxMaSCSQL() throws SQLException, Exception {
         try {
             String sql = "select max(MaSC) as 'Max' from sanh_cuoi;";
             stm = conn.createStatement();
             rs = stm.executeQuery(sql);
             if (rs.next()) {
-                return rs.getInt("Max");
+                return rs.getString("Max");
             }else
                 throw new Exception("Loi khong lay dc id SC max.");
         } catch (SQLException ex) {
@@ -82,11 +82,7 @@ public class QLSanhCuoi extends SCApi {
      * xuất tất cả sảnh cưới trong Mysql
      */
     public void xuatSC() {
-        try {
-            super.readShow();
-        } catch (SQLException ex) {
-            Logger.getLogger(QLSanhCuoi.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super.readShow();
     }
 
     /**

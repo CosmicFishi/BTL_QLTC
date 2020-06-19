@@ -22,10 +22,13 @@ public class SanhCuoi {
     private int giaThue;
 
     /**
-     * Khởi tạo SanhCuoi rỗng
+     * (ADMIN) PHƯƠNG THỨC NÀY CẤM DÙNG TRONG TRƯỜNG HỢP BÌNH THƯỜNG
+     * CHỈ DÀNH CHO TƯƠNG TÁC API
+     * Khởi tạo SanhCuoi
+     * @param s
      */
-    public SanhCuoi(int id){
-        this.maSC = String.format("S%03d", id);
+    public SanhCuoi(String s){
+        this.maSC = String.format("S%03d", Integer.parseInt( s.substring(1)) + 1);
     }
     public SanhCuoi() {
         this.maSC = String.format("S%03d", dem);

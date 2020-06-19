@@ -49,9 +49,9 @@ public class Tester {
             // <editor-fold defaultstate="collapsed" desc="Giao dien nguoi dung">
             do {
                 System.out.println("Chao mung!! Hay chon cac lua chon sau: ");
-                System.out.println("1. Xuat danh sach sanh cac sanh cuoi co trong he thong");
-                System.out.println("2. Xuat danh sach sanh cac dich vu trong he thong");
-                System.out.println("3. Xuat danh sach sanh cac menu co trong he thong");
+                System.out.println("1. Xuat danh sach cac sanh cuoi co trong he thong");
+                System.out.println("2. Xuat danh sach cac dich vu trong he thong");
+                System.out.println("3. Xuat danh sach menu co trong he thong");
                 System.out.println("4. Nhap hoa don");
                 System.out.println("5. Xuat toan bo hoa don");
                 System.out.println("6. Xuat mot hoa don");
@@ -85,10 +85,8 @@ public class Tester {
                         try {
                             qlhd.nhapHoaDon(scanner);
                             break;
-                        } catch (Error e) {
+                        } catch (Error | Exception e) {
                             System.err.println(e.getMessage());
-                        } catch (Exception ex) {
-                            System.err.println(ex.getMessage());
                         }
                         break;
                     }
@@ -132,7 +130,6 @@ public class Tester {
                         }
                         break;
                     }
-
                     default:
                         System.out.println("Lua chon khong ton tai");
                 }
@@ -163,9 +160,15 @@ public class Tester {
                         System.out.println("3. xoa SC trong SQL");
                         System.out.println("4. chinh sua SC trong SQL");
                         System.out.println("5. tim SC theo TEN || MA trong SQL");
-                        System.out.println("6. tim SC theo VT || Sức Chứa trong SQL");
+                        System.out.println("6. tim SC theo VT || Suc Chua trong SQL");
                         System.out.println("(-1). de thoat.");
                         System.out.print("Chon : ");
+                        
+                        try {
+                            luaChon = Integer.parseInt(nhap);
+                        } catch (NumberFormatException e) {
+                            luaChon = 0;
+                        }
                         luaChon = Integer.parseInt(scanner.nextLine());
                         switch (luaChon) {
                             case -1:
@@ -189,7 +192,7 @@ public class Tester {
                                 ql.timSCViChua(scanner);
                                 break;
                             default:
-                                System.out.println("Chọn sai chọn lại");
+                                System.out.println("Lua chon khong ton tai.");
                                 break;
                         }
                         if (luaChon == -1) {

@@ -13,17 +13,21 @@ public class SCApi extends Api {
 
     protected static String selected;
 
-    public void readShow() throws SQLException {
+    public void readShow() {
         String sql = "select * from sanh_cuoi;";
         super.read(sql);
-        showSC(false);
+        try {
+            showSC(false);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        closeStm();
     }
 
     public void addSC(SanhCuoi s) {
-//        String sql = s.toString();
-//        sql = "insert into sanh_cuoi values (" + sql + ");";
         String sql = String.format("insert into sanh_cuoi values (%s);", s);
-        super.writeOrDelete(sql, "add");
+        super.writeOrDelete(sql, "Luu sanh cuoi ");
+        closeStm();
     }
 
     public SanhCuoi get1SC(String ma) {
@@ -45,9 +49,10 @@ public class SCApi extends Api {
         return new SanhCuoi();
     }
 
-    public void deleteSC() throws SQLException {
+    public void deleteSC(){
         String sql = "delete from sanh_cuoi where MaSC ='" + selected + "';";
         super.writeOrDelete(sql, "delete");
+        closeStm();
     }
 
     public boolean findSC(String tenHoacMa) {
@@ -84,20 +89,6 @@ public class SCApi extends Api {
 
     }
 
-    /**
-     * Kiểm tra Rs có null hay không
-     *
-     * @return
-     * @throws SQLException
-     */
-//    protected boolean isNullRs() throws SQLException {
-//        if (rs.isBeforeFirst() == false) {
-//            System.out.println("Khong tim thay SC nhu yeu cau.");
-//            return true;
-//        }
-//        return false;
-//    }
-
     protected void edit(SanhCuoi sc) throws SQLException {
         try {
             pStm = conn.prepareStatement("update sanh_cuoi set "
@@ -120,11 +111,7 @@ public class SCApi extends Api {
         } catch (SQLException e) {
             System.err.println("Lỗi không edit lên sql đc");
         } finally {
-            try {
-                pStm.close();
-            } catch (SQLException ex) {
-                throw new SQLException("Lỗi không đóng đc prepare statment");
-            }
+           closeStm();
         }
 
     }
@@ -153,6 +140,7 @@ public class SCApi extends Api {
             }
         }
         System.out.format("+-------+-------------------+--------+---------+-------------+\n");
+        closeStm();
     }
 
     public static String getSelected() {
