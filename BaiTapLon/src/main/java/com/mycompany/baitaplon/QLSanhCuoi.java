@@ -60,16 +60,12 @@ public class QLSanhCuoi extends SCApi {
     }
 
     public void timSCTenMa(Scanner scanner) {
-        try {
-            System.out.print("Nhap ten hoac ma can tim: ");
-            if (findSC(scanner.nextLine()))
-                showSC(false);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        }
+        System.out.print("Nhap ten hoac ma can tim: ");
+        if (findSC(scanner.nextLine()))
+            showSC(false);
     }
 
-    public void timSCViChua(Scanner scanner) {
+    public void timSCViChua(Scanner scanner) throws SQLException {
         try {
             System.out.print("Nhap vi tri hoac suc chua can tim: ");
             findSCShow(Integer.parseInt(scanner.nextLine()));
@@ -81,7 +77,7 @@ public class QLSanhCuoi extends SCApi {
     /**
      * xuất tất cả sảnh cưới trong Mysql
      */
-    public void xuatSC() {
+    public void xuatSC() throws SQLException {
         super.readShow();
     }
 
@@ -117,20 +113,16 @@ public class QLSanhCuoi extends SCApi {
      * @param scanner
      */
     public void xoaSC(Scanner scanner) {
-        try {
-            System.out.print("Nhap ma SC hoac tenSC can xoa: ");
-            if (findSC(scanner.nextLine()) == false) {
-                return;
-            }
-            super.showSC(true);
-            System.out.print("Ban muon xoa sanh tren: (y,n): ");
-            if (scanner.nextLine().equals("y")) {
-                super.deleteSC();
-            } else {
-                System.out.println("Da huy xoa.");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(QLSanhCuoi.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.print("Nhap ma SC hoac tenSC can xoa: ");
+        if (findSC(scanner.nextLine()) == false) {
+            return;
+        }
+        super.showSC(true);
+        System.out.print("Ban muon xoa sanh tren: (y,n): ");
+        if (scanner.nextLine().equals("y")) {
+            super.deleteSC();
+        } else {
+            System.out.println("Da huy xoa.");
         }
     }
 }

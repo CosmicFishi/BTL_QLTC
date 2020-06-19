@@ -34,14 +34,15 @@ public class QLDV extends Api{
             "	from dv\n" +
             "	left join dv_ca_si cs on dv.MaDv = cs.MaDv\n " +
             "	left join dv_karaoke kara on dv.MaDv = kara.MaDv\n" +
-            "   where dv.TenDv = '" + kw + "';";
+            "   where dv.TenDv = '%" + kw + "%';";
             super.read(sql);
 //            System.out.println(rs.isBeforeFirst());
             if(rs.isBeforeFirst()== true) {
-                System.out.println("Ma dich vu        | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue");
-                System.out.println("+----------------+|+------------------------+|+-----------+|+------------------+|+---------------+|+------------------+");
+                System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
+                System.out.println("| Ma dich vu      | Ten dich vu              | Gia dich vu |Thong tin ca si     |So luong bai hat |KhoangThoiGianThue |");
+                System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
                 while(rs.next()) {
-                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-20s\n",
+                System.out.printf("|%-17d| %-25s| %-12d|%-20s|%-17d|%-19s|\n",
                         rs.getInt("MaDv"),
                         rs.getString("TenDv"),
                         rs.getInt("giaDichVu"),
@@ -49,6 +50,7 @@ public class QLDV extends Api{
                         rs.getInt("SoLuongBaiHat"),
                         rs.getString("KhoangThoiGianThue"));
                 }
+                System.out.println("+-----------------+--------------------------+-------------+--------------------+-----------------+-------------------+");
             }  else {
                 System.out.println("Khong tim thay");
             }

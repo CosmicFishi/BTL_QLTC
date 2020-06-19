@@ -203,7 +203,7 @@ public class DanhSachThucUong extends ThucUongApi {
             return;
         }
         super.showThucUong(true);
-        System.out.println("Ban muon cap nhat ThucUong tren(y/n): ");
+        System.out.print("Ban muon cap nhat ThucUong tren(y/n): ");
         if (scanner.nextLine().equals("y")) {
             ThucUong ta = new ThucUong();
             try {

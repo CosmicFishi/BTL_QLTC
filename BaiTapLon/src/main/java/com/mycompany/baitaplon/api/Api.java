@@ -26,7 +26,7 @@ public class Api {
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
     private static final String user = "root";
-    private static final String password = "12345678";
+    private static final String password = "haungo230899";
 
     protected Statement stm = null;
     protected PreparedStatement pStm = null;
@@ -65,25 +65,9 @@ public class Api {
             } else {
                 System.out.println(action + " khong co.");
             }
-        } catch (SQLException e) {
-            throw new Error("can't update or delete/ error Api/writeOrDelete(String sql)");
-        } finally {
-            this.closeStm();
-        }
-    }
-
-    protected void closeStm() {
-        try {
             stm.close();
         } catch (SQLException e) {
-        }
-        try {
-            rs.close();
-        } catch (SQLException e) {
-        }
-        try {
-            pStm.close();
-        } catch (SQLException e) {
+            throw new Error("can't update or delete/ error Api/writeOrDelete(String sql)");
         }
     }
 }

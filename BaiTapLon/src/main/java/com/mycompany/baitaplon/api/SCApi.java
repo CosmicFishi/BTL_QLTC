@@ -13,21 +13,16 @@ public class SCApi extends Api {
 
     protected static String selected;
 
-    public void readShow() {
+    public void readShow() throws SQLException {
         String sql = "select * from sanh_cuoi;";
         super.read(sql);
-        try {
-            showSC(false);
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        closeStm();
+        showSC(false);
+        stm.close();
     }
 
     public void addSC(SanhCuoi s) {
         String sql = String.format("insert into sanh_cuoi values (%s);", s);
         super.writeOrDelete(sql, "Luu sanh cuoi ");
-        closeStm();
     }
 
     public SanhCuoi get1SC(String ma) {
@@ -49,10 +44,9 @@ public class SCApi extends Api {
         return new SanhCuoi();
     }
 
-    public void deleteSC(){
+    public void deleteSC() {
         String sql = "delete from sanh_cuoi where MaSC ='" + selected + "';";
         super.writeOrDelete(sql, "delete");
-        closeStm();
     }
 
     public boolean findSC(String tenHoacMa) {
@@ -75,18 +69,14 @@ public class SCApi extends Api {
      *
      * @param nhap
      */
-    public void findSCShow(int nhap) {
-        try {
-            String sql = "select * from sanh_cuoi where SucChua >= " + nhap + " ;";
-            if (nhap < 10) {
-                sql = "select * from sanh_cuoi where ViTriSC= " + nhap + " ;";
-            }
-            super.read(sql);
-            showSC(false);
-        } catch (SQLException ex) {
-            Logger.getLogger(SCApi.class.getName()).log(Level.SEVERE, null, ex);
+    public void findSCShow(int nhap) throws SQLException {
+        String sql = "select * from sanh_cuoi where SucChua >= " + nhap + " ORDER BY SucChua ASC;";
+        if (nhap < 10) {
+            sql = "select * from sanh_cuoi where ViTriSC= " + nhap + " ;";
         }
-
+        super.read(sql);
+        showSC(false);
+        stm.close();
     }
 
     protected void edit(SanhCuoi sc) throws SQLException {
@@ -110,10 +100,9 @@ public class SCApi extends Api {
             }
         } catch (SQLException e) {
             System.err.println("Lỗi không edit lên sql đc");
-        } finally {
-           closeStm();
+        } finally{
+            pStm.close();
         }
-
     }
 
     /**
@@ -123,24 +112,27 @@ public class SCApi extends Api {
      * @param isOne
      * @throws SQLException
      */
-    public void showSC(boolean isOne) throws SQLException {
+    public void showSC(boolean isOne) {
         System.out.format("\n+-------+-------------------+--------+---------+-------------+\n");
         System.out.format("|  MaSC |  Ten sanh         | vi tri |suc chua | gia thue    |\n");
         System.out.format("+-------+-------------------+--------+---------+-------------+\n");
-        while (rs.next()) {
-            System.out.printf("|%-7s| %-18s|  %-6d| %-8d| %,-12d|\n",
-                    rs.getString("MaSC"),
-                    rs.getString("TenSC"),
-                    rs.getInt("ViTriSC"),
-                    rs.getInt("SucChua"),
-                    rs.getInt("GiaThue"));
-            SCApi.setSelected(rs.getString("MaSC"));
-            if (isOne == true) {
-                break;
+        try {
+            while (rs.next()) {
+                System.out.printf("|%-7s| %-18s|  %-6d| %-8d| %,-12d|\n",
+                        rs.getString("MaSC"),
+                        rs.getString("TenSC"),
+                        rs.getInt("ViTriSC"),
+                        rs.getInt("SucChua"),
+                        rs.getInt("GiaThue"));
+                SCApi.setSelected(rs.getString("MaSC"));
+                if (isOne == true) {
+                    break;
+                }
             }
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
         }
         System.out.format("+-------+-------------------+--------+---------+-------------+\n");
-        closeStm();
     }
 
     public static String getSelected() {

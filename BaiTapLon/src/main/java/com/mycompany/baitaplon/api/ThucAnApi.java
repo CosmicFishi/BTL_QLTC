@@ -49,6 +49,7 @@ public class ThucAnApi extends Api {
         cStm = conn.prepareCall("{call getThucAn()}");
         rs = cStm.executeQuery();
         showThucAn(false);
+        cStm.close();
     }
     public int getMaxMaThucAnSQL() throws SQLException, Exception {
         try {
@@ -61,6 +62,8 @@ public class ThucAnApi extends Api {
                 throw new Exception("Loi khong lay dc id thuc an max.");
         } catch (SQLException ex) {
             throw new Exception("Loi khong lay dc id thuc an max.");
+        } finally{
+            stm.close();
         }
     }
     public void addThucAn(ThucAn s) throws SQLException {

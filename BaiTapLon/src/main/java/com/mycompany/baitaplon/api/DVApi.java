@@ -25,6 +25,7 @@ public class DVApi extends Api{
         String sql = "select * from dv";
         super.read(sql);
         showDV(false);
+        stm.close();
     }
     /**
      * Ham them mot dich vu

@@ -45,19 +45,17 @@ public class ThucUongApi extends Api {
         String sql = "select * from " + tenBang + ";";
         super.read(sql);
         showThucUong(false);
-        closeStm();
+        stm.close();
     }
 
     public void addThucUong(DoAnUong s) throws SQLException {
         String sql = String.format("insert into thuc_uong values (%s);", s.toString());
         super.writeOrDelete(sql, "Luu thuc uong ");
-        closeStm();
     }
 
     public void deleteThucUong() throws SQLException {
         String sql = "delete from thuc_uong where MaThucUong =" + selected + ";";
         super.writeOrDelete(sql, "delete");
-        closeStm();
     }
 
     public boolean findThucUong(String tenHoacMa) throws SQLException {
@@ -91,7 +89,7 @@ public class ThucUongApi extends Api {
         } catch (SQLException e) {
             System.err.println("Edit fail.");
         } finally {
-            closeStm();
+            pStm.close();
         }
 
     }
@@ -112,7 +110,6 @@ public class ThucUongApi extends Api {
             }
         }
         System.out.println("+------------+---------------------------------------------+--------------+--------------+");
-        closeStm();
     }
 
     

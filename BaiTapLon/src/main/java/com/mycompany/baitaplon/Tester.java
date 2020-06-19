@@ -163,7 +163,7 @@ public class Tester {
                         System.out.println("6. tim SC theo VT || Suc Chua trong SQL");
                         System.out.println("(-1). de thoat.");
                         System.out.print("Chon : ");
-                        
+
                         try {
                             luaChon = Integer.parseInt(nhap);
                         } catch (NumberFormatException e) {
@@ -294,12 +294,12 @@ public class Tester {
                     break;
                 case 4:
                     // <editor-fold defaultstate="collapsed" desc="ADMIN dịch vụ">
-                    System.out.println("1. xuat tat ca Dich Vu");
-                    System.out.println("2. them DV vao SQL");
-                    System.out.println("3. xoa DV trong SQL");
-                    System.out.println("4. tim DV theo TEN trong SQL");
-                    System.out.println("(-1). de thoat.");
                     while (true) {
+                        System.out.println("1. xuat tat ca Dich Vu");
+                        System.out.println("2. them DV vao SQL");
+                        System.out.println("3. xoa DV trong SQL");
+                        System.out.println("4. tim DV theo TEN trong SQL");
+                        System.out.println("(-1). de thoat.");
                         System.out.print("Chon : ");
                         luaChon = Integer.parseInt(scanner.nextLine());
                         switch (luaChon) {
@@ -308,12 +308,11 @@ public class Tester {
                             case 1:
                                 qldv.xuatDsSQL();
                                 break;
-                            case 2:
-                            {
+                            case 2: {
                                 System.out.println("1. dich vu karaoke\n2. dich vu thue ca si");
                                 System.out.print("Chon: ");
                                 luaChon = Integer.parseInt(scanner.nextLine());
-                                switch(luaChon) {
+                                switch (luaChon) {
                                     case 1: {
                                         DichVu d = new DvKaraoke();
                                         d.nhap(scanner);
@@ -328,9 +327,9 @@ public class Tester {
                                     break;
                                     default:
                                         System.out.println("Lua chon khong ton tai");
-                                } 
+                                }
                             }
-                                break;
+                            break;
                             case 3:
                                 qldv.xuatDsSQL();
                                 System.out.print("Nhap ma dv xoa: ");

@@ -40,6 +40,7 @@ public abstract class DichVu extends Api implements TuongTacSQL{
         this.setTenDV(scanner.nextLine());
         System.out.println("Nhap vao gia dich vu: ");
         this.setGiaDV(scanner.nextInt());
+        scanner.nextLine();
     }
     public String xuat() {
         return String.format("%d,\'%s\', %d", this.maDV, this.tenDV, this.giaDV);
