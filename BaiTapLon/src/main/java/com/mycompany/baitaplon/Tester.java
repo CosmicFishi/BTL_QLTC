@@ -293,12 +293,11 @@ public class Tester {
                     // </editor-fold>
                     break;
                 case 4:
-                    // <editor-fold defaultstate="collapsed" desc="ADMIN Thuc Uong">
+                    // <editor-fold defaultstate="collapsed" desc="ADMIN dịch vụ">
                     System.out.println("1. xuat tat ca Dich Vu");
                     System.out.println("2. them DV vao SQL");
                     System.out.println("3. xoa DV trong SQL");
-                    System.out.println("4. chinh sua DV trong SQL");
-                    System.out.println("5. tim DV theo TEN || MA trong SQL");
+                    System.out.println("4. tim DV theo TEN trong SQL");
                     System.out.println("(-1). de thoat.");
                     while (true) {
                         System.out.print("Chon : ");
@@ -310,24 +309,36 @@ public class Tester {
                                 qldv.xuatDsSQL();
                                 break;
                             case 2:
-                                //qldv.themSQL(d);
+                            {
+                                System.out.println("1. dich vu karaoke\n2. dich vu thue ca si");
+                                System.out.print("Chon: ");
+                                luaChon = Integer.parseInt(scanner.nextLine());
+                                switch(luaChon) {
+                                    case 1: {
+                                        DichVu d = new DvKaraoke();
+                                        d.nhap(scanner);
+                                        d.addSQL();
+                                    }
+                                    break;
+                                    case 2: {
+                                        DichVu d = new DvThueCS();
+                                        d.nhap(scanner);
+                                        d.addSQL();
+                                    }
+                                    break;
+                                    default:
+                                        System.out.println("Lua chon khong ton tai");
+                                } 
+                            }
                                 break;
                             case 3:
                                 qldv.xuatDsSQL();
                                 System.out.print("Nhap ma dv xoa: ");
                                 qldv.xoaSQL(Integer.parseInt(scanner.nextLine()));
                                 break;
-                            case 4: {
-                                try {
-                                    //qldv.capNhatSQL(d);
-                                } catch (Exception ex) {
-                                    Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                            break;
-
-                            case 5:
-                                qldv.traCuuSQL(nhap);
+                            case 4:
+                                System.out.println("Nhap ten can tim");
+                                qldv.traCuuSQL(scanner.nextLine());
                                 break;
                             default:
                                 System.out.println("Chọn sai chọn lại");
