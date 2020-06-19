@@ -104,6 +104,19 @@ public class SCApi extends Api {
             pStm.close();
         }
     }
+    protected String getMaxMaSCSQL() throws SQLException, Exception {
+        try {
+            String sql = "select max(MaSC) as 'Max' from sanh_cuoi;";
+            stm = conn.createStatement();
+            rs = stm.executeQuery(sql);
+            if (rs.next()) {
+                return rs.getString("Max");
+            }else
+                throw new Exception("Loi khong lay dc id SC max.");
+        } catch (SQLException ex) {
+            throw new Exception("Loi khong lay dc id SC max.");
+        }
+    }
 
     /**
      * Dùng để show sảnh cưới trong Sql, nếu isOne = true thì chỉ xuất 1 dòng

@@ -41,8 +41,8 @@ public class ThucUongApi extends Api {
             throw new Exception("Loi khong lay dc id thuc uong max.");
         }
     }
-    public void readShow(String tenBang) throws SQLException {
-        String sql = "select * from " + tenBang + ";";
+    public void readShow() throws SQLException {
+        String sql = "select * from thuc_uong;";
         super.read(sql);
         showThucUong(false);
         stm.close();

@@ -135,7 +135,7 @@ public class DanhSachThucUong extends ThucUongApi {
      * @throws SQLException
      */
     public void xuatThucUongSql() throws SQLException {
-        super.readShow("thuc_uong");
+        super.readShow();
     }
 
     /**

@@ -51,6 +51,13 @@ public class ThucAnApi extends Api {
         showThucAn(false);
         cStm.close();
     }
+
+    /**
+     *Hàm để trả về một giá trị max(mã) của thức ăn trong sql
+     * @return Integer
+     * @throws SQLException
+     * @throws Exception
+     */
     public int getMaxMaThucAnSQL() throws SQLException, Exception {
         try {
             String sql = "select max(MaThucAn) as 'Max' from thuc_an;";
@@ -66,6 +73,12 @@ public class ThucAnApi extends Api {
             stm.close();
         }
     }
+
+    /**
+     *Thêm thức ăn vào SQL
+     * @param s
+     * @throws SQLException
+     */
     public void addThucAn(ThucAn s) throws SQLException {
         try {
             cStm = conn.prepareCall("{call addThucAn(?,?,?,?)}");
@@ -82,6 +95,10 @@ public class ThucAnApi extends Api {
         }
     }
 
+    /**
+     *Hàm này chỉ dùng được khi trc đó đã dùng hàm showThucAn;
+     * @throws SQLException
+     */
     public void deleteThucAn() throws SQLException {
         String sql1 = "delete from thuc_an_chay where MaThucAnChay =" + selected + ";";
         super.writeOrDelete(sql1, "delete in ThucAnChay table");
@@ -90,6 +107,12 @@ public class ThucAnApi extends Api {
         super.writeOrDelete(sql, "delete in ThucAn table");
     }
 
+    /**
+     *Tìm thức ăn qua tên hoặc mã trong SQL
+     * @param tenHoacMa
+     * @return true nếu tìm thấy, false và in ra k tìm thấy nếu k tìm thấy
+     * @throws SQLException
+     */
     public boolean findThucAn(String tenHoacMa) throws SQLException {
         cStm = conn.prepareCall("{call findThucAnChay(?)}");
         cStm.setString(1, tenHoacMa);
@@ -101,6 +124,12 @@ public class ThucAnApi extends Api {
         return true;
     }
 
+    /**
+     *Truyền vào thức ăn có MÃ trùng với thức ăn cần sửa trong SQL, nếu k trùng
+     * dữ liệu sẽ được tạo mới
+     * @param an ThucAn
+     * @throws SQLException
+     */
     protected void edit(ThucAn an) throws SQLException {
         try {
             cStm = conn.prepareCall("{call updateThucAn(?,?,?,?)}");
@@ -118,6 +147,11 @@ public class ThucAnApi extends Api {
 
     }
 
+    /**
+     *Hiển thị trong console danh sách thứ ăn từ SQL
+     * @param nhap
+     * @throws SQLException
+     */
     protected void showThucAn(boolean nhap) throws SQLException {
         System.out.println("+------------+---------------------------------------------+--------------+--------+");
         System.out.println("| Ma Thuc An | Ten Thuc An                                 |  Gia         | isChay |");
