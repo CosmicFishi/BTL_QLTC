@@ -16,3 +16,4 @@ select * from dv_ca_si;
 select * from hoa_don_dv;
 
 select * from hoa_don_thuc_an;
+select max(MaSC) as 'Max' from sanh_cuoi;

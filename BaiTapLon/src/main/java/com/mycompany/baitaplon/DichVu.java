@@ -35,6 +35,7 @@ public abstract class DichVu extends Api implements TuongTacSQL{
     public void nhap(Scanner scanner) {
         System.out.println("Nhap vao ma dich vu: ");
         this.setMaDV(scanner.nextInt());
+        scanner.nextLine();
         System.out.println("Nhap vao ten dich vu: ");
         this.setTenDV(scanner.nextLine());
         System.out.println("Nhap vao gia dich vu: ");
