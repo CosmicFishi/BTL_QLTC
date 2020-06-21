@@ -26,7 +26,6 @@ public class Tester {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         //dòng cần thiết cho toàn bộ quá trình 
-        Api api = new Api();
         Api.connectSql();
         Scanner scanner = new Scanner(System.in);
 

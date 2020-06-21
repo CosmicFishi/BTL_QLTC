@@ -99,7 +99,7 @@ public class ThucUongApi extends Api {
         System.out.println("|Ma Thuc Uong| Ten Thuc Uong                               |  Gia         | Hang SX      |");
         System.out.println("+------------+---------------------------------------------+--------------+--------------+");
         while (rs.next()) {
-            System.out.printf("| %-11d|  %-43s| %-13d| %-13s|\n",
+            System.out.printf("| %-11d|  %-43s| %,-13d| %-13s|\n",
                     rs.getInt("MaThucUong"),
                     rs.getString("TenThucUong"),
                     rs.getInt("Gia"),

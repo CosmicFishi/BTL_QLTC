@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 // executeQuery for select
 //executeUpdate for INSERT, UPDATE and DELETE stm
-public class Api {
+public abstract class Api {
 
     protected static Connection conn = null;
     private static final String url = "jdbc:mysql://127.0.0.1:3306/quanlytieccuoi";
